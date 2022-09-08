@@ -10,6 +10,6 @@ How to work with this repository if Visual Studio is installed:
 3) Select VS solution or open semester1.sln with Visual Studio 
 
 
-How to work with this repository with other editor or environment: 
-1) Download ZIP (form Code green button) and extract folder
+How to work with this repository with other editor or environment (Visual Code, Spyder..): 
+1) Download ZIP (from Code green button) and extract folder in some local folder
 2) Look for Python or Fortran files and execute from the command prompt or other editor
