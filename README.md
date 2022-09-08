@@ -11,5 +11,5 @@ How to work with this repository if Visual Studio is installed:
 
 
 How to work with this repository with other editor or environment: 
-1) Download ZIP and extract folder
+1) Download ZIP (form Code green button) and extract folder
 2) Look for Python or Fortran files and execute from the command prompt or other editor
