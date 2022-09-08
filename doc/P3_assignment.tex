@@ -1,0 +1,280 @@
+%
+\documentclass[12pt,spanish]{article}
+   
+
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage[fleqn]{amsmath}
+\usepackage{nccmath}
+\usepackage{amsmath}
+\usepackage{nccmath}
+
+\usepackage{latexsym}  %\mathbb{R}
+
+%**************
+
+\usepackage{graphicx}
+\usepackage{bezier}
+\usepackage[spanish]{babel}
+\usepackage{makeidx}
+\usepackage{latexsym}
+% acentos y cosas varias
+\usepackage{epstopdf}
+\usepackage{amssymb}
+\usepackage{curves}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{epic}
+
+
+%\usepackage{HVDASHLN}
+%\usepackage{epsfig}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % load a font with all the characters
+
+
+\usepackage{hyperref} 
+\usepackage{xcolor}
+
+%**************
+
+
+
+%*************************************************************************************************************
+%***  Formato del documento                                                                                ***
+%*************************************************************************************************************
+
+\textwidth       16 cm
+\textheight      24 cm
+
+\oddsidemargin    0 cm
+\evensidemargin   0 cm
+
+\topmargin        -2 cm
+
+
+\pagestyle{empty}
+
+%\parskip = 1.5 \baselineskip
+
+
+%*************************************************************************************************************
+%***  Comandos para distintos conjuntos de numeros                                                         ***
+%*************************************************************************************************************
+
+\newcommand{\RR}{{\sf I}\hspace*{-1.5pt}{\sf R}}
+\newcommand{\NN}{{\rm I}\hspace*{-1.5pt}{\rm N}}
+\newcommand{\PP}{{\sf I}\hspace*{-1.5pt}{\sf P}}
+\newcommand{\QQ}{\hspace*{2pt}{\sf I}\hspace*{-5pt}{\sf Q}}
+\newcommand{\ZZ}{{\sf Z}\hspace*{-4.5pt}{\sf Z}}
+\newcommand{\CC}{\hspace*{2.5pt}{\sf I}\hspace*{-5pt}{\rm C}}
+
+
+%*************************************************************************************************************
+%***  Comandos para subindices y superindices                                                              ***
+%*************************************************************************************************************
+ 
+\newcommand{\Ri}{_{_R}}  
+\newcommand{\Le}{_{_L}}
+
+      
+
+%*************************************************************************************************************
+%***  Inicio de documento                                                                                  ***
+%*************************************************************************************************************
+
+
+
+\begin{document}
+
+\begin{center}
+	{\bf \Large Asignatura : 
+	Informática}                                               
+	\\ \vspace{1cm}
+	{\bf \Large Grado en Ingeniería Aeroespacial - 
+	ETSIAE}                                            \\
+%	{\bf \Large Curso : 
+%	2021-2022}                                                                  
+	               \\
+\end{center}
+
+\vspace{1cm}
+
+\noindent
+{\bf \Large Subjects for the P3 assignment: 
+}                                                                               
+     
+\vspace{0.5cm}
+
+\begin{enumerate}
+
+\item Catastrophic cancellation in numerical computations. Application to 
+specific problems such as roots of a second grade equation. 
+
+\item Internal representation of numbers. Standard IEEE. IEEE exceptions. 
+How to detect problem: underflow, overflow. 
+
+\item Ill posed problems and stability. 
+
+%\item History of Fortran language with code examples. From Hidden Figures to 
+%our days. 
+
+\item Emergent behavior: flocking, ants, society. 
+\item Games: SUDOKU, ..,
+\item Functional programming. John Backus contributions. Declarative 
+(functional paradigm) versus imperative (von Neumann style, "word at a time" 
+paradigm). Lazy evaluation. Expressiveness. Data abstraction. Map, filter and 
+reduce. 
+
+\item Determinant of a matrix using the Laplace expansion by means of a 
+recursive function:  
+$$ 
+   \det(A) = \sum _{j=1} ^N (-1)^{i+j} a_{ij} M_{ij}, 
+$$
+where $ M_{ij} $ stands for the determinant of a $ (N-1) \times (N-1) $ matrix 
+by removing ith row and jth column. 
+
+\item Application to visualize Taylor expansion convergence at different 
+points. Implement a friendly graphical user interface to analyze and to 
+understand convergence pitfalls. 
+
+\item Dynamic web page to plot Kepler orbits. 
+ 
+\end{enumerate}
+The program of the  P3 assignment can be implemented in Python, FORTRAN, C++ or JavaScript. 
+
+
+\vspace{0.5cm} 
+\noindent
+{\bf \Large General contents of P3 assignment: 
+}                                                                               
+     
+\begin{enumerate}
+ \setlength{\itemsep}{-0.1cm}
+\item Objective. 
+\item State of art. 
+\item Explanation through programming codes. 
+\item Conclusions. 
+\item References. 
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+\end{document} 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+\newpage
+
+
+%***********************************************
+    \item {\bf Hito 5 : }   Funciones y gráficas. 
+ 
+ \begin{enumerate}    
+ \item Escribir un programa que dibuje las siguientes funciones: 
+ 
+ 
+ 
+ \begin{fleqn}
+  \[ f(x)  = \sqrt{ 1 - ( |x| -1 )^2 } \]
+  
+  \[ f(x) = \arccos(1 - | x | )  + \pi \]
+  \[ f(x) =  \frac{ \cos( 70 x ) }{ (1 + x^2 )^2  }\]
+ \[ f(x) = \sqrt{ \cos(x) }  \]
+  \[ f(x) =  8 x \sin( x^2 + 3)  \]
+ \[ f(x) = \prod_{k=0} ^M ( x - k/M )  \]
+ \end{fleqn}
+ 
+\item Dibujar el lugar geométrico de las raíces de: 
+
+\[ x^2 + 2 \zeta \omega_0 x + \omega_0 ^2 = 0,\]
+
+con $ \omega_0 = 1 $ para todo $ \zeta \ge 0$. 
+ 
+\end{enumerate}
+
+
+
+%***********************************************
+    \item {\bf Hito 6 :}  Aproximar  mediante un desarrollo en serie de potencias de la forma
+    \[  f(x) = \sum_{k=0} ^M a_k \  x^k, \qquad a_k = \frac{  f^{(k)} (0)  }{ k! }  \]  
+    las  siguientes funciones: 
+   
+    \begin{fleqn}
+  \[   f(x)  = \cos(x)  \]
+    \[ f(x) = \cosh(x) \]
+ \end{fleqn}
+    
+ 
+ 
+ 
+ \begin{enumerate}
+   \item Calcular los desarrollos anteriores para un valor de $ M $ genérico.  
+   \item  Dibujar la función a aproximar junto con las parmétricas que constituyen los desarrollos anteriores con $ M=1, 2, 3, 4, 5. $
+   \item Discutir los resultados obtenidos.
+ \end{enumerate}
+ 
+ 
+
+%***********************************************
+    \item {\bf Hito 7 :}   Ceros de funciones. 
+    
+  Dada una función genérica $ f(x) $ escribir una programa que permita calcular los ceros mediante: 
+ 
+ 
+ \begin{enumerate}
+   \item Algoritmo de la bisección. 
+   \item Algoritmo de Newton. 
+   \item Hacer aplicación a una función ejemplo y dibujar el resultado obtenido. 
+ \end{enumerate}
+ 
+\end{itemize}
+
+\end{document}        
+    
+   
+ 

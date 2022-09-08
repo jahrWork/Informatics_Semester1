@@ -1,0 +1,51 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>b34ca7ee-ef79-4d45-ad82-6d0f7d99a524</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>Python_Milestones.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <Name>Python_Milestones</Name>
+    <RootNamespace>Python_Milestones</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Calculus\Derivative_Integral.py" />
+    <Compile Include="Calculus\Series.py" />
+    <Compile Include="Calculus\Taylor_expansions.py" />
+    <Compile Include="Milestone1.py" />
+    <Compile Include="Milestone2.py" />
+    <Compile Include="Milestone3.py" />
+    <Compile Include="Milestone4.py" />
+    <Compile Include="Milestone5.py" />
+    <Compile Include="Milestone6.py" />
+    <Compile Include="Milestone7.py" />
+    <Compile Include="Milestone8.py" />
+    <Compile Include="Python_Milestones.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Calculus\" />
+    <Folder Include="sources\" />
+    <Folder Include="sources\Calculus\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
+  <!-- Uncomment the CoreCompile target to enable the Build command in
+       Visual Studio and specify your pre- and post-build commands in
+       the BeforeBuild and AfterBuild targets below. -->
+  <!--<Target Name="CoreCompile" />-->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+</Project>

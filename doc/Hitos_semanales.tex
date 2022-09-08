@@ -1,0 +1,704 @@
+%
+\documentclass[12pt,spanish]{article}
+   
+
+
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+
+\usepackage[fleqn]{amsmath}
+\usepackage{nccmath}
+\usepackage{amsmath}
+\usepackage{nccmath}
+
+\usepackage{latexsym}  %\mathbb{R}
+
+%**************
+
+\usepackage{graphicx}
+\usepackage{bezier}
+\usepackage[spanish]{babel}
+\usepackage{makeidx}
+\usepackage{latexsym}
+% acentos y cosas varias
+\usepackage{epstopdf}
+\usepackage{amssymb}
+\usepackage{curves}
+\usepackage{rotating}
+\usepackage{amsmath}
+\usepackage{epic}
+
+
+%\usepackage{HVDASHLN}
+%\usepackage{epsfig}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern} % load a font with all the characters
+
+
+\usepackage{hyperref} 
+\usepackage{xcolor}
+
+%**************
+
+
+
+%*************************************************************************************************************
+%***  Formato del documento                                                                                ***
+%*************************************************************************************************************
+
+\textwidth       16 cm
+\textheight      24 cm
+
+\oddsidemargin    0 cm
+\evensidemargin   0 cm
+
+\topmargin        -1 cm
+
+
+\pagestyle{empty}
+
+%\parskip = 1.5 \baselineskip
+
+
+%*************************************************************************************************************
+%***  Comandos para distintos conjuntos de numeros                                                         ***
+%*************************************************************************************************************
+
+\newcommand{\RR}{{\sf I}\hspace*{-1.5pt}{\sf R}}
+\newcommand{\NN}{{\rm I}\hspace*{-1.5pt}{\rm N}}
+\newcommand{\PP}{{\sf I}\hspace*{-1.5pt}{\sf P}}
+\newcommand{\QQ}{\hspace*{2pt}{\sf I}\hspace*{-5pt}{\sf Q}}
+\newcommand{\ZZ}{{\sf Z}\hspace*{-4.5pt}{\sf Z}}
+\newcommand{\CC}{\hspace*{2.5pt}{\sf I}\hspace*{-5pt}{\rm C}}
+
+
+%*************************************************************************************************************
+%***  Comandos para subindices y superindices                                                              ***
+%*************************************************************************************************************
+ 
+\newcommand{\Ri}{_{_R}}  
+\newcommand{\Le}{_{_L}}
+
+      
+
+%*************************************************************************************************************
+%***  Inicio de documento                                                                                  ***
+%*************************************************************************************************************
+
+
+
+\begin{document}
+
+\begin{center}
+	{\bf Asignatura : Informática}                                               
+	\\
+	{\bf Grado en Ingeniería Aeroespacial - ETSIAE}                                            \\
+
+\end{center}
+
+\vspace{0.5cm}
+
+\noindent
+{\bf \Large Hitos semanales del primer semestre: 
+}                                                                               
+     \\
+
+\vspace{-1.cm}
+
+\begin{itemize}
+	
+	
+\vspace{1cm}
+\item {\bf Hito 1 :} Primeros pasos con expresiones, asignaciones y sentencias. 
+\begin{enumerate} 
+\item Escribir un programa  que abra una pantalla que y imprima ``Hello world''. 
+\item Crear variables de tipo entero, real, complejo, booleanas y
+cadenas de caracteres. Verificar su tipo mostrándolo por pantalla. 
+\item Escribir un programa  que calcule la la nota media del primer 
+semestre de informática basada en las notas de la pruebas de evaluación intermedia: PEI1, PEI2 y PEI3
+y de acuerdo a una ponderación establecida. Exigir el criterio  PEIi $ \ge 3$ para poder hacer media. 
+\item Evaluar la expresión 
+$$ \frac{ 3 x^3 + 5 x - 1 }{ e^x + 3 \sin x - \log(x) }
+$$
+para los valores $ x = 1 $ y $ x=3$.
+\end{enumerate}
+%Escribir el program en un 
+%compilador online: 
+%
+%\color{red} 
+%\begin{center} 
+%       \href{https://www.mycompiler.io/new/fortran}{Compilador online}
+% \end{center} 
+%\color{black} 
+               
+%Instalar el entorno Microsoft Visual Studio  
+%mediante: 
+%  
+%  \color{red} 
+% \begin{center} 
+%        \href{https://www.amazon.es/s?k=hernandez+rapado+moreno+visual&__mk_es_ES=AMAZON&ref=nb_sb_noss}
+%        {Libro en amazon.es}
+%        
+%        \href{https://github.com/jahrWork/Visual-Studio-projects/blob/master/doc/Manual_Visual_Studio_dic_2021.pdf}
+%             {PDF del libro} 
+%  \end{center} 
+%\color{black}   
+%
+%La implementación de todos los hitos se encuentran en el enlace del github : 
+% \color{red} 
+% \begin{center} 
+%        \href{https://github.com/jahrWork/Informatics_S1_ETSIAE}{GitHub: Juan A. Hernández Ramos} 
+%  \end{center} 
+%\color{black}   
+
+
+%******************************************************
+\vspace{1cm}
+\item {\bf Hito 2 :}    Raíces de una ecuación algebraica de segundo grado. 
+
+Calcular las raíces de una ecuación algebraica de segundo grado
+de coeficientes reales de la forma: 
+$$
+a x^2 + b x + c = 0.
+\label{ecuacion_segundo_grado}
+$$
+Para todo  $a, b, c \in \mathbb{R}$.
+El programa debe contemplar la posibilidad de que cualquiera de los coeficientes
+sea cero. Los resultados deben aparecer por pantalla. Discutir el 
+condicionamiento numérico de las soluciones en función de $a, b, c $. 
+ 
+%******************************************************
+\vspace{1cm}
+\item {\bf Hito 3 :}    Números primos y números perfectos.  
+\begin{enumerate} 
+\item Determinar si un número $ N $ es primo. 
+\item Determinar si un número $ N $ es perfecto. 
+\item Calcular los N primeros números primos. 
+\item Calcular los N primeros números perfectos. 
+\end{enumerate}
+
+
+%******************************************************
+\vspace{1cm}
+\item {\bf Hito 4 :}  
+Números enteros en bases diferentes. 
+\begin{enumerate} 
+\item Determinar las unidades, centenas y millares de un número entero $ N $. 
+\item Dado un número entero $ N $ obtener su representación en base 2. 
+\item Dado un número entero $ N $ obtener su representación en base 16. 
+\end{enumerate}
+ 
+ 
+\newpage 
+%***************************************************   
+\item {\bf Hito 3 :}   Suma de series numéricas finitas e infinitas,    
+$$
+   S_N = \sum_{n=1} ^{N} \ a_n, \qquad 
+   S =  \sum_{n=1} ^{\infty} \ a_n.
+$$ 
+donde $ a_n $ representa  los términos de una sucesión numérica $ a_n: \mathbb{N} \rightarrow\mathbb{R}$,
+$ S_N $ la suma de los $ N $ primeros términos de la sucesión y $ S $ la suma de los infinitos términos. 
+                                                                         
+\begin{enumerate}    
+	\item Calcular la suma de los primeros $ N $  números naturales.	
+	\item Calcular la suma de los $ N $  primeros números naturales impares.
+	
+	\item Calcular el factorial de un número $ N $. 
+	Implementar este cálculo de dos
+	formas distintas : incrementos positivos e incrementos negativos
+	 de un  bucle. 
+ %   Comprobar el máximo valor de $N$ válido para diferentes 
+ %tipos de dato.
+    El número $ N $ se debe poder introducir por teclado y el resultado aparecerá
+	por pantalla. 
+	\item Calcular 
+	 las siguientes sumas de los $ N $ términos de las series  numéricas: 	
+	$$
+	S_{1N} = \sum _{n=1} ^{N}  \  \frac{ 1 }{  2^n  }, \qquad 
+	S_{2N} = \sum _{n=1} ^{N}  \  \frac{ 1 }{  n^2  }, \qquad  
+	S_{3N} = \sum _{n=1} ^{N}  \  \frac{  (-1)^{n+1} }{  2^n  }, \qquad
+	S_{4N} =\sum _{n=1} ^{N} \ \frac{ 1 } { n ! }. \qquad  
+	$$
+	\item Calcular 
+		 las siguientes sumas de las series numéricas: 	
+		$$
+		S_{1} = \sum _{n=1} ^{\infty}  \  \frac{ 1 }{  2^n  }, \qquad 
+		S_{2} = \sum _{n=1} ^{\infty}  \  \frac{ 1 }{  n^2  }, \qquad  
+		S_{3} = \sum _{n=1} ^{\infty}  \  \frac{  (-1)^{n+1} }{  2^n  }, \qquad
+		S_{4} =\sum _{n=1} ^{\infty} \ \frac{ 1 } { n ! }. \qquad  
+		$$
+	\item Comparar los resultados obtenidos $ S_{iN} $ y $ S $. 
+	\item Dado $ \epsilon $ determinar el valor de $ N $ que hace $ | S_i - S_{iN} | < \epsilon $. 
+	\item Explicar las diferencias entre los diferentes valores de $ N $.
+	\item Reescribir todos los apartados con paradigma declarativo y verificar los resultados. 
+	
+\end{enumerate}         
+
+\newpage
+%***********************************************
+\item {\bf Hito 4 :}   Vectores y matrices. 
+
+Sean los vectores $V, W \in \mathbb{R}^N$ y la matriz de Vandermode $A \in 
+{\cal M}_{N \times N} (\mathbb{R})$: 
+$$
+\{ v_i =  1/i^2, \ \  i=1, \ldots N \} \qquad  \{  w_i = (-1)^{i+1}/(2i+1), \ \   i=1, \ldots N  \} 
+$$
+$$
+\{ a_{ij} = (i/N)^{j-1}, \ \ i=1, \ldots N, \ \  j=1, \ldots N \}. 
+$$
+Escribir un programa que realice las operaciones siguientes y que muestre los
+resultados por pantalla: 
+\begin{enumerate}
+	\item Sumar todas las componentes del vector $V$. 
+	\item Sumar todas las componentes de la matriz $A$.   
+	\item Sumar las componentes del vector $V$ mayores que cero.
+	\item Sumar las componentes de la matriz $A$ menores que cero.   
+	\item Producto escalar de los vectores $V$ y $W$.   
+	\item Producto escalar del vector $V$ y la columna $N$ de la matriz $A$. 
+	\item Multiplicar la matriz $A$ por el vector $V$.
+	\item Matriz traspuesta de la matriz $A$   
+	\item Obtener el valor máximo de la matriz $A$ y su posición.
+\end{enumerate}
+
+Verificar los resultados con las funciones intrínsecas correspondientes. 
+
+
+%***********************************************
+\item {\bf Hito 5 :}   Asignación dinámica de memoria.
+
+Dada la matriz  de Vandermonde $A_M \in {\cal M}_{M \times M} (\mathbb{R})$ del hito anterior,
+calcular las siguientes operaciones: 
+
+
+\begin{enumerate}	
+	\item Suma de las trazas de $ A_M $ para matrices de diferente dimensión. 
+	$$  S_1 = \sum_{M=1} ^{10} trace(A_M) $$ 
+	\item  Suma de las trazas del cuadrado de $ A_M $ para matrices de diferente dimensión. 
+	$$  S_2 = \sum_{M=1} ^{5} trace(A_M^2) $$ 
+	\item Traza de la suma de potencias de $ A_M $  con $ M=8 $.
+	$$  S_3 = trace \left( \sum_{k=0} ^{5} A_8^k  \right) $$
+\end{enumerate}  
+ 
+Implementar la operaciones anteriores mediante un módulo llamado \textbf{Algebra} 
+que contenga la función  \textbf{trace} que calcula la traza de una matriz, la 
+función  \textbf{Vandermonde} que crea la matriz  $ A_M \in { \cal M } _{ M 
+\times M } ( \mathbb{R} )$ 
+ y la función \textbf{power} que permite calcular la potencia k--ésima de 
+ cualquier matriz cuadrada. 
+
+	
+	  
+	
+
+
+
+\newpage
+
+%***********************************************
+\item {\bf Hito 6 :}  Primitivas y derivadas numéricas de funciones.  Funciones 
+definidas a trozos. Impelentar la función \texttt{integral} que calcule la 
+integral de una función genérica $ f: \mathbb{R} \rightarrow \mathbb{R} $ entre 
+$ [a, b] $ y la 
+función  \texttt{derivative} que calcule la 
+derivada de una función genérica $ f: \mathbb{R} \rightarrow \mathbb{R} $ en $ 
+x = x_0 $ 
+mediante las siguientes fórmulas aproximadas: 
+$$
+ \int _a ^b f(x)  dx \approx \sum_{k=0} ^N f(x_k) \Delta x, \qquad 
+ \frac{df}{dx} ( x_0  ) \approx \frac{ f(x_0+h) - f(x_0) }{ h }, 
+$$
+donde  $  \Delta x = ( b- a) /N  $ y $ h $ es un valor pequeño. 
+\begin{enumerate}
+
+
+\item Validar las funciones \texttt{integral} y \texttt{derivative} mediante 
+funciones simples con derivada e integral analítica.  
+
+\item Implementar la subrutina \texttt{plot} que dibuje la función genérica $  
+f: \mathbb{R} \rightarrow \mathbb{R} $  desde $ x = a $ hasta a $ x =b$. 
+Esta subrutina deberá calcular la imagen de la función anterior en $ M +1 $ 
+puntos de acuerdo a la siguiente partición equiespaciada: 
+$$ \{ x_i = a + i \Delta x, \ \ i = 0 \ldots  M \}, \qquad 
+\displaystyle \Delta x = \frac{b-a}{M}. $$
+
+\item Representar la función seno para $ x \in [ -2 \pi, +2 \pi]$.  
+\item Implementar la función $ f(x)$ definida a trozos siguiente:  
+$$
+f(x) =
+\left\{
+\begin{array}{ll}
+\displaystyle                          
+0 , \hspace{1cm} \hspace{2cm} &  \displaystyle  -\infty \leq x \leq - 
+\frac{\pi}{2},      \\ \\
+\displaystyle                                                            
+\cos{( x)} ,  & \displaystyle - \frac{\pi}{2} < x <  \frac{\pi}{2}, \\ \\
+\displaystyle                                                            
+0 ,              & \displaystyle  \frac{\pi}{2} \leq x \leq 
++\infty.                                                                        
+                        
+\end{array}                                                                   
+\right.                                                     
+$$ 
+
+
+\item Representar  la función anterior definida a trozos  para $ x \in [ -2 
+\pi, +2 \pi]$. 
+
+ 
+\item Representar la integral y la derivada de la función definida a trozos 
+anterior para $ x \in [ -2 \pi, +2 \pi]$.  
+	
+\end{enumerate}
+
+Las funciones \texttt{integral}, \texttt{derivative} y \texttt{plot} deberán 
+estar en un módulo llamado \texttt{calculus}      
+
+
+\newpage 
+%***********************************************
+\item {\bf Hito 7 :}  Series de potencias  
+
+Aproximar  mediante un desarrollo truncado en serie de Taylor de la forma:
+\[  f(x) = \sum_{k=0} ^M a_k \  (x-x_0)^k, \qquad \qquad a_k = \frac{  f^{(k)} 
+(x_0)  }{ k! },  \]  
+para las funciones $f : \mathbb{R} \rightarrow \mathbb{R}$, siguientes:    
+\begin{enumerate}
+	\item $f(x) = e^x$,     
+	\item $f(x) = \sin(x)$,   
+	\item $f(x) = \cosh(x)$, 
+	\item $f(x) = \displaystyle \frac{1}{1 - x}$.               
+\end{enumerate}
+Para cada desarrollo en serie se pide:    
+
+
+
+\begin{enumerate}
+	\item Calcular el desarrollo para un valor de $M$ genérico ($M=1, 2, 3, 4, 5, \hdots$) mediante un bucle desde $ k=0$ 
+	hasta $ k = M $. 
+	\item Implementar un desarrollo para infinitos términos que para de sumar cuando se alcance la máxima precisión. 
+	Realizar la implementación mediante 
+	una sentencia de control  \verb|while|.   
+	\item Comparar con las funciones intrínsecas correspondientes.     
+	% \item  Dibujar la función a aproximar junto con las param�tricas que constituyen los desarrollos anteriores con $ M=1, 2, 3, 4, 5. $
+	\item Discutir los resultados obtenidos.
+\end{enumerate}
+
+
+
+\newpage 
+
+%***********************************************
+\item {\bf Hito 8 :}   Sentencias de entrada y salida.
+
+\vspace{0.5cm}    
+
+Crear los ficheros de datos ForTran con nombres  \verb|data1.txt| e 
+\verb|data2.txt| con la información siguiente:
+
+\vspace{1cm}
+
+Contenido del fichero de entrada \verb|data1.txt| :
+
+\begin{verbatim}
+VARIABLES=t, x, y, z, u
+1.2,      3.4,     6.2,    -14.0,    0.1
+-25.2,    -8.6,    5.1,     9.9,    17.0
+-1.0,     -2.0,    -5.4,    -8.6,    0.0
+3.14,     -11.9,   -7.0,    -12.1,   9.2
+6.66,    5.32,    0.001,   0.2,     0.001
+\end{verbatim}
+
+\vspace{1cm}
+
+Contenido del fichero de entrada \verb|data2.txt| :
+
+\begin{verbatim}
+VARIABLES=t, x1, x2, x3, x4, x5, x6
+1.2,      3.4,     6.2,    -14.0,    0.1,      4.89,   7.54
+4-25.2,    -8.6,    5.1,    12.0,     9.9,      12.24,  17.0
+0.0,      34.5,    -1.0,   -2.0,     -43.04,   -8.6,    0.0
+3.14,     -11.9,   71.0,   7.0,     17.0,      -12.1,   9.2
+ 6.66,     5.32,    0.001,   0.2,     0.001,    0.008,   -0.027
+54.0,     77.1,    -9.002,  -13.2,   0.017,    65.53,   -0.021
+ 23.04,    -51.98,  -34.2,   9.99,    5.34,     8.87,    3.22 
+\end{verbatim}
+
+\vspace{0.5cm}
+
+
+Escribir una función \verb|load_matrix| que permita crear una matriz A con las dimensiones 
+del fichero de datos y que almacene los valores de dicho fichero mediante 
+ asignaciones del tipo: 
+ 
+ \hspace{2cm} \verb|A = load_matrix('data1.txt')| 
+ 
+ \hspace{2cm}  \verb|A = load_matrix('data2.txt')|
+
+La función   \verb|load_matrix| deberá permitir la carga de datos con cualquier formato. 
+Una vez cargados los valores de la matriz $ A $, crear dos vectores $ U$ y $V$  que contengan la primera y segunda columnas de la matriz A. 
+     
+
+	
+	
+	
+	
+	
+	
+	
+%	
+%	
+%\newpage 
+%
+%
+%\begin{center} 
+%{ \LARGE  \bf Segundo Semestre }
+%\end{center} 	
+%
+%\vspace{1cm} 
+%	
+%	
+%%******************************************************
+%    \item {\bf Hito 1 :}   Sistemas lineales de ecuaciones.
+%
+%Implementar un módulo para la resolución de sistemas lineales de ecuaciones algebraicas.
+%Los métodos de resolución propuestos son el de eliminación Gaussiana, factorización LU,
+%factorización LU de la biblioteca {\it Numerical Recipes} y Jacobi.
+%
+%Para cada método se pide:
+%\begin{itemize}
+%     \item Validar los resultados con varios casos de prueba con dimensiones distintas.
+%     \item Evaluar tiempos de ejecución.
+%     \item Comparar resultados con los métodos restantes.          
+%\end{itemize}
+%
+%Aplicación : Estudiar el condicionamiento de sistemas lineales de ecuaciones para matrices
+%aleatorias y de Vandermonde. 
+%
+%
+%\vspace{0.5cm}
+%
+%
+%\item {\bf Hito 2 :} Autovalores y autovectores. 
+%
+%Implementar un módulo para el cálculo de autovalores y autovectores de una matriz.
+%Los métodos de resolución propuestos son el método de la potencia y el método de la potencia inversa.
+%Implementar el método de la potencia inversa a partir de la matriz inversa y resolviendo el sistema lineal
+%correspondiente. 
+%
+%Para cada método se pide:
+%\begin{itemize}
+%	\item Validar los resultados con varios casos de prueba con dimensiones distintas.
+%	\item Evaluar tiempos de ejecución. Comparar tiempos de ejecución del método de la potencia inversa
+%	      mediante los dos algoritmos propuestos : matriz inversa y solución del sistema lineal.       
+%\end{itemize}
+%
+%Aplicación : Estudiar el condicionamiento de sistemas lineales de ecuaciones para matrices
+%aleatorias y de Vandermonde. Calcular la relación $\lambda_{max} / \lambda_{min}$ de los casos de prueba
+%presentados en el hito 1 y relacionar y discutir los resultados. 
+%     
+%
+%%********************************************************************************************************************
+%\newpage
+%
+%    \item {\bf Hito 3:} Derivación numérica. 
+%    
+%    \begin{enumerate}   
+%    	
+%    	\item Obtener las fórmulas de las derivadas numéricas primeras descentradas, con tres puntos
+%    	equiespaciados a una distancia $\Delta x $.
+%    	
+%    	\item A partir de la función $f(x) = \mbox{e}^{x}$ en el punto $x=0$, 
+%    	representar gráficamente el error total de las derivadas numéricas 
+%    	frente al valor de $\Delta x$ en precisión simple y doble.
+%    	En particular, representar gráficamente las derivadas primeras adelantada (definición de derivada), centrada y descentradas y la 
+%derivada segunda,
+%    	con tres puntos equiespaciados a una distancia $\Delta x $. 
+%    	Discutir los resultados obtenidos.
+%    	
+%    	
+%    	
+%    	\item Resolver los problemas de contorno en ecuaciones diferenciales ordinarias siguientes:
+%    	
+%    	\begin{itemize}
+%    		
+%    		\item {\bf Problema 1:}	         
+%    		$$
+%    		u^{\prime\prime} + u = 0,\quad
+%    		x\in[-1,1], \qquad \qquad u(-1)=1,\quad u(1)=0,
+%    		$$
+%    		
+%    		\item {\bf Problema 2:}	    
+%    		$$
+%    		u^{\prime\prime} + u^{\prime} - u=\sin(2 \pi x),\quad
+%    		x\in[-1,1], \qquad \qquad u(-1)=0,\quad u^{\prime}(1)=0.
+%    		$$
+%    	\end{itemize}
+%    	
+%    	
+%    	Para los problemas citados anteriormente se pide: 
+%    	
+%    	\begin{enumerate}
+%    		\item A partir de las derivadas numéricas con tres puntos equiespaciados escribir el sistema de
+%    		ecuaciones resultante.
+%    		
+%    		\item Obtener la solución numérica mediante la resolución de un sistema lineal de
+%    		ecuaciones, con $N = 10$ y $N = 100$. 
+%    		
+%    		\item Representar gráficamente los resultados obtenidos.
+%    	\end{enumerate}
+%    	
+%    \end{enumerate}
+%    
+%\vspace{0.5cm}
+%    
+%%******************************************************
+%\item {\bf Hito 4 :} Integración numérica.
+%
+%Implementar un módulo para la resolución numérica de integrales definidas de funciones $F:\mathbb{R} \rightarrow \mathbb{R}$.
+%Los métodos de resolución propuestos son las reglas del rectángulo, punto medio, trapecio y Simpson.
+%Implementar un módulo de funciones $F:\mathbb{R} \rightarrow \mathbb{R}$ de prueba para validar los métodos numéricos
+%propuestos. Este módulo debe contener al menos tres funciones con funciones primitivas conocidas y una función cuya 
+%función primitiva sea desconocida.
+%
+%Evaluar el error de las soluciones numéricas para cada método propuesto y para distintos valores del incremento de la
+%partición.   
+%
+%\newpage
+%           
+%%******************************************************
+%\item {\bf Hito 5 :} Ecuaciones no lineales.
+%
+%Implementar un módulo para la resolución numérica de ecuaciones no lineales.
+%Para funciones  $F:\mathbb{R} \rightarrow \mathbb{R}$, los métodos de resolución propuestos son el de la bisección y el de 
+%Newton-Raphson.   
+%Para funciones  $F:\mathbb{R}^N \rightarrow \mathbb{R}^N$, se proponen el método de Newton-Raphson con matriz Jacobiana analítica y 
+%el método de Newton-Raphson con matriz Jacobiana numérica.
+%Para la validación de los métodos propuestos, se pide implementar un módulo con al menos tres funciones $F:\mathbb{R} \rightarrow \mathbb{R}$
+%y al menos tres funciones $F:\mathbb{R}^N \rightarrow \mathbb{R}^N$. Este módulo debe contener las derivadas y matrices Jacobianas 
+%correspondientes de las funciones propuestas.  
+%
+%En el informe correspondiente, presentar tablas de soluciones numéricas en cada paso de iteración para las funciones de prueba propuestas.
+%
+%    
+%    
+%
+%
+%
+%    
+%
+%
+%
+%
+% 
+%\end{itemize}
+%
+%\end{document} 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+%\newpage
+%
+%
+%%***********************************************
+%    \item {\bf Hito 5 : }   Funciones y gráficas. 
+% 
+% \begin{enumerate}    
+% \item Escribir un programa que dibuje las siguientes funciones: 
+% 
+% 
+% 
+% \begin{fleqn}
+%  \[ f(x)  = \sqrt{ 1 - ( |x| -1 )^2 } \]
+%  
+%  \[ f(x) = \arccos(1 - | x | )  + \pi \]
+%  \[ f(x) =  \frac{ \cos( 70 x ) }{ (1 + x^2 )^2  }\]
+% \[ f(x) = \sqrt{ \cos(x) }  \]
+%  \[ f(x) =  8 x \sin( x^2 + 3)  \]
+% \[ f(x) = \prod_{k=0} ^M ( x - k/M )  \]
+% \end{fleqn}
+% 
+%\item Dibujar el lugar geométrico de las raíces de: 
+%
+%\[ x^2 + 2 \zeta \omega_0 x + \omega_0 ^2 = 0,\]
+%
+%con $ \omega_0 = 1 $ para todo $ \zeta \ge 0$. 
+% 
+%\end{enumerate}
+%
+%
+%
+%%***********************************************
+%    \item {\bf Hito 6 :}  Aproximar  mediante un desarrollo en serie de potencias de la forma
+%    \[  f(x) = \sum_{k=0} ^M a_k \  x^k, \qquad a_k = \frac{  f^{(k)} (0)  }{ k! }  \]  
+%    las  siguientes funciones: 
+%   
+%    \begin{fleqn}
+%  \[   f(x)  = \cos(x)  \]
+%    \[ f(x) = \cosh(x) \]
+% \end{fleqn}
+%    
+% 
+% 
+% 
+% \begin{enumerate}
+%   \item Calcular los desarrollos anteriores para un valor de $ M $ genérico.  
+%   \item  Dibujar la función a aproximar junto con las parmétricas que constituyen los desarrollos anteriores con $ M=1, 2, 3, 4, 5. $
+%   \item Discutir los resultados obtenidos.
+% \end{enumerate}
+% 
+% 
+%
+%%***********************************************
+%    \item {\bf Hito 7 :}   Ceros de funciones. 
+%    
+%  Dada una función genérica $ f(x) $ escribir una programa que permita calcular los ceros mediante: 
+% 
+% 
+% \begin{enumerate}
+%   \item Algoritmo de la bisección. 
+%   \item Algoritmo de Newton. 
+%   \item Hacer aplicación a una función ejemplo y dibujar el resultado obtenido. 
+% \end{enumerate}
+% 
+%\end{itemize}
+
+\end{document}        
+    
+   
+ 
