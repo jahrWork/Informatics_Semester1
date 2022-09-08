@@ -1,39 +1,40 @@
+from Calculus.Derivative_Integral import Derivative, Integral 
+import matplotlib.pyplot as plt
+from numpy import pi, sin, cos, linspace, array 
 
-import pandas as pd
-from numpy import shape
-    
-#   it reads a filename and save its data in matrix A 
-def load_matrix( filename ): 
 
+def Integral_and_derivative_examples(): 
+
+   # plot from x=-2 pi to x = +2 pi 
+     x = linspace(  -2*pi, 2*pi, 200)    
+
+   # plot sine function       
+     plt.plot( x, sin(x) )                                  
+     plt.show() 
+
+    # plot piecewise function     
+     plt.plot( x, array([ Piecewise_f(xi) for xi in x]) )  
+     plt.show()
+
+   # plot derivative of piecewise function  
+     plt.plot( x,  array([ Derivative(Piecewise_f, xi) for xi in x]) )  
+     plt.show()
+
+   # plot integral of piecewise function 
+     plt.plot( x,  array([ Integral(Piecewise_f, 0, xi) for xi in x]) )     
+     plt.show()  #end
      
-    data = pd.read_csv(filename)
-
-  # header 
-    columns = data.columns.tolist()
-    print(" header =", columns)
-
-    return data.values 
 
 
-    
-#   It allows to test the load matrix function 
-def Test_load_matrix():  
-    
-    
-         A = load_matrix('./data/data.csv') 
-         
-       # print row ith 
-         for i in range( shape(A)[0] ): 
-            print( [ round(a,2) for a in A[i] ])
-                 
-    
-         A = load_matrix('./data/data2.csv') 
-         
-         for i in range( shape(A)[0] ): 
-            print( [ round(a,2) for a in A[i] ])  #end
-         
-    
-    
-    
-    
+def Piecewise_f(x): 
 
+       if x < -pi/2 : 
+           
+            return 0 
+            
+       elif x < pi/2 : 
+           
+            return cos(x) 
+            
+       else: 
+            return 0 # x > pi/2

@@ -1,41 +1,86 @@
-from numpy import zeros, sum, dot, matmul, array,  max, argmax, transpose, size, shape, trace, identity 
 
 
+from Calculus import Series
+from math import factorial
 
-def Matrices_allocation():   
-        
-    S = sum( array([ trace( Vandermonde(M) ) for M in range(1,11)  ]) )
-    print("1. sum from M=1 to 10 of  trace ( A_M ) =   ", S) 
-      
-    S = sum( array([ trace(matmul(Vandermonde(M), Vandermonde(M) )) for M in range(1,6) ] )) 
-    print("2. sum from M=1 to 5 of traces ( A_M **2 ) = ", S) 
-    
-    Ak = array( zeros( [8,8,6] ) ) 
-    for  k in range(6):  
-      Ak[:, :, k] = power( Vandermonde(8), k) 
-    
-    S = trace( sum( Ak, axis=2) )  # trace( I + Ak + Ak**2 +... Ak**5 ) 
-    print("3. trace ( sum from k=0 to 10 of A_5**k )=", S) 
-
-
-
-
-#  Vandermonde matrix A of dimension MxM  
-def Vandermonde(N):
  
-   A = array( [ [ (i/float(N))**(j-1) for j in range(1,N+1)] for i in range(1,N+1) ] )  
-   
-   return A 
+def a1(n): 
+     
+     return n
+
+def a2(n): 
+     
+     return 2*n-1
+
+def a4(n): 
+     
+     return 1 / 2**n
+
+def a5(n): 
+     
+     return 1 / n**2
+
+def a6(n): 
+     
+     return (-1)**(n+1) / 2**n
 
 
- #It calculates the kth power of matrix A 
-def power(A, k):  
-   
-  
-    N = shape(A)[0] 
-    
-    if k==0: 
-             return identity(N)
-    else:                
-             return matmul( power(A,k-1), A )  
-   
+def a7(n): 
+     
+     return 1 / factorial(n)
+
+
+
+
+def series_examples(): 
+
+ while(1): 
+          
+       print( " ____________________________ ")   
+       print( " 0:  exit        "                              )
+       print( " 1:  sum n    N terms   "                       )
+       print( " 2:  sum 2n-1 N terms "                         )
+       print( " 3:  factorial N "                              )
+       print( " 4:  sum 1/2**n infinite terms "                )
+       print( " 5:  sum 1/n**2 infinite terms "                )
+       print( " 6:  sum (-1)**(n+1)/2**n infinite terms "      )
+       print( " 7:  sum 1 / n! infinite terms "                )
+       k = int( input(" Enter series number: ") )
+       
+       if k==0:
+           break 
+
+       elif k==1: 
+           N = int( input(" Enter number of terms N = ")) 
+           SN = Series.Sigma_N(a1, 1, N) 
+
+       elif k==2: 
+           N = int( input(" Enter number of terms N = ")) 
+           SN = Series.Sigma_N(a2, 1, N) 
+
+       elif k==3: 
+           N = int( input(" Enter number of terms N = ")) 
+           SN = factorial(N)    
+
+       elif k==4: 
+           tolerance = float( input( " Enter tolerance = ") ) 
+           SN = Series.Sigma( a4, 1, tolerance )
+
+       elif k==5: 
+           tolerance = float( input( " Enter tolerance = ") ) 
+           SN = Series.Sigma( a5, 1, tolerance )
+
+       elif k==6: 
+           tolerance = float( input( " Enter tolerance = ") ) 
+           SN = Series.Sigma( a6, 1, tolerance )
+
+       elif k==7: 
+           tolerance = float( input( " Enter tolerance = ") ) 
+           SN = Series.Sigma( a7, 1, tolerance )
+
+       else:  
+          print( "  series is not implemented k=", k )
+       
+       print(" Sn = ", SN ) 
+
+ 

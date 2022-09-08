@@ -1,89 +1,41 @@
- 
-from Calculus.Taylor_expansions import Taylor 
-from math import pi, factorial, exp 
-import matplotlib.pyplot as plt
-from numpy import pi, sin, cos, linspace, array 
-from cmath import   exp  
- 
-def dkexp(x, k): 
+from numpy import zeros, sum, dot, matmul, array,  max, argmax, transpose, size, shape, trace, identity 
+
+
+
+def Matrices_allocation():   
+        
+    S = sum( array([ trace( Vandermonde(M) ) for M in range(1,11)  ]) )
+    print("1. sum from M=1 to 10 of  trace ( A_M ) =   ", S) 
       
-      return exp(x) 
-   
-def Taylor_expansion_examples(): 
+    S = sum( array([ trace(matmul(Vandermonde(M), Vandermonde(M) )) for M in range(1,6) ] )) 
+    print("2. sum from M=1 to 5 of traces ( A_M **2 ) = ", S) 
     
-   def Taylor_cosine(x):
-       return Taylor( df = d_cosine, x0 = 0., x = x, N = M ) 
- 
-   print(" Taylor exp(1.) x0=0   :", Taylor( df = dkexp, x0 = 0., x = 1., N = 1) )
-   print(" Taylor exp(1.) x0=0   :", Taylor( df = dkexp, x0 = 0., x = 1., N = 4) )
-   print(" Taylor exp(1.) x0=0   :", Taylor( df = dkexp, x0 = 0., x = 1., eps = 1e-7 ) )
-     
- # plot from x=0 to x = 2 pi 
-   x = linspace( 0, 2*pi, 200)    
-   plt.plot( x, cos(x) )
-   M = 10 
-   plt.plot( x, array([ Taylor_cosine(xi) for xi in x])  )
-   plt.show()                  
+    Ak = array( zeros( [8,8,6] ) ) 
+    for  k in range(6):  
+      Ak[:, :, k] = power( Vandermonde(8), k) 
     
-   x = linspace( -0.9, 0.9, 200)  
-   plt.plot( x, array([ fractional(xi) for xi in x])  )
-   plt.plot( x, array([ Taylor_fractional(xi) for xi in x])  )
-   plt.show() 
-     
-   x = linspace( 0, 2*pi, 200)    
-   plt.plot( x, cos(x) )
-   for  M in range(12, 18, 1):  
-      plt.plot( x, array([ Taylor_cosine(xi) for xi in x])  )
-   plt.show()  #end
+    S = trace( sum( Ak, axis=2) )  # trace( I + Ak + Ak**2 +... Ak**5 ) 
+    print("3. trace ( sum from k=0 to 10 of A_5**k )=", S) 
 
-           
-# ***********************************************************************     
-# Z = exp( I * x)             = cos(x) + I sin(x) 
-# Zk = (I)**k * exp( I * x )  = dk( cos(x) )/dxk + I dk( sin(x) ) /dxk 
-# Z'= I * exp( I * x) 
-# Zk = (I)**k * exp( I * x )  
-# ***********************************************************************    
-def d_cosine(x, k):
-  
-  I = complex(0, 1)
 
-  return  ( I**k * exp( I * x) ).real # cosine 
-        
-   
-def d_fractional(x, k):
-            
-     # f(x) = 1/ ( 1 - x) 
-     # f' = + 1 / ( 1 - x ) **2 
-     # fk = k! (1-x)**(-k-1)  
-       return factorial(k) * ( 1 - x ) **(-k-1) 
-        
 
-def Taylor_fractional(x):
-      
-      return Taylor( df = d_fractional, x0 = 0., x = x, N = 5 ) 
 
-def fractional(x):
-      
-       return 1 / ( 1 - x ) 
-
-#function exponential(x) result(h) 
-#      real, intent(in) :: x 
-#      real :: h 
-      
-#        h = exp( x) 
-        
-#end function
-  
+#  Vandermonde matrix A of dimension MxM  
+def Vandermonde(N):
  
+   A = array( [ [ (i/float(N))**(j-1) for j in range(1,N+1)] for i in range(1,N+1) ] )  
+   
+   return A 
 
-#function dksinh(x, k) result(dk) 
-#      real, intent(in) :: x 
-#      integer, intent(in) :: k 
-#      real :: dk  
-      
-#      if ( mod(k, 2) == 0 ) then 
-#          dk = sinh(x) 
-#      else 
-#          dk = cosh(x) 
-#      end if  
-       
+
+ #It calculates the kth power of matrix A 
+def power(A, k):  
+   
+  
+    N = shape(A)[0] 
+    
+    if k==0: 
+             return identity(N)
+    else:                
+             return matmul( power(A,k-1), A )  
+   

@@ -26,12 +26,18 @@
     <Compile Include="Calculus\Taylor_expansions.py" />
     <Compile Include="Milestone1.py" />
     <Compile Include="Milestone2.py" />
-    <Compile Include="Milestone3.py" />
-    <Compile Include="Milestone4.py" />
+    <Compile Include="Milestone3.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Milestone4.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Milestone5.py" />
     <Compile Include="Milestone6.py" />
     <Compile Include="Milestone7.py" />
     <Compile Include="Milestone8.py" />
+    <Compile Include="Milestone9.py" />
+    <Compile Include="Milestone10.py" />
     <Compile Include="Python_Milestones.py" />
   </ItemGroup>
   <ItemGroup>

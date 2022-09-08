@@ -10,6 +10,8 @@ import Milestone5
 import Milestone6
 import Milestone7
 import Milestone8
+import Milestone9
+import Milestone10
 
 
 
@@ -20,12 +22,14 @@ Hello_world()
 # If the whole module is imported 
 Milestone1.Hello_world()
 Milestone2.Roots_2th()
-Milestone3.series_examples()
-Milestone4.Matrix_operation_examples()
-Milestone5.Matrices_allocation()
-Milestone6.Integral_and_derivative_examples()
-Milestone7.Taylor_expansion_examples()
-Milestone8.Test_load_matrix()
+Milestone3.prime_perfect_numbers()
+Milestone4.base2_base16()
+Milestone5.series_examples()
+Milestone6.Matrix_operation_examples()
+Milestone7.Matrices_allocation()
+Milestone8.Integral_and_derivative_examples()
+Milestone9.Taylor_expansion_examples()
+Milestone10.Test_load_matrix()
      
      
   
