@@ -20,3 +20,6 @@ def Roots_2th():
       x2 = ( - b - sqrt( b**2 - 4* a*c ) )/(2*a)
 
    print( " x1=", x1, "x2 =", x2) # output
+   print( " x1=",  -2*c/( b + sqrt( b**2 - 4* a*c ) ) )
+
+   print("\n")
