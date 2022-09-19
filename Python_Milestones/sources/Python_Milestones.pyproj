@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>b34ca7ee-ef79-4d45-ad82-6d0f7d99a524</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Python_Milestones.py</StartupFile>
+    <StartupFile>Milestone4.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
