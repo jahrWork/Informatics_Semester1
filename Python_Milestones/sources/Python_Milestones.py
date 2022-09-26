@@ -17,9 +17,9 @@ import Milestone10
 
 # Milestone1: Hello world 
 # If Hello_world in imported specifically 
-Hello_world()
+#Hello_world()
 
-# If the whole module is imported 
+## If the whole module is imported 
 Milestone1.Hello_world()
 Milestone2.Roots_2th()
 Milestone3.prime_perfect_numbers()

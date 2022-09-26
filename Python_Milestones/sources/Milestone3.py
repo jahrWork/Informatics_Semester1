@@ -1,11 +1,10 @@
 # Imperative paradigm 
-
 def is_prime_imperative(n): 
 
     for i in range(2, n): 
           if n % i == 0: return False
 
-    return n> 1
+    return n > 1
 
 def is_perfect_imperative(n): 
 
@@ -48,8 +47,11 @@ def prime_decomposition_imperative(n):
 
 
 
-# Functional paradigm 
 
+
+
+
+# Functional paradigm 
 def is_prime(n): 
 
     return all( n % i != 0 for i in range(2,n) )
@@ -69,6 +71,39 @@ def sequence_of_perfect_numbers(n):
 def sequence_of_prime_numbers(n): 
 
     return [ i for i in range(1,n) if is_prime(i) ]
+
+def First_prime_numbers(N): 
+
+    primes = [ ]
+    n = 2
+    
+    while len(primes) < N: 
+         
+         if is_prime(n): 
+             primes = primes + [n] 
+
+         n = n + 1 
+          
+    return primes   
+
+def First_perfect_numbers(N): 
+
+    perfects = [ ]
+    n = 1 
+    
+    while len(perfects) < N: 
+        
+         if is_perfect(n): 
+             perfects = perfects + [n]
+             
+         n = n + 1  
+
+    return perfects   
+
+
+
+
+
 
 def prime_decomposition(n):
 
@@ -97,8 +132,11 @@ def prime_perfect_numbers():
 
  print( "sequence of perfect numbers =", sequence_of_perfect_numbers(500) )
  print( "sequence of perfect numbers (imperative) =", sequence_of_perfect_numbers_imperative(500) )
+ print( "N first perfect numbers =", First_perfect_numbers(4) )
+
 
  print( "sequence of prime numbers =",sequence_of_prime_numbers(50) )
+ print( "N first prime numbers =", First_prime_numbers(10) )
 
 
  print( "\nprime decomposition 12 :", prime_decomposition(12) )
