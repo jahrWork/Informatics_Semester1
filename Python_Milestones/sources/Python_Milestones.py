@@ -1,23 +1,14 @@
 
-# Import Milestones: 1 to 8. 
+# Import Milestones: 1 to 10. 
 from Milestone1 import Hello_world
-
-import Milestone1
-import Milestone2
-import Milestone3
-import Milestone4
-import Milestone5
-import Milestone6
-import Milestone7
-import Milestone8
-import Milestone9
-import Milestone10
-
-
 
 # Milestone1: Hello world 
 # If Hello_world in imported specifically 
 #Hello_world()
+
+import Milestone1, Milestone2, Milestone3, Milestone4
+import Milestone5, Milestone6, Milestone7, Milestone8, Milestone9, Milestone10
+
 
 ## If the whole module is imported 
 Milestone1.Hello_world()

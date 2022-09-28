@@ -70,7 +70,7 @@ def sequence_of_perfect_numbers(n):
 
 def sequence_of_prime_numbers(n): 
 
-    return [ i for i in range(1,n) if is_prime(i) ]
+    return [ i for i in range(2,n) if is_prime(i) ]
 
 def First_prime_numbers(N): 
 
@@ -119,6 +119,7 @@ def prime_decomposition(n):
 
 def prime_perfect_numbers(): 
 
+ print(40*"_" )
  print("Examples of prime and perfect numbers \n" )
  print("13 is prime =", is_prime(13) )
  print("12 is prime =", is_prime(12) ) 

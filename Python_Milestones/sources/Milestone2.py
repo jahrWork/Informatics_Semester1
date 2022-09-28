@@ -5,10 +5,9 @@ def Roots_2th():
 
    print("Roots of a x**2 + b* x + c = 0 ")
 
-   a = float( input(" Enter a: ") )
-   b = float( input(" Enter b: ") )
-   c = float( input(" Enter c: ") )
-
+   coef = input(" Enter coefficients a b c = ").split(" ")
+   a, b, c = float (coef[0]), float (coef[1]), float (coef[2])
+  
    if a==0 :
       if b==0 : 
              print("There is no solution " )

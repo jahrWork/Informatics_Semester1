@@ -60,4 +60,3 @@ def base2_base10_base16():
     number_base2(123)
     number_base16(123)
 
-base2_base10_base16()
