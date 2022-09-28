@@ -3,8 +3,8 @@ def number_base10(n):
     S = str(n)
     Base10 = ""
     m = len(S)
-    for i in range(m):
-        Base10 = Base10 + " + " + S[i]  + " * 10**" + str(m-i-1) 
+    for i, digit  in enumerate(S):
+        Base10 = Base10 + " + " +  digit + " * 10**" + str(m-i-1) 
     print("Number ", n, " in base 10 =", Base10)    
 
 
@@ -22,8 +22,8 @@ def number_base2(n):
     print("Number ", n, " in base 2 =", bits)  
     m = len(bits)
     Base2 = ""
-    for i in range(m):
-        Base2 = Base2 + " + " + bits[i]  + " * 2**" + str(m-i-1) 
+    for i, bit in enumerate(bits):
+        Base2 = Base2 + " + " + bit  + " * 2**" + str(m-i-1) 
     print("Number ", n, " in base 2 =", Base2)    
 
 def number_base16(n): 
@@ -49,8 +49,8 @@ def number_base16(n):
     print("Number ", n, " in base 16 =", digits)  
     m = len(digits)
     Base16 = ""
-    for i in range(m):
-        Base16 = Base16 + " + " + digits[i]  + " * 16**" + str(m-i-1) 
+    for i, digit in enumerate(digits):
+        Base16 = Base16 + " + " + digit  + " * 16**" + str(m-i-1) 
     print("Number ", n, " in base 16 =", Base16)    
 
 
