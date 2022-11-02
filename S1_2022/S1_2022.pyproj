@@ -2,15 +2,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>b34ca7ee-ef79-4d45-ad82-6d0f7d99a524</ProjectGuid>
+    <ProjectGuid>a4e35496-6988-4cea-bfd9-f81563677f99</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Python_Milestones.py</StartupFile>
+    <StartupFile>
+    </StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Python_Milestones</Name>
-    <RootNamespace>Python_Milestones</RootNamespace>
+    <Name>S1_2022</Name>
+    <RootNamespace>S1_2022</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,28 +22,20 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Calculus\Derivative_Integral.py" />
-    <Compile Include="Calculus\Series.py" />
-    <Compile Include="Calculus\Taylor_expansions.py" />
-    <Compile Include="Milestone1.py" />
-    <Compile Include="Milestone2.py" />
-    <Compile Include="Milestone3.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Milestone4.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Milestone5.py" />
-    <Compile Include="Milestone6.py" />
-    <Compile Include="Milestone7.py" />
-    <Compile Include="Milestone8.py" />
-    <Compile Include="Milestone9.py" />
-    <Compile Include="Milestone10.py" />
-    <Compile Include="Python_Milestones.py" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Calculus\" />
-    <Folder Include="sources\" />
+    <Compile Include="week1.py" />
+    <Compile Include="week11.py" />
+    <Compile Include="week12.py" />
+    <Compile Include="week13.py" />
+    <Compile Include="week14.py" />
+    <Compile Include="week15.py" />
+    <Compile Include="week2.py" />
+    <Compile Include="week3.py" />
+    <Compile Include="week4.py" />
+    <Compile Include="week5.py" />
+    <Compile Include="week6.py" />
+    <Compile Include="week7.py" />
+    <Compile Include="week8.py" />
+    <Compile Include="week9_10.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
