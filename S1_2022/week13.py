@@ -25,9 +25,8 @@ def Matrices_allocation():
 #  Vandermonde matrix A of dimension MxM  
 def Vandermonde(N):
  
-   A = array( [ [ (i/float(N))**(j-1) for j in range(1,N+1)] for i in range(1,N+1) ] )  
+   return array( [ [ (i/float(N))**(j-1) for j in range(1,N+1)] for i in range(1,N+1) ] )  
    
-   return A 
 
 
  #It calculates the kth power of matrix A 
