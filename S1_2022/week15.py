@@ -4,7 +4,7 @@
 
 
 import matplotlib.pyplot as plt
-from numpy import  array, sin, cos, pi 
+from numpy import  array, sin, cos, pi, zeros, linspace 
 from random import random, uniform
 
 # **********************************************
@@ -31,6 +31,35 @@ from random import random, uniform
 # plt.plot( t,x,  "blue")
 # plt.plot( t,y,  "green")
 # plt.show()
+
+
+# fig, ax = plt.subplots(1,1)
+# ax.set_aspect("equal")
+
+# N = 300
+# t = linspace(0, 4*pi, N)
+
+# x = zeros(N)
+# y = zeros(N)
+
+
+# for i in range(N): 
+ 
+#     if t[i] < 2*pi: 
+#       a = 1 
+#       e = 0.8 
+#     else: 
+#       a = 1 
+#       e = 0.0 
+    
+#     r = a * (1 - e**2) / ( 1 + e * cos( t[i] ) ) 
+#     x[i] = e*a + r * cos( t[i] )
+#     y[i] = r * sin( t[i] )
+
+
+# ax.plot(x, y)
+# plt.show()
+
 
 
 

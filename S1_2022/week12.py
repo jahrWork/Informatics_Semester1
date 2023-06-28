@@ -31,6 +31,7 @@ from numpy.linalg import det
 # print("\n A u = ", matmul(A, u) )
 
 # B = A 
+# print(" id of A =", id(A), id(B))
 # print("\n A + B = ", A+B )
 
 
