@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Python Semester 1 week by week", "S1_2022\Python Semester 1 week by week.pyproj", "{A4E35496-6988-4CEA-BFD9-F81563677F99}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Python Semester 1 week by week", "Python Semester 1 week by week\Python Semester 1 week by week.pyproj", "{A4E35496-6988-4CEA-BFD9-F81563677F99}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
