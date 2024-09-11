@@ -3,12 +3,12 @@ from math import exp, sin, log10, cos
 #import math
 
 
-# y =  " Juan"
-# print(y)
-# print(type(y))
-# y = 3
-# print(y)
-# print(type(y))
+y =  " Juan"
+print(y)
+print(type(y))
+y = 3
+print(y)
+print(type(y))
 
 
 # x = 1.
