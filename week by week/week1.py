@@ -3,12 +3,12 @@ from math import exp, sin, log10, cos
 #import math
 
 
-y =  " Juan"
-print(y)
-print(type(y))
-y = 3
-print(y)
-print(type(y))
+# y =  " Juan"
+# print(y)
+# print(type(y))
+# y = 3
+# print(y)
+# print(type(y))
 
 
 # x = 1.
@@ -18,8 +18,8 @@ print(type(y))
 # x = 1.
 # print( "Expression at x=3 is:", ( 3 * x**3 + 5 * x - 1 ) /( exp(x) + 3 * sin(x) - log10(x) ) )
 
-x = -3.5
-print("Expression:", (3 * x**3 + 1) / (cos(x**2) + 5 * log10(abs(x))))
+# x = -3.5
+# print("Expression:", (3 * x**3 + 1) / (cos(x**2) + 5 * log10(abs(x))))
 
 
 # PEI1 = 2.1

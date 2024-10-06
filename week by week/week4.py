@@ -1,4 +1,4 @@
-# S = "my name is John"
+S = "my name is John"
 # print( S.split(" ") )
 
 # for c in S: 
@@ -9,8 +9,8 @@
 #     print("c = ", S[i])
     
 
-# # print( " S[0] =",  S[0] ) 
-# # S[0] = "M"
+# print( " S[0] =",  S[0] ) 
+# #S[0] = "M"
 # S = "M" + S[1:]
 # print(S)
 
@@ -19,7 +19,7 @@
 
 
 
-# n = input("Enter number  ")
+# n = 123 #input("Enter number  ")
 # Base10 = ""
 # l = len(n)
 # for i in range(l): 
