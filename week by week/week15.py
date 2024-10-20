@@ -1,29 +1,28 @@
 # matplotlib library to plot functions
 
 
-from matplotlib.patches import Rectangle, Circle
-import matplotlib.pyplot as plt
-from numpy import array, sin, cos, pi, zeros, linspace
-from random import random, uniform
+# from matplotlib.patches import Rectangle, Circle
+# import matplotlib.pyplot as plt
+# from numpy import array, sin, cos, pi, zeros, linspace
+# from random import random, uniform
 
-# **********************************************
-# 1. plot math graphs
-# y = f(x) function to plot
-# y_i = f(x_i) forall i in [0, N]
-# **********************************************
-N = 100
+# # **********************************************
+# # 1. plot math graphs
+# # y = f(x) function to plot
+# # y_i = f(x_i) forall i in [0, N]
+# # **********************************************
+# N = 100
 
-
-t = array([2*pi*i/N for i in range(N+1)])
-print("t[N] =", t[N], 2*pi)
-
-
-x = 3 * sin(t)  # x_i = 3 sin ( t_i )
-y = 2 * cos(t)
+# t = array([2*pi*i/N for i in range(N+1)])
+# print("t[N] =", t[N], 2*pi)
 
 
-plt.plot(y, x, "blue")
-plt.show()
+# x = 3 * sin(t)  # x_i = 3 sin ( t_i )
+# y = 2 * cos(t)
+
+
+# plt.plot(y, x, "blue")
+# plt.show()
 
 # plt.plot(t, x,  "blue")
 # plt.plot(t, y,  "green")
@@ -162,59 +161,72 @@ plt.show()
 # =============================================================================
 
 
-from numpy  import sin, pi, arange 
+from numpy import arange, sin, pi
 import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, Button, RadioButtons
-import matplotlib as mpl
-mpl.use('webagg')
 
 
-fig, ax = plt.subplots()
-plt.subplots_adjust(left=0.25, bottom=0.25)
-t = arange(0.0, 1.0, 0.001)
-a0,f0  = 5, 3
-s = a0 * sin(2*pi*f0*t)
-l, = plt.plot(t, s, lw=2, color='red')
-plt.axis([0, 1, -10, 10])
 
-axcolor = 'lightgoldenrodyellow'
-axfreq = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor=axcolor)
-axamp = plt.axes([0.25, 0.15, 0.65, 0.03], facecolor=axcolor)
+def build_gui(): 
 
-slider_freq = Slider(axfreq, 'Freq', 0.1, 30.0, valinit=f0)
-slider_amp = Slider(axamp, 'Amp', 0.1, 10.0, valinit=a0)
-
-
-def update(val):
-    amp = slider_amp.val
-    freq = slider_freq.val
-    l.set_ydata(amp*sin(2*pi*freq*t))
+  def update_A(val):
+    A = val
+    f = S_f.val
+    t, s = graph(A, f)
+    l.set_ydata( s )
     fig.canvas.draw_idle()
 
+  def update_f(val):
+    f = val
+    A = S_A.val
+    t, s = graph(A, f)
+    l.set_ydata( s )
+    fig.canvas.draw_idle()
 
-slider_freq.on_changed(update)
-slider_amp.on_changed(update)
+  def reset(event):
+    S_f.reset()
+    S_A.reset()
 
-resetax = plt.axes([0.8, 0.025, 0.1, 0.04])
-button = Button(resetax, 'Reset', color=axcolor, hovercolor='0.975')
-
-
-def reset(event):
-    sfreq.reset()
-    samp.reset()
-
-
-button.on_clicked(reset)
-
-rax = plt.axes([0.025, 0.5, 0.15, 0.15], facecolor=axcolor)
-radio = RadioButtons(rax, ('red', 'blue', 'green'), active=0)
-
-
-def colorfunc(label):
+  def color(label):
     l.set_color(label)
     fig.canvas.draw_idle()
 
+  def graph(A, f): 
 
-radio.on_clicked(colorfunc)
+    t = arange(0.0, 1.0, 0.001)
+    s = A * sin( 2*pi*f*t )
+    return t, s 
 
-plt.show()
+  fig, ax = plt.subplots()
+  plt.subplots_adjust(left=0.25, bottom=0.25)
+  A0 = 5;  f0 = 3
+   
+  t, s = graph(A0, f0)
+  l, = plt.plot(t, s, lw=2, color='red')
+  plt.axis([0, 1, -10, 10])
+
+  axcolor = "yellow"
+  axes_f = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor=axcolor)
+  axes_A = plt.axes([0.25, 0.15, 0.65, 0.03], facecolor=axcolor)
+
+  S_f = Slider(axes_f, 'Freq', 0.1, 30.0, valinit = f0) 
+  S_f.on_changed(update_f)
+
+  S_A = Slider(axes_A, 'Amp', 0.1, 10.0, valinit = A0)
+  S_A.on_changed(update_A)
+
+  axes_reset = plt.axes([0.8, 0.025, 0.1, 0.04])
+  B_reset = Button(axes_reset, 'Reset', color=axcolor, hovercolor='0.975')
+  B_reset.on_clicked(reset)
+
+  axes_color = plt.axes([0.025, 0.5, 0.15, 0.15], facecolor=axcolor)
+  R_color = RadioButtons(axes_color, ('red', 'blue', 'green'), active=0)
+  R_color.on_clicked(color)
+
+  plt.show()
+
+  
+
+if __name__ == "__main__":
+      
+      build_gui()

@@ -27,19 +27,13 @@ def number_base2(n):
     print("Number ", n, " in base 2 =", Base2)    
 
 def number_base16(n): 
-    
+
+    d16="0123456789ABCDEF"
     digits = ""
     m = n 
     while m > 1: 
         
-        s = str( m % 16 )
-        if s == "10": s = "A"
-        elif s == "11": s = "B"
-        elif s == "12": s = "C"
-        elif s == "13": s = "D"
-        elif s == "14": s = "E"
-        elif s == "15": s = "F"
-
+        s = str( d16[m % 16] )
         digits = digits + s  
         m =  m // 16
 
@@ -60,3 +54,33 @@ def base2_base10_base16():
     number_base2(123)
     number_base16(123)
 
+
+
+def digits(base, n): 
+    D = "0123456789ABCDEF"
+    digits_base = { "binary": 2,"decimal": 10, "hexa": 16  }
+    den = digits_base[base]
+         
+    digits = ""
+    while n>0: 
+      digits =  D[n%den]  + digits 
+      n = n // den 
+    
+    Base = ""
+    l = len(digits)
+    for i in range(l): 
+      Base = Base + " + " + digits[i] + " x "+ str(den)+"^" + str(l-i-1) 
+
+    return digits, Base
+ 
+
+
+n = 123
+d, B = digits("hexa", n) 
+print("digits = ", d,  " Representation =", B)
+
+d, B = digits("decimal", n) 
+print("digits = ", d,  " Representation =", B)
+
+d, B = digits("binary", n) 
+print("digits = ", d,  " Representation =", B)

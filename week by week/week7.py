@@ -273,7 +273,8 @@ Oh, don't treat me like that (don't you come back no more)
 
 
 lyrics = lyrics_hit_the_road_jack.lower()
-eliminate = ["(", ")", ","]
+eliminate = ["(", ")", "," ]
+#eliminate = ["(", ")", ",", "'" ]
 
 
 print("lyrics with CR=", lyrics)
@@ -289,18 +290,38 @@ print("\nwords =", words)
 words.remove("")
 words.remove("")
 
+# print("words =", words)
 
-different_words = []
-frequency = []
-for w in words:
+# different_words = []
+# frequency = []
+# for w in words:
 
-    if w in different_words:
-        i = different_words.index(w)
-        frequency[i] += 1
-    else:
-        different_words += [w]
-        frequency += [1]
+#     if w in different_words:
+#         i = different_words.index(w)
+#         frequency[i] += 1
+#     else:
+#         different_words += [w]
+#         frequency += [1]
+
+# print("\n different_words =", different_words)
+# print("\n frequency =", frequency)
 
 
-print("\n different_words =", different_words)
-print("\n frequency =", frequency)
+dictionary = dict()
+for w in words: 
+    if w not in dictionary: 
+         dictionary[w] = 1 
+    else: 
+         dictionary[w] += 1 
+
+print("dictionary =", dictionary)
+
+print(" word with max frequency", max(dictionary, key = dictionary.get ) ) 
+
+# List of words ordered by frequency 
+sorted_words =  sorted(dictionary, key = dictionary.get) 
+
+sorted_words.reverse()
+
+for w in sorted_words: 
+     print( w, dictionary[w] )

@@ -13,6 +13,9 @@
 def a(n): 
     return 1/2**n 
 
+def a1(n): 
+    return 1/n**2 
+
 # N = 10
 # SN = sum( [ a(i) for i in range(1,N+1)] ) 
 # print(" SN = ", SN)
@@ -39,7 +42,7 @@ def sum_inf(a):
     while S != SN :
       SN = S 
       S = S + a(n)
-      print("n = ", n, " S = ", S, " S-SN =", S-SN, " a(n) = ", a(n) )
+      print("n = ", n, " S = ", S, "S-SN =", S-SN, "a(n) = ", a(n) )
       n = n + 1
       
     return S 
