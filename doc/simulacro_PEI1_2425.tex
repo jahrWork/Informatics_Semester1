@@ -1,0 +1,95 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+
+
+
+\topmargin -1cm 
+\oddsidemargin 0cm
+\evensidemargin 0cm
+
+\textwidth 17 cm
+\textheight 22.5 cm
+
+
+\pagestyle{empty}
+\begin{document}
+	
+
+\begin{center} 
+	{\bf \Large Simulacro PEI1 de Informática (15/10/2023)  }
+\end{center} 	
+	
+Calcular el parámetro $p_1$ utilizando la siguiente expresión:
+\begin{equation*}
+p_1 = \frac{d_1 - d_2}{d_1 + d_2} + 2,
+\end{equation*}
+\noindent donde $d_1$ y $d_2$ son las dos primeras cifras de tu documento de identidad. Por ejemplo, si tengo el DNI 73946724, $p_1 = (7 - 3)/(7 + 3) + 2$. En caso de no tener DNI español, usa los dígitos de tu documento de identificación.
+
+Calcular el parámetro $p_2$ utilizando la siguiente expresión:
+\begin{equation*}
+p_2 = \frac{d_3 - d_4}{d_3 + d_4} + 2,
+\end{equation*}
+donde $d_3$ y $d_4$ son la tercera y cuarta cifra de tu documento de identidad. Para el ejemplo anterior, $p_2 = (9 - 4)/(9 + 4) + 2$.
+En Moodle se debe incluir la respuesta numérica de cada pregunta así como el código
+Python que ejecutado produce esa misma respuesta. Si no se incluye el código que justifique la contestación, la puntuación de la pregunta será nula.
+
+
+\begin{enumerate} 
+\item Escribe un programa que calcule el valor de la siguiente expresión matemática:
+
+\begin{equation*}
+\left( 1 + \frac{ p_1 - 1 }{2} p_2^2 \right)^\frac{ p_1 - 1 }{p_1}
+\end{equation*}
+
+
+\item Escribe un programa que calcule el valor de la siguiente expresión matemática para el valor dado de $x = 2 (p_1 + p_2) + 1$:
+
+\begin{equation*}
+\frac{\sqrt{p_1 + p_2} + x^3}{\sin(\pi x) + \exp(3 x^2)} + x
+\end{equation*}
+
+
+\item Escribe un programa que calcule la suma de las raíces de la ecuación de segundo grado 
+$$
+p_1 x^2 + (p_1 + 1)x - p_2 = 0.
+$$
+
+
+\item Escribe un programa que calcule las raíces de la ecuación de segundo grado 
+$$
+\frac{p_1}{10000} x^2 + (p_1 + 1)x - \frac{p_2}{10000} = 0,
+$$ 
+e inserte las raíces calculadas en la ecuación original para calcular el error (residuo) debido a la precisión numérica finita de la máquina. Devolver el mínimo error absoluto entre las dos soluciones posibles.
+
+
+\item Escribe un programa que exprese la parte entera de $1000 p_1 + 500 p_2$ en base hexadecimal (base 16) como una cadena de caracteres. Ejemplo: la parte entera de $1467.654$ es $1467$ y su expresión hexadecimal es 5BB.
+
+
+\item Escribe un programa que convierta el siguiente número $b = 1101010101$ expresado en base 2 a base decimal y calcule el resultado de la siguiente operación: $p_1 b + p_2$.
+
+
+\item Escribe un programa que calcule la suma de todos los números primos mayores que 2 y menores que la parte entera de $20 p_1 + 10p_2$.
+
+
+\item Escribe un programa que calcule el primer número primo mayor a $2p$, donde $p$ es la parte entera de $10 p_1 + 20 p_2$.
+
+
+\item Escribe un programa que calcule la suma de los $N$ primeros términos de la siguiente serie numérica:
+\begin{equation*}
+S_N = 1 + \sum_{n=1}^N \frac{1}{n!},
+\end{equation*}
+siendo $N$ la parte entera de $10(p_1 + p_2)$.
+
+\item  Dada la siguiente serie numérica:
+\begin{equation*}
+S = \sum_{n = 1}^\infty \frac{1}{n^2} = \frac{\pi^2}{6},
+\end{equation*}
+escribir un programa que calcule el número de términos a sumar para que el error absoluto en el cálculo aproximado de la serie sea menor que $p_1 \times 10^{-4}$, es decir, determinar $N$ tal que $|S_N - \frac{\pi^2}{6}| < p_1 \times 10^{-4}$, donde $S_N$ es el valor de la suma de los $N$ primeros términos de la serie.
+
+\end{enumerate} 
+
+\end{document}

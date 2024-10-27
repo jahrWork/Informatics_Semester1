@@ -1,7 +1,6 @@
 
 from numpy import array
 
-
 # **********************************************************************
 # Examples of sets, lists, tuples, dictionaries, vectors and matrices
 # ***********************************************************************
@@ -59,10 +58,9 @@ from numpy import array
 # print("sum(L1) = ", sum(L1))
 
 # S = 0
-# for e in L1:
+# for e in L1: # for all element in list L1
 #     S += e  # S = S + e
 # print("Sum(L1) =", S)
-
 
 # *********************************************************
 # Operations with  Tuples
@@ -106,21 +104,35 @@ from numpy import array
 # print("max(V1) = ", max(V1), " min(V1) =", min(V1), "len(V1) =", len(V1))
 # print("sum(V1) = ", sum(V1))
 
-
-# #***************************************************************
-# # 1. Partition of segment [a, b] in N intervals.
-# # Determine interior nodes x_i = a + (b-a)/N i from i=0 to i=N
-# #***************************************************************
-# N = 5
-# a, b = 0., 1.
-# x = array([a + (b-a)/N * i for i in range(0, N+1)])
-# print(" x =", x)
-# print(" type of x =", type(x))
+# M = array( [ [1,2], [3,4] ] )
+# print("M = ", M[0,0], M[0, 1] )
+# print(" first row of M = ", M[0,:])
+# print(" first column of M = ", M[:,0])
+          
 
 
-# #***************************************************************
-# # 2. Obtain the differences between two lists
-# #***************************************************************
+# ***************************************************************
+#  Remove the second smallest of a list
+# ***************************************************************
+# L = [2, 3, 4, 5, 6, 2, 1, -3, 7]
+# L1 = L # L[:]  # WARNING cloning not alias L1 = L
+# print(" L =", L, "\n L1 =", L1)
+# m1 = min(L1)
+# print(" m1 = ", m1)
+# L1.remove(m1)
+# m2 = min(L1)
+# print(" m2 = ", m2)
+
+# print("Remove the second smallest of :")
+# print("L =", L)
+# L.remove(m2)
+# print("new list = ", L)
+
+
+
+#***************************************************************
+# Obtain the differences between two lists
+#***************************************************************
 # L1 = [1, 2, 3, 4]
 # L2 = [2, 3, 4, 5, 6, 2, 7]
 # print("L1 =", L1)
@@ -139,26 +151,57 @@ from numpy import array
 # print("diff = ", diff)
 
 
-# ***************************************************************
-# 3. Remove the second smallest of a list
-# ***************************************************************
-# L = [2, 3, 4, 5, 6, 2, 1, -3, 7]
-# L1 = L[:]  # WARNING cloning not alias L1 = L
-# print(" L =", L, "\n L1 =", L1)
-# m1 = min(L1)
-# print(" m1 = ", m1)
-# L1.remove(m1)
-# m2 = min(L1)
-# print(" m2 = ", m2)
 
-# print("Remove the second smallest of :")
-# print("L =", L)
-# L.remove(m2)
-# print("new list = ", L)
+#***********************************************
+# Differences = Union - Intersection  
+#***********************************************  
+# def diff(L1, L2): 
+
+    
+#     U = set(L1) | set(L2)
+#     I = set(L1) & set(L2) 
+
+#     return list( U - I )
+
+# def diff2(L1, L2): 
+    
+#     L = [] 
+#     for l1 in L1: 
+#         if l1 not in L2: 
+#             L += [l1] 
+
+#     for l2 in L2: 
+#         if l2 not in L1: 
+#             L += [l2] 
+   
+#     return L
+
+# L1 = [1,3,5,7,9]
+# L2 = [1,2,3,4,5]
+# print( " L1 =", L1, " L2 =", L2) 
+# print(" diff = ", diff(L1, L2) ) 
+# print(" diff = ", diff2(L1, L2) )
+
+
+#***********************************************
+#  Shared letters in two strings 
+#***********************************************  
+# def shared_letters(S1, S2): 
+    
+#     return list( set(S1) & set(S2) ) 
+
+# def intersection(S1, S2): 
+    
+#     return  [ s1 for s1 in list(S1) if s1 in list(S2)]
+
+# print(" shared letters = ", shared_letters( "melon","jamón" ) )
+# print(" shared letters = ", intersection( "melon","jamón" ) ) 
+
+
 
 
 # ***************************************************************
-# 4. Count elements of a list |e| in [a, b]
+# Count elements of a list |e| in [a, b]
 # ***************************************************************
 # L = [2, 3, 4, 5, 6, 2, 1, -3, 7]
 # (a, b) = (1, 4)
@@ -175,24 +218,11 @@ from numpy import array
 # print("L1 =", L1, "n=", len(L1))
 
 
-# ************************************************************
-# 5. Even though lists are not vectors,
-# lists can be used to perform vector operations.
-# Calculate the dot product of two lists(vectors)
-# ************************************************************
-# U = [ 1, 2, 3 ]
-# V = [ 4, 5, 6 ]
-# dot = 0
-# for i in range(len(U)):
-#     dot += U[i]* V[i]  # dot = dot + U[i]*V[i]
-# print("U=", U, "V =", V)
-# print(" dot_product(U,V) =", dot)
-
-
-# #************************************
-# #  6. palindrome and count vowels
-# #************************************
-
+#************************************
+#  palindrome and count vowels
+#************************************
+#S = "ABC"
+#print( "reversed =",  S[2:-1:-1]) # WARNING: it does not work 
 # S = "somos o no somos"
 # S1 = S.replace(" ", "")
 # print("S1 =", S1)
@@ -227,101 +257,116 @@ from numpy import array
 # print("Number of vowels =", count)
 
 
-# #********************************************************
-# # 7. Count the frequency of words in the lyrics of a song
-# #********************************************************
-lyrics_hit_the_road_jack = """
-Hit the road Jack and don't you come back
-No more, no more, no more, no more
-Hit the road Jack and don't you come back no more
-What you say?
-Hit the road Jack and don't you come back
-No more, no more, no more, no more
-Hit the road Jack and don't you come back no more
-Old woman, old woman, don't treat me so mean
-You're the meanest old woman that I've ever seen
-I guess if you said so
-I'll have to pack my things and go (that's right)
-Hit the road Jack and don't you come back
-No more, no more, no more, no more
-Hit the road Jack and don't you come back no more
-What you say?
-Hit the road Jack and don't you come back
-No more, no more, no more, no more
-Hit the road Jack and don't you come back no more
-Now baby, listen baby, don't ya treat me this way
-'Cause I'll be back on my feet some day
-(Don't care if you do 'cause it's understood)
-(You ain't got no money, you just ain't no good)
-Well, I guess if you say so
-I'll have to pack my things and go (that's right)
-Hit the road Jack and don't you come back
-No more, no more, no more, no more
-Hit the road Jack and don't you come back no more
-What you say?
-Hit the road Jack and don't you come back
-No more, no more, no more, no more
-Hit the road Jack and don't you come back no more
-Well (don't you come back no more)
-Uh, what you say? (Don't you come back no more)
-I didn't understand you (don't you come back no more)
-You can't mean that (don't you come back no more)
-Oh, now baby, please (don't you come back no more)
-What you tryin' to do to me? (Don't you come back no more)
-Oh, don't treat me like that (don't you come back no more)
-"""
+#***************************************************
+#  Write a function to return:  
+#   a list of shared elements and 
+#   a list of not shared elements 
+#***************************************************
+# def shared(L1,L2): 
+     
+#      U = set(L1) | set(L2)
+#      I = set(L1) & set(L2)
+
+#      return list(I), list( U - I)
+
+# L1 = [ 2, 5 ,7 ,3 ]
+# L2 = [ 1, 2, 9, 10 ]
+# print("shared elements and no shared =", shared(L1,L2) )
 
 
-lyrics = lyrics_hit_the_road_jack.lower()
-eliminate = ["(", ")", "," ]
-#eliminate = ["(", ")", ",", "'" ]
+
+# def shared_elements(L1, L2): 
+    
+#      S = [ ]
+#      for l1 in L1: 
+#          if l1 in L2: 
+#             S += [ l1 ] 
+    
+#      return S         
+           
+         
+# def not_shared_elements(L1, L2): 
+    
+#     NS = [ ]
+    
+#     for l1 in L1: 
+#         if l1 not in L2: 
+#             NS += [ l1 ]
+           
+#     for l2 in L2: 
+#         if l2 not in L1: 
+#             NS += [ l2 ]  
+            
+#     return NS        
+           
+        
+# print("shared elements =", shared_elements( L1, L2 ) )
+# print("not shared elements =", not_shared_elements( L1, L2 ) ) 
+    
+    
+ 
+# #***********************************************
+# # divisors of a number  
+# #***********************************************  
+# def divisors(n): 
+    
+#       d = []
+#       for i in range(1,n):
+#           if n % i == 0:
+#             d += [ i ] 
+          
+#       return d  
+
+# print(" divisors of 15 : ", divisors(15) )
+
+# #***********************************************
+# # Greatest common divisor of different numbers 
+# #  Functions with different number of arguments 
+# #***********************************************  
+# def greatest_common_divisor( *numbers ): 
+    
+#       common_divisors = set (divisors( numbers[0] ) ) 
+
+#       for i  in range(1, len(numbers)):  
+#           D = set( divisors( numbers[i] ) ) 
+#           common_divisors &= D 
+              
+#       return max(common_divisors)
+
+# print(" GCD(24,30,72) = ", greatest_common_divisor(24, 30, 72) ) 
+# from math import gcd 
+# print(" gcd(24,30,72) = ", gcd(24, 30, 72) ) 
 
 
-print("lyrics with CR=", lyrics)
-lyrics = lyrics.replace("\n", " ")
-print("lyrics without CR=", lyrics)
-
-for e in eliminate:
-    lyrics = lyrics.replace(e, "")
-print("\n \n lyrics without ( ) , =", lyrics)
-
-words = lyrics.split(" ")
-print("\nwords =", words)
-words.remove("")
-words.remove("")
-
-# print("words =", words)
-
-# different_words = []
-# frequency = []
-# for w in words:
-
-#     if w in different_words:
-#         i = different_words.index(w)
-#         frequency[i] += 1
-#     else:
-#         different_words += [w]
-#         frequency += [1]
-
-# print("\n different_words =", different_words)
-# print("\n frequency =", frequency)
 
 
-dictionary = dict()
-for w in words: 
-    if w not in dictionary: 
-         dictionary[w] = 1 
-    else: 
-         dictionary[w] += 1 
+# def common_elements(A, B): 
 
-print("dictionary =", dictionary)
+#       C = []
+#       for a in A: 
+#           if a  in B: 
+#                   C += [ a ] 
 
-print(" word with max frequency", max(dictionary, key = dictionary.get ) ) 
+#       return C  
 
-# List of words ordered by frequency 
-sorted_words =  sorted(dictionary, key = dictionary.get) 
 
-sorted_words.reverse()
+# def greatest_common_divisor2( *numbers ): 
+    
+#       common_divisors = divisors( numbers[0] ) 
 
-for w in sorted_words: 
-     print( w, dictionary[w] )
+#       for i  in range(1, len(numbers)):  
+#           D = divisors( numbers[i] )
+#           common_divisors = common_elements( common_divisors, D)
+     
+#       return max(common_divisors)
+ 
+
+# print(" GCD = ", greatest_common_divisor2(24, 30, 72) ) 
+
+
+ 
+
+
+
+
+            

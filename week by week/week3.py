@@ -80,3 +80,76 @@ while N_prime < N:
 
 print("\n \n")
 print(S_prime)
+
+
+
+
+# #***********************************************
+# # 1. Determine a list of the first N primes 
+# #***********************************************
+# def is_prime(n): 
+    
+#       for i in range(2,n):
+#           if n % i == 0:  
+#             return False
+         
+#       return True and n > 1
+        
+    
+   
+# def First_primes(N): 
+
+#   N_primes = 0 
+#   n = 1   
+#   primes = []
+  
+#   while N_primes < N: 
+             
+#         if is_prime(n): 
+#             primes += [ n ]
+#             N_primes += 1 
+            
+#         n += 1    
+   
+#   return primes   
+   
+    
+   
+# print("First N primes =", First_primes(7) )     
+
+
+          
+      
+
+# #***********************************************
+# # 2. Determine a list of the first N perfects 
+# # is_perfect: N -> (T,F)
+# #***********************************************   
+# def is_perfect(n): 
+    
+#       S = 0 
+#       for i in range(1,n):
+#           if n % i == 0:
+#             S = S + i   
+          
+#       return S == n  
+   
+# def First_perfect_numbers(N): 
+
+#   N_perfects = 0 
+#   n = 1 
+#   perfects = [ ]   
+  
+#   while N_perfects < N: 
+             
+#         if is_perfect(n): 
+#             perfects += [ n ]
+#             N_perfects = N_perfects + 1 
+            
+#         n = n + 1 
+   
+#   return perfects      
+      
+
+# print("First N perfect numbers =", First_perfect_numbers(4)  )   
+
