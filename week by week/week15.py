@@ -225,8 +225,61 @@ def build_gui():
 
   plt.show()
 
+
+#********************************************
+# Simple pygame program
+#********************************************
+import pygame 
+def pygame_example(): 
   
+
+  pygame.init()
+  screen = pygame.display.set_mode([500, 500])
+
+# Fill the background with white
+  screen.fill((255, 255, 255))
+
+# Draw a solid blue circle in the center
+  pygame.draw.circle(surface = screen, color = (0, 0, 255), 
+                     center = (250, 250), radius = 75)
+
+# Update the display
+  pygame.display.update()
+
+# Run until the user asks to quit
+  running = True
+  while running:
+
+    # Did the user click the window close button?
+    events =  pygame.event.get()
+    for event in events :
+
+        if event.type == pygame.QUIT:          
+            running = False
+
+        elif event.type == pygame.MOUSEBUTTONUP:
+                draw_circle(screen)
+                pygame.display.update()  
+
+
+
+
+
+def draw_circle(screen):
+
+    pos = get_pos()
+    pygame.draw.circle(screen, (0,   0, 255), pos, 20)
+
+def get_pos():
+
+    return pygame.mouse.get_pos()
+
+
+
+
 
 if __name__ == "__main__":
       
-      build_gui()
+     # build_gui()
+
+      pygame_example()
