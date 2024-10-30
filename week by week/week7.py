@@ -152,117 +152,12 @@ from numpy import array
 
 
 
-#***********************************************
-# Differences = Union - Intersection  
-#***********************************************  
-# def diff(L1, L2): 
-
-    
-#     U = set(L1) | set(L2)
-#     I = set(L1) & set(L2) 
-
-#     return list( U - I )
-
-# def diff2(L1, L2): 
-    
-#     L = [] 
-#     for l1 in L1: 
-#         if l1 not in L2: 
-#             L += [l1] 
-
-#     for l2 in L2: 
-#         if l2 not in L1: 
-#             L += [l2] 
-   
-#     return L
-
-# L1 = [1,3,5,7,9]
-# L2 = [1,2,3,4,5]
-# print( " L1 =", L1, " L2 =", L2) 
-# print(" diff = ", diff(L1, L2) ) 
-# print(" diff = ", diff2(L1, L2) )
-
-
-#***********************************************
-#  Shared letters in two strings 
-#***********************************************  
-# def shared_letters(S1, S2): 
-    
-#     return list( set(S1) & set(S2) ) 
-
-# def intersection(S1, S2): 
-    
-#     return  [ s1 for s1 in list(S1) if s1 in list(S2)]
-
-# print(" shared letters = ", shared_letters( "melon","jamón" ) )
-# print(" shared letters = ", intersection( "melon","jamón" ) ) 
-
-
-
-
-# ***************************************************************
-# Count elements of a list |e| in [a, b]
-# ***************************************************************
-# L = [2, 3, 4, 5, 6, 2, 1, -3, 7]
-# (a, b) = (1, 4)
-
-# n = 0
-# for l in L:
-#     if l >= a and l <= b:
-#         n += 1
-# print("Number of L in [a,b]=", [a, b])
-# print(" L = ", L)
-# print("n =", n)
-
-# L1 = [l for l in L if b >= l >= a]
-# print("L1 =", L1, "n=", len(L1))
-
-
-#************************************
-#  palindrome and count vowels
-#************************************
-#S = "ABC"
-#print( "reversed =",  S[2:-1:-1]) # WARNING: it does not work 
-# S = "somos o no somos"
-# S1 = S.replace(" ", "")
-# print("S1 =", S1)
-# P = S1[::-1]
-# print("S =", S1, "P =", P)
-# if P == S1:
-#     print("S =", S, " is palindrome")
-
-
-# print("*************")
-# S = "Dábale arroz a la zorra el abad"
-# print(S)
-# S = S.lower()
-# print(S)
-# S = S.replace(" ", "")
-# print(S)
-
-# vowels = [("á", "a"), ("é", "e"), ("í", "i"), ("ó", "o"), ("ú", "u")]
-
-# count = []
-# for (a, v) in vowels:
-#     S = S.replace(a, v)
-#     count = count + [S.count(v)]
-
-# P = S[::-1]
-# print(" S =", S)
-# print(" P =", P)
-
-# if P == S:
-#     print("It is palindrome")
-
-# print("Number of vowels =", count)
-
-
 #***************************************************
 #  Write a function to return:  
 #   a list of shared elements and 
 #   a list of not shared elements 
 #***************************************************
-# def shared(L1,L2): 
+# def shared_and_differents(L1,L2): 
      
 #      U = set(L1) | set(L2)
 #      I = set(L1) & set(L2)
@@ -271,7 +166,7 @@ from numpy import array
 
 # L1 = [ 2, 5 ,7 ,3 ]
 # L2 = [ 1, 2, 9, 10 ]
-# print("shared elements and no shared =", shared(L1,L2) )
+# print("shared elements and no shared =", shared_and_differents(L1,L2) )
 
 
 
@@ -303,7 +198,117 @@ from numpy import array
 # print("shared elements =", shared_elements( L1, L2 ) )
 # print("not shared elements =", not_shared_elements( L1, L2 ) ) 
     
+ 
+
+
+#***********************************************
+#  Shared letters in two strings 
+#***********************************************  
+# def shared_letters(S1, S2): 
     
+#     return list( set(S1) & set(S2) ) 
+
+# def shared_letters2(S1, S2): 
+    
+#     return  [ s1 for s1 in list(S1) if s1 in list(S2)]
+
+# print( "list =", list("melon"))
+# print( "set =", set("melon"))
+# print(" shared letters = ", shared_letters( "melon","jamón" ) )
+# print(" shared letters = ", shared_letters2( "melon","jamón" ) ) 
+
+
+L = [2, 6, 2, 1, -3, 7]
+a = 1 
+b = 4 
+print(L) 
+n = 0
+for l in L:
+    if l >= a and l <= b:
+         n += 1
+print("n = ", n)
+
+
+
+# ***************************************************************
+# Count elements of a list |e| in [a, b]
+# ***************************************************************
+# def count_in_a_b1( L, a, b ): 
+  
+#   n = 0
+#   for l in L:
+#     if l >= a and l <= b:
+#         n += 1
+
+#   return n 
+  
+
+# L1 = [2, 6, 2, 1, -3, 7]
+
+# print("Number of elements of  L=", L1,  "in [1, 4]:", 
+#        count_in_a_b1( L = L1, a=1, b=4))
+
+
+# def count_in_a_b( L, a, b ): 
+
+#    return  [l for l in L if a >= l <= b]
+
+
+
+# print("Number of L in [a,b]=", count_in_a_b( L = [1, 2, 3, 4,5 ], a = 1, b = 4 )) 
+
+
+
+#************************************
+#  palindrome 
+#************************************
+# def is_palindrome1(S): 
+    
+#  S1 = S.replace(" ", "")
+#  print("S1 =", S1)
+#  P = S1[::-1]
+#  #print( "reversed =",  S[2:-1:-1]) # WARNING: it does not work 
+#  print("S =", S1, "P =", P)
+
+#  if P == S1:
+#       return True 
+
+
+# S = "somos o no somos"     
+# print("S =", S, " is palindrome: ", is_palindrome1(S))
+
+
+
+
+
+
+# def is_palindrome(S): 
+
+#    S = S.lower()
+#    S = S.replace(" ", "")
+#    print(S)
+
+#    vowels = [("á", "a"), ("é", "e"), ("í", "i"), ("ó", "o"), ("ú", "u")]
+
+#    count = []
+#    for (a, v) in vowels:
+#      S = S.replace(a, v)
+#      count = count + [S.count(v)]
+
+#    print("Number of vowels =", count)
+#    P = S[::-1]
+#    print(" S =", S)
+#    print(" P =", P)
+
+#    if P == S:
+#      return True 
+
+# S = "Dábale arroz a la zorra el abad"
+# print("S =", S, " is palindrome: ", is_palindrome(S))
+
+
+
+
  
 # #***********************************************
 # # divisors of a number  
@@ -325,7 +330,7 @@ from numpy import array
 # #***********************************************  
 # def greatest_common_divisor( *numbers ): 
     
-#       common_divisors = set (divisors( numbers[0] ) ) 
+#       common_divisors = set( divisors( numbers[0] ) ) 
 
 #       for i  in range(1, len(numbers)):  
 #           D = set( divisors( numbers[i] ) ) 
