@@ -131,42 +131,56 @@ from numpy import array
 
 
 #***************************************************************
-# Obtain the differences between two lists
+# Obtain the differences between two lists wihout functions 
 #***************************************************************
-# L1 = [1, 2, 3, 4]
-# L2 = [2, 3, 4, 5, 6, 2, 7]
-# print("L1 =", L1)
-# print("L2 =", L2)
-# print("set(L1) =", set(L1))
-# print("set(L2) =", set(L2))
+# List_1 = [1, 2, 3, 4]
+# List_2 = [2, 3, 4, 5, 6, 2, 7]
+# print("List_1 =", List_1)
+# print("List_2 =", List_2)
+# print("set(List_1) =", set(List_1))
+# print("set(List_2) =", set(List_2))
 
-# Union = set(L1) | set(L2)
-# print("Union L1 L2 =", Union)
+# Union = set(List_1) | set(List_2)
+# print("Union List_1 List_2 =", Union)
 
-# Intersection = set(L1) & set(L2)
-# print("Intersection L1 L2 =", Intersection)
+# Intersection = set(List_1) & set(List_2)
+# print("Intersection List_1 List_2 =", Intersection)
 
 # diff = list(Union - Intersection)
-
+# print("diff = ", Union - Intersection)
 # print("diff = ", diff)
 
+# Once the algorithm is clear, 
+# we try to encapsule the code into a function:
+# def shared_and_differences( L1, L2 ) 
+# note that the name of arguments has nothing to do with 
+# the names of the lists when this function is used
 
 
 #***************************************************
-#  Write a function to return:  
+# Write a function to  differenciate between 
+# common and diferent elements of two lists
+# input: 
+#        L1 : list 
+#        L2 : list 
+# return:  
 #   a list of shared elements and 
 #   a list of not shared elements 
 #***************************************************
-# def shared_and_differents(L1,L2): 
+# def shared_and_differents(L1, L2): 
      
 #      U = set(L1) | set(L2)
 #      I = set(L1) & set(L2)
 
 #      return list(I), list( U - I)
 
-# L1 = [ 2, 5 ,7 ,3 ]
-# L2 = [ 1, 2, 9, 10 ]
-# print("shared elements and no shared =", shared_and_differents(L1,L2) )
+# List_a = [ 2, 5 ,7 ,3 ]
+# List_b = [ 1, 2, 9, 10 ]
+# print("shared elements and no shared =", 
+#        shared_and_differents(L1 = List_a,L2 = List_b ) )
+
+# print("shared elements and no shared =", 
+#        shared_and_differents(List_a,List_b ) )
 
 
 
@@ -203,7 +217,18 @@ from numpy import array
 
 #***********************************************
 #  Shared letters in two strings 
-#***********************************************  
+#  accented vowels and different  
+#*********************************************** 
+# L1 = list("melon")
+# S1 = set("melon") 
+# S2 = set("jamón") 
+# print( "list =", L1)
+# print( "set 1 =", S1)
+# print( "set 2 =", S2)
+
+# print( " intersection set(S1) & set(S2) =", S1 & S2 )
+
+
 # def shared_letters(S1, S2): 
     
 #     return list( set(S1) & set(S2) ) 
@@ -212,50 +237,53 @@ from numpy import array
     
 #     return  [ s1 for s1 in list(S1) if s1 in list(S2)]
 
-# print( "list =", list("melon"))
-# print( "set =", set("melon"))
+
 # print(" shared letters = ", shared_letters( "melon","jamón" ) )
 # print(" shared letters = ", shared_letters2( "melon","jamón" ) ) 
-
-
-L = [2, 6, 2, 1, -3, 7]
-a = 1 
-b = 4 
-print(L) 
-n = 0
-for l in L:
-    if l >= a and l <= b:
-         n += 1
-print("n = ", n)
 
 
 
 # ***************************************************************
 # Count elements of a list |e| in [a, b]
 # ***************************************************************
-# def count_in_a_b1( L, a, b ): 
+
+
+L1 = [2, 6, 2, 1, -3, 7]
+a = 1 
+b = 4 
+print(L1) 
+n = 0
+for l in L1:
+    if l >= a and l <= b:
+         n += 1
+print("n = ", n)
+
+
+def count_in_a_b1( L, a, b ): 
   
-#   n = 0
-#   for l in L:
-#     if l >= a and l <= b:
-#         n += 1
+  n = 0
+  for l in L:
+    if l >= a and l <= b:
+        n += 1
 
-#   return n 
+  return n 
+
+
+def count_in_a_b( L, a, b ): 
+
+   return  len( [l for l in L if a >= l <= b] )
   
+L1 = [2, 6, 2, 1, -3, 7]
 
-# L1 = [2, 6, 2, 1, -3, 7]
+print("Number of elements of  L=", L1,  "in [1, 4]:", 
+       count_in_a_b1( L = L1, a=1, b=4))
 
-# print("Number of elements of  L=", L1,  "in [1, 4]:", 
-#        count_in_a_b1( L = L1, a=1, b=4))
-
-
-# def count_in_a_b( L, a, b ): 
-
-#    return  [l for l in L if a >= l <= b]
+print("Number of elements of  L=", L1,  "in [1, 4]:", 
+       count_in_a_b1( [2, 6, 2, 1, -3, 7], 1, 4))
 
 
-
-# print("Number of L in [a,b]=", count_in_a_b( L = [1, 2, 3, 4,5 ], a = 1, b = 4 )) 
+print("Number of L in [a,b]=", 
+       count_in_a_b( L = [1, 2, 3, 4,5 ], a = 1, b = 4 )) 
 
 
 

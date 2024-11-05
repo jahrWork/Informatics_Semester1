@@ -318,3 +318,118 @@ plt.show()
 #      # build_gui()
 
 #       pygame_example()
+
+
+import numpy as np
+from numpy import sin, pi, linspace, zeros, max, abs 
+import soundfile as sf
+import simpleaudio as sa
+import matplotlib.pyplot as plt 
+
+import pretty_midi
+import mido
+from mido import MidiFile
+import mido.backends.rtmidi
+import rtmidi
+import music21
+
+def basic_piano_note(frequency, duration, sample_rate=44100):
+      
+    # Generate time axis
+      t = linspace(0, duration, int(sample_rate * duration), endpoint=False)
+
+    # Generate the fundamental frequency component (first harmonic)
+      waveform = zeros( len(t) )
+    
+    # Add higher harmonics with decreasing amplitude 
+      harmonics = [ (1, 1), (2, 0.5), (3, 0.2), (4, 0.1), (5, 0.05) , (6, 0.02) ]  
+     
+      for n, A in harmonics:
+        waveform += A * sin(2 * pi * n * frequency * t)
+
+    # Normalize waveform to prevent clipping
+      waveform /= max(abs(waveform))
+    
+      return t, waveform
+
+
+
+def play_wav(file_path):
+    try:
+        # Load and play the .wav file directly with simpleaudio
+          wave_obj = sa.WaveObject.from_wave_file(file_path)
+          play_obj = wave_obj.play()
+        
+        # Wait for the playback to finish
+          play_obj.wait_done()
+          print("Playback finished.")
+
+    except FileNotFoundError:
+          print("File not found. Please check the file path.")
+
+
+
+
+def create_piano_midi(note_name='C3', velocity=100, duration=2.0, file_name='piano_note.mid'):
+      
+    # Crear un objeto PrettyMIDI
+      midi = pretty_midi.PrettyMIDI()
+    
+    # Crear un instrumento de tipo piano (ID 0 en General MIDI)
+      piano_program = pretty_midi.instrument_name_to_program('Acoustic Grand Piano')
+      piano = pretty_midi.Instrument(program=piano_program)
+    
+    # Convertir el nombre de la nota a número MIDI
+      note_number = pretty_midi.note_name_to_number(note_name)
+    
+    # Crear una nota de piano
+      note = pretty_midi.Note(velocity=velocity, pitch=note_number, start=0, end=duration)
+    
+    # Añadir la nota al instrumento
+      piano.notes.append(note)
+    
+    # Añadir el instrumento al objeto PrettyMIDI
+      midi.instruments.append(piano)
+    
+    # Guardar como archivo MIDI
+      midi.write(file_name)
+
+
+
+def play_midi(file_name):
+
+# open midi with musescore   
+  stream = music21.converter.parse(file_name)
+  stream.show("midi")
+
+
+def basic_example(): 
+
+ # C3 note in Hz
+   frequency = 130.8; duration = 2.0; fs = 44100   
+
+ # Generate the note
+   t, note = basic_piano_note(frequency, duration)
+
+   N = int( fs / frequency )
+   plt.plot(t[0:N], note[0:N])
+   plt.show()
+
+ # Save to file
+   file_name = 'piano_note.wav' 
+   sf.write(file_name, note, 44100)
+
+   return file_name  
+
+
+
+
+# Wav file with different harmonics 
+wav_file = basic_example()
+play_wav( wav_file )
+
+# Grand piano note 
+create_piano_midi(note_name='C3', velocity=100, duration=2.0, file_name='piano_note.mid')
+
+# Nombre del archivo MIDI a reproducir
+play_midi('piano_note.mid')
