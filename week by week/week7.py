@@ -248,91 +248,108 @@ from numpy import array
 # ***************************************************************
 
 
-L1 = [2, 6, 2, 1, -3, 7]
-a = 1 
-b = 4 
-print(L1) 
-n = 0
-for l in L1:
-    if l >= a and l <= b:
-         n += 1
-print("n = ", n)
+# L1 = [2, 6, 2, 1, -3, 7]
+# a = 1 
+# b = 4 
+# print(L1) 
+# n = 0
+# for l in L1:
+#     if l >= a and l <= b:
+#          n += 1
+# print("n = ", n)
 
 
-def count_in_a_b1( L, a, b ): 
+# def count_in_a_b1( L, a, b ): 
   
-  n = 0
-  for l in L:
-    if l >= a and l <= b:
-        n += 1
+#   n = 0
+#   for l in L:
+#     if l >= a and l <= b:
+#         n += 1
 
-  return n 
+#   return n 
 
 
-def count_in_a_b( L, a, b ): 
+# def count_in_a_b( L, a, b ): 
 
-   return  len( [l for l in L if a >= l <= b] )
+#    return  len( [l for l in L if a >= l <= b] )
   
-L1 = [2, 6, 2, 1, -3, 7]
+# L1 = [2, 6, 2, 1, -3, 7]
 
-print("Number of elements of  L=", L1,  "in [1, 4]:", 
-       count_in_a_b1( L = L1, a=1, b=4))
+# print("Number of elements of  L=", L1,  "in [1, 4]:", 
+#        count_in_a_b1( L = L1, a=1, b=4))
 
-print("Number of elements of  L=", L1,  "in [1, 4]:", 
-       count_in_a_b1( [2, 6, 2, 1, -3, 7], 1, 4))
+# print("Number of elements of  L=", L1,  "in [1, 4]:", 
+#        count_in_a_b1( [2, 6, 2, 1, -3, 7], 1, 4))
 
 
-print("Number of L in [a,b]=", 
-       count_in_a_b( L = [1, 2, 3, 4,5 ], a = 1, b = 4 )) 
+# print("Number of L in [a,b]=", 
+#        count_in_a_b( L = [1, 2, 3, 4,5 ], a = 1, b = 4 )) 
 
 
 
 #************************************
 #  palindrome 
 #************************************
+  
+# S = "somos o no somos"
+ 
+# S1 = S.replace(" ", "")
+# print("S1 =", S1)
+
+# P = S1[::-1]
+#  #print( "reversed =",  S[2:-1:-1]) # WARNING: it does not work 
+# print("S =", S1, "P =", P)
+
+# if P == S1:
+#   print(" is palindrome :", True )
+
+
+
+
+
 # def is_palindrome1(S): 
     
 #  S1 = S.replace(" ", "")
-#  print("S1 =", S1)
 #  P = S1[::-1]
-#  #print( "reversed =",  S[2:-1:-1]) # WARNING: it does not work 
-#  print("S =", S1, "P =", P)
 
 #  if P == S1:
 #       return True 
+#  else:
+#       return False
+
+# print("S  is palindrome: ", 
+#       is_palindrome1( S = "somos o no somos" )  )
 
 
-# S = "somos o no somos"     
-# print("S =", S, " is palindrome: ", is_palindrome1(S))
 
 
 
 
+def is_palindrome(S): 
 
+   S = S.lower()
+   S = S.replace(" ", "")
+   print(S)
 
-# def is_palindrome(S): 
+   vowels = [("á", "a"), ("é", "e"), ("í", "i"), ("ó", "o"), ("ú", "u")]
 
-#    S = S.lower()
-#    S = S.replace(" ", "")
-#    print(S)
+   count = []
+   for (a, v) in vowels:
+     S = S.replace(a, v)
+     count = count + [S.count(v)]
 
-#    vowels = [("á", "a"), ("é", "e"), ("í", "i"), ("ó", "o"), ("ú", "u")]
+   print("Number of vowels =", count)
+   P = S[::-1]
+   print(" S =", S)
+   print(" P =", P)
 
-#    count = []
-#    for (a, v) in vowels:
-#      S = S.replace(a, v)
-#      count = count + [S.count(v)]
+   if P == S:
+     return True 
+   else: 
+     return False
 
-#    print("Number of vowels =", count)
-#    P = S[::-1]
-#    print(" S =", S)
-#    print(" P =", P)
-
-#    if P == S:
-#      return True 
-
-# S = "Dábale arroz a la zorra el abad"
-# print("S =", S, " is palindrome: ", is_palindrome(S))
+S = "Dábale arroz a la zorra el abad"
+print("S =", S, " is palindrome: ", is_palindrome(S))
 
 
 
