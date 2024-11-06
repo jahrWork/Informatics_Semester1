@@ -318,12 +318,6 @@ import soundfile as sf
 import simpleaudio as sa
 import matplotlib.pyplot as plt 
 
-#import pretty_midi
-# import mido
-# from mido import MidiFile
-# import mido.backends.rtmidi
-# import rtmidi
-# import music21
 
 def basic_piano_note(frequency, duration, sample_rate=44100):
       
@@ -385,45 +379,48 @@ play_wav( wav_file )
 
 
 
-# def create_piano_midi(note_name='C3', velocity=100, duration=2.0, file_name='piano_note.mid'):
+import pretty_midi
+import music21
+
+def create_piano_midi(note_name='C3', velocity=100, duration=2.0, file_name='piano_note.mid'):
       
-#     # Crear un objeto PrettyMIDI
-#       midi = pretty_midi.PrettyMIDI()
+    # Crear un objeto PrettyMIDI
+      midi = pretty_midi.PrettyMIDI()
     
-#     # Crear un instrumento de tipo piano (ID 0 en General MIDI)
-#       piano_program = pretty_midi.instrument_name_to_program('Acoustic Grand Piano')
-#       piano = pretty_midi.Instrument(program=piano_program)
+    # Crear un instrumento de tipo piano (ID 0 en General MIDI)
+      piano_program = pretty_midi.instrument_name_to_program('Acoustic Grand Piano')
+      piano = pretty_midi.Instrument(program=piano_program)
     
-#     # Convertir el nombre de la nota a número MIDI
-#       note_number = pretty_midi.note_name_to_number(note_name)
+    # Convertir el nombre de la nota a número MIDI
+      note_number = pretty_midi.note_name_to_number(note_name)
     
-#     # Crear una nota de piano
-#       note = pretty_midi.Note(velocity=velocity, pitch=note_number, start=0, end=duration)
+    # Crear una nota de piano
+      note = pretty_midi.Note(velocity=velocity, pitch=note_number, start=0, end=duration)
     
-#     # Añadir la nota al instrumento
-#       piano.notes.append(note)
+    # Añadir la nota al instrumento
+      piano.notes.append(note)
     
-#     # Añadir el instrumento al objeto PrettyMIDI
-#       midi.instruments.append(piano)
+    # Añadir el instrumento al objeto PrettyMIDI
+      midi.instruments.append(piano)
     
-#     # Guardar como archivo MIDI
-#       midi.write(file_name)
+    # Guardar como archivo MIDI
+      midi.write(file_name)
 
 
 
-# def play_midi(file_name):
+def play_midi(file_name):
 
-# # open midi with musescore   
-#   stream = music21.converter.parse(file_name)
-#   stream.show("midi")
-
-
+# open midi with musescore   
+  stream = music21.converter.parse(file_name)
+  stream.show("midi")
 
 
 
 
-# # Grand piano note 
-# create_piano_midi(note_name='C3', velocity=100, duration=2.0, file_name='piano_note.mid')
 
-# # Nombre del archivo MIDI a reproducir
-# play_midi('piano_note.mid')
+
+# Grand piano note 
+create_piano_midi(note_name='C3', velocity=100, duration=2.0, file_name='piano_note.mid')
+
+# Nombre del archivo MIDI a reproducir
+play_midi('piano_note.mid')
