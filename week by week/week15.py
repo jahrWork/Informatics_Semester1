@@ -2,7 +2,9 @@
 
 from matplotlib.patches import Rectangle, Circle
 import matplotlib.pyplot as plt
+import matplotlib
 from numpy import array, sin, cos, pi, zeros, linspace
+from numpy.linalg import norm 
 from random import random, uniform
 
 # **********************************************
@@ -10,13 +12,13 @@ from random import random, uniform
 # y = f(x) function to plot
 # y_i = f(x_i) forall i in [0, N]
 # **********************************************
-# N = 100
+# N = 10
+# dt = 2*pi/N 
+# t = array( [ dt*i for i in range(N+1) ] )
+# # print("t =", t)
+# # print("t[N] =", t[N], 2*pi)
 
-# t = array( [ 2*pi*i/N for i in range(N+1) ] )
-# print("t =", t)
-# print("t[N] =", t[N], 2*pi)
-
-# x = zeros(N+1)
+# x = zeros(N+1) # it creates a vector of N+1 components equal to zero
 # for i in range(0,N+1):
 #     x[i] = 3 * sin( t[i] )
 
@@ -24,7 +26,7 @@ from random import random, uniform
 # y = 2 * cos(t)
 
 # plt.plot(t, x,  "blue")
-# plt.plot(t, x, ".", "blue")
+# plt.plot(t, x,"." )
 # plt.plot(t, y,  "green")
 # plt.show()
 
@@ -33,6 +35,13 @@ from random import random, uniform
 # plt.plot(y, x, "blue")
 # plt.show()
 
+
+
+
+
+# #********************************
+# # Kepler orbits
+# #********************************
 
 # fig, ax = plt.subplots(1, 1)
 # ax.set_aspect("equal")
@@ -61,6 +70,30 @@ from random import random, uniform
 # ax.plot(x, y)
 # plt.show()
 
+# #**************************************
+# # Euler integration of orbits 
+# #**************************************
+# N = 100
+# r = array( [1, 0] )
+# v = array( [0,1] )
+# x = zeros(N+1) 
+# y = zeros(N+1)
+
+# dt = 8*pi/N 
+# t = array( [ dt*i for i in range(N+1) ] )
+# for i, ti in enumerate(t): 
+#     x[i] = r[0]
+#     y[i] = r[1]
+#     r = r + dt * v 
+#     v = v - dt * r / norm(r)**3 
+
+# fig, ax = plt.subplots(1, 1)
+# ax.set_aspect("equal")
+# plt.plot(x,y)
+# plt.show()
+
+
+
 #***************************************************
 # Contour plots 
 #***************************************************
@@ -72,7 +105,7 @@ from random import random, uniform
 #   return x 
 
 # # Generating data
-# N = 10
+# N = 100
 # x = partition(-2*pi, 2*pi, N)
 # y = partition(-2*pi, 2*pi, N)
 # z = zeros( (len(x), len(y))  )
@@ -172,7 +205,7 @@ from random import random, uniform
 # for i in range(100):
 #     x, y = move_ants(x, y)
 #     plot(x, y)
-#     plt.pause(0.1)
+#    # plt.pause(0.1)
 #     plt.show()
 
 
@@ -264,9 +297,9 @@ from random import random, uniform
 
 # build_gui()
 
-# #********************************************
-# # Simple pygame program
-# #********************************************
+#********************************************
+# Simple pygame program
+#********************************************
 # import pygame 
 # def pygame_example(): 
   
@@ -308,119 +341,107 @@ from random import random, uniform
 
 #     return pygame.mouse.get_pos()
 
-
 # pygame_example()
+# 
 
 
-import numpy as np
-from numpy import sin, pi, linspace, zeros, max, abs 
-import soundfile as sf
-import simpleaudio as sa
-import matplotlib.pyplot as plt 
 
 
-def basic_piano_note(frequency, duration, sample_rate=44100):
+
+
+
+
+# 
+# import numpy as np
+# from numpy import sin, pi, linspace, zeros, max, abs 
+# import soundfile as sf
+# import simpleaudio as sa
+# import matplotlib.pyplot as plt 
+
+
+# def basic_piano_note(frequency, duration, sample_rate=44100):
       
-    # Generate time axis
-      t = linspace(0, duration, int(sample_rate * duration), endpoint=False)
+#     # Generate time axis
+#       t = linspace(0, duration, int(sample_rate * duration), endpoint=False)
 
-    # Generate the fundamental frequency component (first harmonic)
-      waveform = zeros( len(t) )
+#     # Generate the fundamental frequency component (first harmonic)
+#       waveform = zeros( len(t) )
     
-    # Add higher harmonics with decreasing amplitude 
-      harmonics = [ (1, 1), (2, 0.5), (3, 0.2), (4, 0.1), (5, 0.05) , (6, 0.02) ]  
+#     # Add higher harmonics with decreasing amplitude 
+#       harmonics = [ (1, 1), (2, 0.5), (3, 0.2), (4, 0.1), (5, 0.05) , (6, 0.02) ]  
      
-      for n, A in harmonics:
-        waveform += A * sin(2 * pi * n * frequency * t)
+#       for n, A in harmonics:
+#         waveform += A * sin(2 * pi * n * frequency * t)
 
-    # Normalize waveform to prevent clipping
-      waveform /= max(abs(waveform))
+#     # Normalize waveform to prevent clipping
+#       waveform /= max(abs(waveform))
     
-      return t, waveform
+#       return t, waveform
 
 
 
-def play_wav(file_path):
-    try:
-        # Load and play the .wav file directly with simpleaudio
-          wave_obj = sa.WaveObject.from_wave_file(file_path)
-          play_obj = wave_obj.play()
+# def play_wav(file_path):
+#     try:
+#         # Load and play the .wav file directly with simpleaudio
+#           wave_obj = sa.WaveObject.from_wave_file(file_path)
+#           play_obj = wave_obj.play()
         
-        # Wait for the playback to finish
-          play_obj.wait_done()
-          print("Playback finished.")
+#         # Wait for the playback to finish
+#           play_obj.wait_done()
+#           print("Playback finished.")
 
-    except FileNotFoundError:
-          print("File not found. Please check the file path.")
-
-
-def basic_example(): 
-
- # C3 note in Hz
-   frequency = 130.8; duration = 2.0; fs = 44100   
-
- # Generate the note
-   t, note = basic_piano_note(frequency, duration)
-
-   N = int( fs / frequency )
-   plt.plot(t[0:N], note[0:N])
-   plt.show()
-
- # Save to file
-   file_name = 'piano_note.wav' 
-   sf.write(file_name, note, 44100)
-
-   return file_name  
+#     except FileNotFoundError:
+#           print("File not found. Please check the file path.")
 
 
-# Wav file with different harmonics 
-wav_file = basic_example()
-play_wav( wav_file )
+# def basic_example(): 
+
+#  # C3 note in Hz
+#    frequency = 130.8; duration = 2.0; fs = 44100   
+
+#  # Generate the note
+#    t, note = basic_piano_note(frequency, duration)
+
+#    N = int( fs / frequency )
+#    plt.plot(t[0:N], note[0:N])
+#    plt.show()
+
+#  # Save to file
+#    file_name = 'piano_note.wav' 
+#    sf.write(file_name, note, 44100)
+
+#    return file_name  
 
 
-
-import pretty_midi
-import music21
-
-def create_piano_midi(note_name='C3', velocity=100, duration=2.0, file_name='piano_note.mid'):
-      
-    # Crear un objeto PrettyMIDI
-      midi = pretty_midi.PrettyMIDI()
-    
-    # Crear un instrumento de tipo piano (ID 0 en General MIDI)
-      piano_program = pretty_midi.instrument_name_to_program('Acoustic Grand Piano')
-      piano = pretty_midi.Instrument(program=piano_program)
-    
-    # Convertir el nombre de la nota a número MIDI
-      note_number = pretty_midi.note_name_to_number(note_name)
-    
-    # Crear una nota de piano
-      note = pretty_midi.Note(velocity=velocity, pitch=note_number, start=0, end=duration)
-    
-    # Añadir la nota al instrumento
-      piano.notes.append(note)
-    
-    # Añadir el instrumento al objeto PrettyMIDI
-      midi.instruments.append(piano)
-    
-    # Guardar como archivo MIDI
-      midi.write(file_name)
+# # Wav file with different harmonics 
+# wav_file = basic_example()
+# play_wav( wav_file )
 
 
+from midiutil import MIDIFile
 
-def play_midi(file_name):
+degrees  = [60, 62, 64, 65, 67, 69, 71, 72]  # MIDI note number
+track    = 0
+channel  = 0
+time     = 0    # In beats
+duration = 1    # In beats
+tempo    = 60   # In BPM
+volume   = 100  # 0-127, as per the MIDI standard
 
-# open midi with musescore   
-  stream = music21.converter.parse(file_name)
-  stream.show("midi")
+MyMIDI = MIDIFile(1)  # One track, defaults to format 1 (tempo track is created
+                      # automatically)
+MyMIDI.addTempo(track, time, tempo)
 
+for i, pitch in enumerate(degrees):
+    MyMIDI.addNote(track, channel, pitch, time + i, duration, volume)
 
+with open("major-scale.mid", "wb") as output_file:
+    MyMIDI.writeFile(output_file)
 
+import os
 
+def play_midi(file_path):
+  # Open and play the MIDI file with the default media player
+    os.startfile(file_path)
 
-
-# Grand piano note 
-create_piano_midi(note_name='C3', velocity=100, duration=2.0, file_name='piano_note.mid')
-
-# Nombre del archivo MIDI a reproducir
-play_midi('piano_note.mid')
+play_midi("major-scale.mid")  
