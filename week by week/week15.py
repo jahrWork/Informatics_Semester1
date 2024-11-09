@@ -350,8 +350,9 @@ from random import random, uniform
 
 
 
-
-# 
+#*****************************************
+# Music from the physical point of view 
+#*****************************************
 # import numpy as np
 # from numpy import sin, pi, linspace, zeros, max, abs 
 # import soundfile as sf
@@ -417,7 +418,9 @@ from random import random, uniform
 # wav_file = basic_example()
 # play_wav( wav_file )
 
-
+#*********************************************************
+# Creating midi files for musicians 
+#*********************************************************
 from midiutil import MIDIFile
 
 degrees  = [60, 62, 64, 65, 67, 69, 71, 72]  # MIDI note number
