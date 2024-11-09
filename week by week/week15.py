@@ -1,14 +1,24 @@
 
 
-from matplotlib.patches import Rectangle, Circle
-import matplotlib.pyplot as plt
 import matplotlib
-from numpy import array, sin, cos, pi, zeros, linspace
+import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle, Circle
+from matplotlib.widgets import Slider, Button, RadioButtons
+
+from numpy import array, sin, cos, pi, zeros, linspace, arange, meshgrid, max, abs  
 from numpy.linalg import norm 
 from random import random, uniform
 
+import pygame 
+
+import soundfile as sf
+import simpleaudio as sa
+from midiutil import MIDIFile
+
+
+
 # **********************************************
-# 1. plot math graphs
+# 1. Basic plot math graphs
 # y = f(x) function to plot
 # y_i = f(x_i) forall i in [0, N]
 # **********************************************
@@ -29,8 +39,6 @@ from random import random, uniform
 # plt.plot(t, x,"." )
 # plt.plot(t, y,  "green")
 # plt.show()
-
-
 
 # plt.plot(y, x, "blue")
 # plt.show()
@@ -97,8 +105,7 @@ from random import random, uniform
 #***************************************************
 # Contour plots 
 #***************************************************
-# from numpy import array, meshgrid, sin , cos, zeros, pi 
-# import matplotlib.pyplot as plt
+
 
 # def partition(a, b, N): # equivalent to linspace from numpy 
 #   x = array([a + (b-a)/N * i for i in range(0, N+1)])
@@ -232,10 +239,10 @@ from random import random, uniform
 
 # plt.show()
 
-# ============================================================
-# from numpy import arange, sin, pi
-# import matplotlib.pyplot as plt
-# from matplotlib.widgets import Slider, Button, RadioButtons
+# *****************************************************************
+# Complete GUI for different applications 
+#******************************************************************
+
 
 # def build_gui(): 
 
@@ -300,7 +307,7 @@ from random import random, uniform
 #********************************************
 # Simple pygame program
 #********************************************
-# import pygame 
+
 # def pygame_example(): 
   
 
@@ -350,15 +357,9 @@ from random import random, uniform
 
 
 
-#*****************************************
+#********************************************************************
 # Music from the physical point of view 
-#*****************************************
-# import numpy as np
-# from numpy import sin, pi, linspace, zeros, max, abs 
-# import soundfile as sf
-# import simpleaudio as sa
-# import matplotlib.pyplot as plt 
-
+#********************************************************************
 
 # def basic_piano_note(frequency, duration, sample_rate=44100):
       
@@ -421,7 +422,7 @@ from random import random, uniform
 #*********************************************************
 # Creating midi files for musicians 
 #*********************************************************
-from midiutil import MIDIFile
+
 
 degrees  = [60, 62, 64, 65, 67, 69, 71, 72]  # MIDI note number
 track    = 0
