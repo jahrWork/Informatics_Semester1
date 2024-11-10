@@ -253,23 +253,6 @@
 
 
 
-# patterns = dict()
-# S ="ABCABABC"
-# S = "BmF#7AEGDEmF#7 BmF#7AEGDEmF#7 GDF#7BmGDEmF#7 BmF#7AEGDEmF#7 GDF#7BmGDEmF#7"
-# j = 0 
-# for i in range(j+1,len(S)-1):
-#        #  for j in range(i,len(S)-1):
-     
-#           s = S[j:i+1]  
-#           print("s =", s)
-#           if s in patterns:
-#                  patterns[s] += [1]
-#           elif s in S[i+1:]: 
-#                  patterns[s] = [1]
-#                  print("found s =", s, "len =", len(s))    
-
-# print(patterns)   
-
 #****************************************************************
 # Find if a substring: s is inside a string: S
 # Return a list containing the indexes of S where the substring s begins 
@@ -356,98 +339,6 @@
 # print( split_into_substrings("123345671234567")) 
 # print( split_into_substrings("123+3+4567+123+4567")) 
 
-#print( split_into_substrings("BmF#7AEGDEmF#7BmF#7AEGDEmF#7GDF#7BmGDEmF#7BmF#7AEGDEmF#7GDF#7BmGDEmF#7"))
-
-# S = "ABCEDABCDABCED"
-# S = "BmF#7AEGDEmF#7BmF#7AEGDEmF#7GDF#7BmGDEmF#7BmF#7AEGDEmF#7GDF#7BmGDEmF#7"
-# print(S)
-# s1, i1 = largest_substring(S) 
-# print(s1) 
-# S1 = S.replace(s1, "")
-# print(S1)
-
-# s2, i2 = largest_substring(S1) 
-# print(s2) 
-# S2 = S1.replace(s2, "")
-# print(S2)
-# print("s1 =", s1, i1)
-# print("s2 =", s2, i2)
-
-# i1 = find(s1, S)
-# i2 = find(s2, S)
-# print( s1, i1)
-# print( s2, i2)
-# S = S.replace(s1, "Intro ")
-
-# S = S.replace(s2, "Verse ")
-
-
-# def insert_lu(S): 
-
-#   for i in range(len(S)-1): 
-#     if S[i].islower() and  S[i+1].isupper(): 
-#        return  S[0:i+1] + " | " + S[i+1:]
-
-#   return ""     
-
-# def insert_uu(S): 
-
-#   for i in range(len(S)-1): 
-#     if S[i].isupper() and  S[i+1].isupper(): 
-#        return  S[0:i+1] + " | " + S[i+1:]
-
-#   return ""
-
-# def insert_nu(S): 
-
-#   for i in range(len(S)-1): 
-#     if S[i].isnumeric() and  S[i+1].isupper(): 
-#        return  S[0:i+1] + " | " + S[i+1:]
-
-#   return ""  
-
-# def insert_compasses(S): 
-   
-#     Sn = "| " + S
-#     St = "1"
-#     while St != "": 
-
-#        St = "1"
-#        if insert_lu(Sn) != "":  
-#           Sn = insert_lu(Sn)
-
-#        elif insert_nu(Sn)!= "": 
-#          Sn = insert_nu(Sn)
-       
-#        elif insert_uu(Sn) != "": 
-#          Sn = insert_uu(Sn) 
-
-#        else: 
-#          St = ""
-
-#     return Sn + " |"
-
-
-
-# print(S)
-# print( "Intro = ", s1)
-# print( "Verse = ", s2)
-# print( insert_compasses(s1) )
-# print( insert_compasses(s2) )       
-
-# S = "AmBCD"
-# print(S)
-# print( insert_compasses(S) )
-
-
-
-# S = insert_uu(S)
-# print(i,S)
-
-# S = insert_uu(S)
-# print(S)
-# S = S + "|"
-# print(S)
 
 
                
