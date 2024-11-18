@@ -55,14 +55,14 @@ from numpy.linalg import det, norm
 # # ************************************************************
 def Matrix_operation_examples():
 
-    N = 10
+    N = 5
+    V = zeros( (N) )
+    for i in range(1, N+1): 
+        V[i-1] = 1/i**2 
+   
+    W = array( [(-1)**(i+1)/(2*i+1.) for i in range(1, N+1)] )
 
-    V = array([1./i**2 for i in range(1, N+1)])
-
-    W = array([(-1)**(i+1)/(2*i+1.) for i in range(1, N+1)])
-
-    A = array([[(i/N)**(j-1) for j in range(1, N+1)]
-              for i in range(1, N+1)])
+    A = array( [ [(i/N)**(j-1) for j in range(1, N+1) ] for i in range(1, N+1)])
 
     print(" 1. Sum ( V ) = ", sum(V))
     print(" 2. Sum ( A ) = ", sum(A))

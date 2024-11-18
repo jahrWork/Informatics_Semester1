@@ -31,7 +31,10 @@ def Test_load_matrix():
          
          for i in range( shape(A)[0] ): 
             print( [ round(a,2) for a in A[i] ])  #end
-         
+
+
+
+Test_load_matrix()    
     
     
     

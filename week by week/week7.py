@@ -325,68 +325,92 @@ from numpy import array
 
 
 
-def is_palindrome(S): 
+# def is_palindrome(S): 
 
-   S = S.lower()
-   S = S.replace(" ", "")
-   print(S)
+#    S = S.lower()
+#    S = S.replace(" ", "")
+#    print(S)
 
-   vowels = [("á", "a"), ("é", "e"), ("í", "i"), ("ó", "o"), ("ú", "u")]
+#    vowels = [("á", "a"), ("é", "e"), ("í", "i"), ("ó", "o"), ("ú", "u")]
 
-   count = []
-   for (a, v) in vowels:
-     S = S.replace(a, v)
-     count = count + [S.count(v)]
+#    count = []
+#    for (a, v) in vowels:
+#      S = S.replace(a, v)
+#      count = count + [S.count(v)]
 
-   print("Number of vowels =", count)
-   P = S[::-1]
-   print(" S =", S)
-   print(" P =", P)
+#    print("Number of vowels =", count)
+#    P = S[::-1]
+#    print(" S =", S)
+#    print(" P =", P)
 
-   if P == S:
-     return True 
-   else: 
-     return False
+#    if P == S:
+#      return True 
+#    else: 
+#      return False
 
-S = "Dábale arroz a la zorra el abad"
-print("S =", S, " is palindrome: ", is_palindrome(S))
+# S = "Dábale arroz a la zorra el abad"
+# print("S =", S, " is palindrome: ", is_palindrome(S))
 
 
 
 
  
-# #***********************************************
-# # divisors of a number  
-# #***********************************************  
-# def divisors(n): 
+#***********************************************
+# divisors of a number  n
+#***********************************************  
+def divisors(n): 
     
-#       d = []
-#       for i in range(1,n):
-#           if n % i == 0:
-#             d += [ i ] 
+      d = []
+      for i in range(1,n):
+          if n % i == 0:
+            d += [ i ] 
           
-#       return d  
+      return d  
 
 # print(" divisors of 15 : ", divisors(15) )
 
-# #***********************************************
-# # Greatest common divisor of different numbers 
-# #  Functions with different number of arguments 
-# #***********************************************  
-# def greatest_common_divisor( *numbers ): 
+#***********************************************
+# Greatest common divisor of different numbers 
+#  Functions with different number of arguments 
+#***********************************************  
+def greatest_common_divisor( *numbers ): 
     
-#       common_divisors = set( divisors( numbers[0] ) ) 
+      common_divisors = set( divisors( numbers[0] ) ) 
+      print("number =", numbers[0], " common divisors =", common_divisors)
 
-#       for i  in range(1, len(numbers)):  
-#           D = set( divisors( numbers[i] ) ) 
-#           common_divisors &= D 
+      for i  in range(1, len(numbers)):  
+          D = set( divisors( numbers[i] ) ) 
+          print("number =", numbers[i], " D =", D)
+          common_divisors &= D 
+          print(" common divisors =", common_divisors)
+          input("press enter")
               
-#       return max(common_divisors)
+      return max(common_divisors)
 
-# print(" GCD(24,30,72) = ", greatest_common_divisor(24, 30, 72) ) 
-# from math import gcd 
-# print(" gcd(24,30,72) = ", gcd(24, 30, 72) ) 
+print(" GCD(24,30,72) = ", greatest_common_divisor(24, 30, 72) ) 
+from math import gcd 
+print(" gcd(24,30,72) = ", gcd(24, 30, 72) ) 
 
+
+def greatest_common_divisor2( n1, n2 ): 
+    
+      D1 = set( divisors( n1 ) ) 
+      print("number =", n1, " D1 =", D1)
+ 
+      D2 = set( divisors( n2 ) ) 
+      print("number =", n2, " D2 =", D2)
+
+      common_divisors = D1 & D2  
+      print(" common divisors =", common_divisors)
+      input("press enter")
+              
+      return max(common_divisors)
+
+
+
+
+print(" GCD(24,30) = ", greatest_common_divisor(24, 30) ) 
+print(" GCD(24,30) = ", greatest_common_divisor2(24, 30) ) 
 
 
 

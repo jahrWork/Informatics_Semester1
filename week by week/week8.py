@@ -152,9 +152,9 @@
 
 
 
-# #********************************************************
-# # 7. Count the frequency of words in the lyrics of a song
-# #********************************************************
+#********************************************************
+# 7. Count the frequency of words in the lyrics of a song
+#********************************************************
 # lyrics_hit_the_road_jack = """
 # Hit the road Jack and don't you come back
 # No more, no more, no more, no more
@@ -230,6 +230,14 @@
 
 # print("\n different_words =", different_words)
 # print("\n frequency =", frequency)
+# exit()
+
+# m = max(frequency)
+# print( "max =",  m )
+# i = frequency.index(m)
+# print( " word with max frequency:", different_words[i])
+
+
 
 
 # dictionary = dict()
@@ -258,6 +266,18 @@
 # Return a list containing the indexes of S where the substring s begins 
 # Example: S = "1234561234", find s="34". Return [2, 8]
 #****************************************************************
+
+# S = "1234561234"
+# s="34"
+# i = S.find(s) 
+# print( " i = ", i)
+
+# i = S.find(s, i+1) 
+# print( " i = ", i)
+
+# i = S.find(s, i+1) 
+# print( " i = ", i)
+
 
 # def find_substring(s, S): 
 
@@ -293,6 +313,7 @@
 #          if sum(index) > 0: 
 #                   patterns[s] = index
 
+#   print(patterns)
 #   max_key ="" 
 #   for key in patterns: 
 #     if len(key) > len(max_key): 

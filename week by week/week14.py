@@ -1,7 +1,37 @@
-# Additional examples 
-from math import cos, factorial, exp, pi, sqrt  
 
 
+import pandas as pd
+from numpy import shape, product, sum 
+    
+#******************************************************    
+#   it reads a filename and save its data in matrix A 
+#******************************************************
+def load_matrix( filename ): 
+     
+    data = pd.read_csv(filename)
+
+  # header 
+    columns = data.columns.tolist()
+    print(" header =", columns)
+
+    return data.values 
+
+
+
+
+A = load_matrix("./week by week/data.csv") 
+print(" type of A: ", type(A))
+         
+# print row ith 
+(N,M) = shape(A)
+for i in range(0,N): 
+  print( A[i,:] )
+
+print( product(A) )  
+print( sum( A, axis=0 ))                 
+print( sum( A, axis=1 ))  
+    
+    
 
 
 

@@ -22,11 +22,11 @@ from midiutil import MIDIFile
 # y = f(x) function to plot
 # y_i = f(x_i) forall i in [0, N]
 # **********************************************
-# N = 10
+# N = 100
 # dt = 2*pi/N 
 # t = array( [ dt*i for i in range(N+1) ] )
-# # print("t =", t)
-# # print("t[N] =", t[N], 2*pi)
+# print("t =", t)
+# print("t[N] =", t[N], 2*pi)
 
 # x = zeros(N+1) # it creates a vector of N+1 components equal to zero
 # for i in range(0,N+1):
@@ -47,9 +47,9 @@ from midiutil import MIDIFile
 
 
 
-# #********************************
-# # Kepler orbits
-# #********************************
+#********************************
+# Kepler orbits
+#********************************
 
 # fig, ax = plt.subplots(1, 1)
 # ax.set_aspect("equal")
@@ -78,10 +78,10 @@ from midiutil import MIDIFile
 # ax.plot(x, y)
 # plt.show()
 
-# #**************************************
-# # Euler integration of orbits 
-# #**************************************
-# N = 100
+#**************************************
+# Euler integration of orbits 
+#**************************************
+# N = 1000
 # r = array( [1, 0] )
 # v = array( [0,1] )
 # x = zeros(N+1) 
@@ -212,8 +212,10 @@ from midiutil import MIDIFile
 # for i in range(100):
 #     x, y = move_ants(x, y)
 #     plot(x, y)
-#    # plt.pause(0.1)
+#     plt.pause(0.1)
 #     plt.show()
+
+# plt.show()
 
 
 # ********************************************
@@ -340,7 +342,7 @@ from midiutil import MIDIFile
 #                 pygame.display.update()  
 
 # def draw_circle(screen):
-
+ 
 #     pos = get_pos()
 #     pygame.draw.circle(screen, (0,   0, 255), pos, 20)
 
@@ -349,7 +351,7 @@ from midiutil import MIDIFile
 #     return pygame.mouse.get_pos()
 
 # pygame_example()
-# 
+
 
 
 
@@ -359,7 +361,7 @@ from midiutil import MIDIFile
 
 #********************************************************************
 # Music from the physical point of view 
-#********************************************************************
+# #********************************************************************
 
 # def basic_piano_note(frequency, duration, sample_rate=44100):
       

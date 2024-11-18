@@ -1,7 +1,21 @@
 # Functions 
-from numpy import array, pi, sin, norm  
-import matplotlib.pyplot as plt
+# from numpy import array, pi, sin, norm  
+# import matplotlib.pyplot as plt
 
+#*************************************************
+# Never do the following 
+# f(x) is NOT a function 
+# because depends on variable a which is an 
+# external variable 
+#*************************************************
+
+a = 3 
+def f(x): 
+   return x**2 +a 
+
+print(" f(2) =", f(2))
+a = 4 
+print( " f(2) =", f(2) )
 
 
 #***********************************************

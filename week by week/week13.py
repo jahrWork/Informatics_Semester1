@@ -8,8 +8,7 @@ def Matrices_allocation():
     S = sum([trace(Vandermonde(M)) for M in range(1, 11)])
     print("1. sum from M=1 to 10 of  trace ( A_M ) =   ", S)
 
-    S = sum(array([trace(matmul(Vandermonde(M), Vandermonde(M)))
-            for M in range(1, 6)]))
+    S = sum([ trace(matmul(Vandermonde(M), Vandermonde(M))) for M in range(1, 6)])
     print("2. sum from M=1 to 5 of traces ( A_M **2 ) = ", S)
 
     Ak = array(zeros([8, 8, 6]))
@@ -22,14 +21,19 @@ def Matrices_allocation():
 
 #  Vandermonde matrix A of dimension MxM
 def Vandermonde(N):
+    
+    V = zeros( (N, N) )
+    for i in range(1, N+1): 
+        for j in range(1, N+1): 
+            V[i-1,j-1] = (i/float(N))**(j-1)
 
-    return array([[(i/float(N))**(j-1) for j in range(1, N+1)] for i in range(1, N+1)])
+    return V
 
 
 # It determines the kth power of matrix A
 def power(A, k):
 
-    N = shape(A)[0]
+    (N, M) = shape(A)
 
     if k == 0:
         return identity(N)
