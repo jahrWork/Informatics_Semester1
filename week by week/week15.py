@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle, Circle
 from matplotlib.widgets import Slider, Button, RadioButtons
 
-from numpy import array, sin, cos, pi, zeros, linspace, arange, meshgrid, max, abs  
+from numpy import array, sin, cos, pi, zeros, linspace, arange 
+from numpy import meshgrid, max, abs, arctan2  
 from numpy.linalg import norm 
 from random import random, uniform
 
@@ -132,7 +133,40 @@ from midiutil import MIDIFile
 # plt.show()
 
 
+    
 
+ 
+def Koch_snowflake(xi, xf, n):  
+
+    global L 
+    if n == 0: 
+        L += [ ( array([ xi[0], xf[0] ]), array([ xi[1], xf[1] ])) ]
+        
+    else:  
+        x1 = xi + (xf - xi) / 3
+        x3 = xf - (xf - xi) / 3
+       
+        R = x3 - x1
+        alpha = arctan2( R[1], R[0] ) + pi / 3
+        x2 = x1 + norm(R) * array( [ cos(alpha), sin(alpha) ] ) 
+
+        Koch_snowflake(xi, x1, n - 1)
+        Koch_snowflake(x1, x2, n - 1)
+        Koch_snowflake(x2, x3, n - 1)
+        Koch_snowflake(x3, xf, n - 1)
+        
+
+def  build_Koch_snowflake():
+    
+    global L 
+    L = [ ]
+    Koch_snowflake( xi = array([0,0]), xf = array([1,0]), n=4 )
+
+    for (p1, p2) in L: 
+        plt.plot(p1, p2)
+    plt.show()
+ 
+build_Koch_snowflake()
 
 
 
