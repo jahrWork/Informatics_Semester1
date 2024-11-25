@@ -2,6 +2,9 @@
 Weekly Milestones [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/doc/build/Hitos_semanales.pdf) 
 to learn foundations of numerical calculations (Python). 
 
+Additional exercises [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/doc/build/PEI12.pdf).
+
+
 Free final assignment [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/doc/build/P3_assignment.pdf). Oral presentation.  
 
 How to work with this repository with Visual Studio Code or Spyder: 
