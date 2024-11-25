@@ -1,5 +1,5 @@
 # Informatics. Semester 1. ETSIAE
-Weekly Milestones [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/doc/Hitos_semanales.pdf) 
+Weekly Milestones [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/doc/build/Hitos_semanales.pdf) 
 to learn foundations of numerical calculations (Python). 
 
 Free final assignment [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/doc/build/P3_assignment.pdf). Oral presentation.  
