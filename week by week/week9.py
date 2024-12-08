@@ -1,5 +1,6 @@
 # Functions 
-from numpy import array, pi, sin, norm, cos  
+#from numpy import array, pi, sin,  cos  
+
 # import matplotlib.pyplot as plt
 
 #*************************************************
@@ -16,6 +17,18 @@ from numpy import array, pi, sin, norm, cos
 # print(" f(2) =", f(2))
 # a = 4 
 # print( " f(2) =", f(2) )
+
+#***********************************************************
+# Type of arguments can be specified to improve readability 
+# However, type of actual arguments are not checked 
+#***********************************************************
+def f(x: float) -> float:  
+   return x**2 
+
+print(" f(2) =", f(2))
+print( " f(2.) =", f(2.) )
+
+
 
 
 #***********************************************
@@ -51,24 +64,24 @@ from numpy import array, pi, sin, norm, cos
 # #***********************************************
 # #  Polynomial evaluation  
 # #***********************************************  
-def polynomial(x, a): 
+# def polynomial(x, a): 
 
-    P = 0 
-    for i in range(len(a)): 
-        P  += a[i] * x**i 
+#     P = 0 
+#     for i in range(len(a)): 
+#         P  += a[i] * x**i 
 
-    return P 
+#     return P 
 
  
-print(" polynomial = ", polynomial( x=2, a=[1, 2, 3] ) ) 
+# print(" polynomial = ", polynomial( x=2, a=[1, 2, 3] ) ) 
 
 
-def f(x): 
+# def f(x): 
     
-    if x <= 0: 
-        return cos( pi*x) 
-    else: 
-        return 1 + sin( pi*x) 
+#     if x <= 0: 
+#         return cos( pi*x) 
+#     else: 
+#         return 1 + sin( pi*x) 
     
 
 
