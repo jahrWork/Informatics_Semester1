@@ -1,367 +1,499 @@
-# Dictionaries
+
+#******************************************************
+#   Matplotlib
+#******************************************************
 
 
-# ********************************************
-#  1. Remove duplicates with dictionaries
-# ********************************************
+import matplotlib
+import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle, Circle
+from matplotlib.widgets import Slider, Button, RadioButtons
 
-# S = "This is a list"
-# S = S.replace(" ", "")
-# print(" S = ", S)
-# L = list(S)
-# print(" L = ", L)
+from numpy import array, sin, cos, pi, zeros, linspace, arange 
+from numpy import meshgrid, max, abs, arctan2  
+from numpy.linalg import norm 
+from random import random, uniform
 
-# D = dict.fromkeys(L)
-# print(" D = ", D)
+import pygame 
 
-# L1 = list(D)
-# print(" L1 = ", L1)
-# S1 = "".join(L1)
-# print(" S1 = ", S1)
-
-
-# # Equivalent to
-# S2 = ""
-# for l in L1:
-#     S2 += l  # S2 = S2 + l
-# print("S2 =", S2)
+import soundfile as sf
+import simpleaudio as sa
+from midiutil import MIDIFile
 
 
 
-# ****************************
-# 3. merging dictionaries
-# ****************************
+# **********************************************
+# 1. Basic plot math graphs
+# y = f(x) function to plot
+# y_i = f(x_i) forall i in [0, N]
+# **********************************************
+# N = 100
+# dt = 2*pi/N 
+# t = array( [ dt*i for i in range(N+1) ] )
+# print("t =", t)
+# print("t[N] =", t[N], 2*pi)
 
-# A = {"a": 1, "b": 1}
-# B = {"b": 2, "c": 1}
-# print("A =", A)
-# print("B =", B)
+# x = zeros(N+1) # it creates a vector of N+1 components equal to zero
+# for i in range(0,N+1):
+#     x[i] = 3 * sin( t[i] )
+
+# x = 3 * sin(t)  # equivalent to x_i = 3 sin ( t_i ) from i=0 to i=N
+# y = 2 * cos(t)
+
+# plt.plot(t, x,  "blue")
+# plt.plot(t, x,"." )
+# plt.plot(t, y,  "green")
+# plt.show()
+
+# plt.plot(y, x, "blue")
+# plt.show()
 
 
-# C = A.copy()  # cloning
-# # C = A  # alias
-# # C = A[:] not possible
-# print("C=", C)
-# print("A=", A)
 
 
-# print("C=", C)
-# C.update(B)  # merge c and b
-# print("C=", C)
-# print("A=", A)
+
+#********************************
+# Kepler orbits
+#********************************
+
+# fig, ax = plt.subplots(1, 1)
+# ax.set_aspect("equal")
+
+# N = 300
+# t = linspace(0, 4*pi, N)
+
+# x = zeros(N)
+# y = zeros(N)
 
 
-# ************************************
-#  4. count different letters with dictionaries
-# ************************************
-# S = "There are 9 letters:e in this sentence"
-# L = list(S)
-# print(" L =", L)
-# D = {}
+# for i in range(N):
 
-# for letter in L:
-
-#     if letter in D:
-
-#         D[letter] += 1
-
+#     if t[i] < 2*pi:
+#         a = 1
+#         e = 0.8
 #     else:
+#         a = 1
+#         e = 0.0
 
-#         D[letter] = 1
+#     r = a * (1 - e**2) / (1 + e * cos(t[i]))
+#     x[i] = e*a + r * cos(t[i])
+#     y[i] = r * sin(t[i])
 
-# print(D)
-# print("Number of e:", D["e"])
 
+# ax.plot(x, y)
+# plt.show()
 
-# #*************************************
-# #  5. count words with dictionaries
-# #*************************************
-#S = "over and over again. The word over appears in this sentence 3 times"
-# S = "over and over again. The word over appears in this sentence 3 times"
-# L = list(S.split(" "))
+#**************************************
+# Euler integration of orbits 
+#**************************************
+# N = 1000
+# r = array( [1, 0] )
+# v = array( [0,1] )
+# x = zeros(N+1) 
+# y = zeros(N+1)
 
-# print(" L = ", L)
+# dt = 8*pi/N 
+# t = array( [ dt*i for i in range(N+1) ] )
+# for i, ti in enumerate(t): 
+#     x[i] = r[0]
+#     y[i] = r[1]
+#     r = r + dt * v 
+#     v = v - dt * r / norm(r)**3 
 
-# # L1 = L[:]
-# # for word in L:
+# fig, ax = plt.subplots(1, 1)
+# ax.set_aspect("equal")
+# plt.plot(x,y)
+# plt.show()
 
-# #     if word == "":
-# #         L1.remove(word)
 
-# print(" L = ", L)
-# D = {}
 
-# for word in L:
+#***************************************************
+# Contour plots 
+#***************************************************
 
-#     if word in D:
 
-#         D[word] += 1
+# def partition(a, b, N): # equivalent to linspace from numpy 
+#   x = array([a + (b-a)/N * i for i in range(0, N+1)])
+#   return x 
 
-#     else:
+# # Generating data
+# N = 100
+# x = partition(-2*pi, 2*pi, N)
+# y = partition(-2*pi, 2*pi, N)
+# z = zeros( (len(x), len(y))  )
+# for i in range(len(x)): 
+#     for j  in range(len(y)): 
+#         z[i,j] = sin( x[i] ) * cos ( y[j] )
 
-#         D[word] = 1
+# # Creating a filled contour plot
+# plt.contourf(z, levels = 50)
 
-# print(D)
+# # Adding labels and title
+# plt.xlabel('X-axis')
+# plt.ylabel('Y-axis')
+# plt.title('Filled Contour Plot')
 
+# # Displaying the plot
+# plt.show()
 
-# #*****************************************
-# # 6. Graphs by means of dictinaries
-# #*****************************************
 
-# graph = { "n1" : [ "n2", "n3" ],
-#           "n2" : [ "n1", "n4" ],
-#           "n3" : [ "n5" ],
-#           "n4" : [ "n2" ],
-#           "n5" : ["n3", "n2" ]
-#         }
-# print(" graph =", graph)
-
-
-# nodes = [ "n1", "n2", "n3", "n4", "n5"  ]
-# edges = [ ("n1", "n2"), ("n1", "n3"),  ("n2", "n4"),   ("n2", "n1"),
-#           ("n3", "n5"), ("n4", "n2"),  ("n5", "n3"),   ("n5", "n2") ]
-
-# print("nodes =", nodes)
-# print("edges =", edges)
-# print("")
-# #print("edges =", edges)
-
-# g = {}
-
-# for n in nodes:
-
-#       g[n] = []
-
-
-# print(" g = ", g)
-
-
-# for n in nodes:
-#     for (v1, v2) in edges:
-
-#         if n == v1:
-#             g[n] += [ v2 ]
-
-# print(" g = ", g)
-
-
-# Example1:  https://github.com/OfirKP/Whatsapp-Net
-
-# Example:   https://tuangauss.github.io/projects/networkx_basemap/networkx_basemap.html
-
-
-
-
-#********************************************************
-# 7. Count the frequency of words in the lyrics of a song
-#********************************************************
-# lyrics_hit_the_road_jack = """
-# Hit the road Jack and don't you come back
-# No more, no more, no more, no more
-# Hit the road Jack and don't you come back no more
-# What you say?
-# Hit the road Jack and don't you come back
-# No more, no more, no more, no more
-# Hit the road Jack and don't you come back no more
-# Old woman, old woman, don't treat me so mean
-# You're the meanest old woman that I've ever seen
-# I guess if you said so
-# I'll have to pack my things and go (that's right)
-# Hit the road Jack and don't you come back
-# No more, no more, no more, no more
-# Hit the road Jack and don't you come back no more
-# What you say?
-# Hit the road Jack and don't you come back
-# No more, no more, no more, no more
-# Hit the road Jack and don't you come back no more
-# Now baby, listen baby, don't ya treat me this way
-# 'Cause I'll be back on my feet some day
-# (Don't care if you do 'cause it's understood)
-# (You ain't got no money, you just ain't no good)
-# Well, I guess if you say so
-# I'll have to pack my things and go (that's right)
-# Hit the road Jack and don't you come back
-# No more, no more, no more, no more
-# Hit the road Jack and don't you come back no more
-# What you say?
-# Hit the road Jack and don't you come back
-# No more, no more, no more, no more
-# Hit the road Jack and don't you come back no more
-# Well (don't you come back no more)
-# Uh, what you say? (Don't you come back no more)
-# I didn't understand you (don't you come back no more)
-# You can't mean that (don't you come back no more)
-# Oh, now baby, please (don't you come back no more)
-# What you tryin' to do to me? (Don't you come back no more)
-# Oh, don't treat me like that (don't you come back no more)
-# """
-
-
-# lyrics = lyrics_hit_the_road_jack.lower()
-# eliminate = ["(", ")", "," ]
-# #eliminate = ["(", ")", ",", "'" ]
-
-
-# print("lyrics with CR=", lyrics)
-# lyrics = lyrics.replace("\n", " ")
-# print("lyrics without CR=", lyrics)
-
-# for e in eliminate:
-#     lyrics = lyrics.replace(e, "")
-# print("\n \n lyrics without ( ) , =", lyrics)
-
-# words = lyrics.split(" ")
-# print("\nwords =", words)
-# words.remove("")
-# words.remove("")
-
-# print("words =", words)
-
-# different_words = []
-# frequency = []
-# for w in words:
-
-#     if w in different_words:
-#         i = different_words.index(w)
-#         frequency[i] += 1
-#     else:
-#         different_words += [w]
-#         frequency += [1]
-
-# print("\n different_words =", different_words)
-# print("\n frequency =", frequency)
-# exit()
-
-# m = max(frequency)
-# print( "max =",  m )
-# i = frequency.index(m)
-# print( " word with max frequency:", different_words[i])
-
-
-
-
-# dictionary = dict()
-# for w in words: 
-#     if w not in dictionary: 
-#          dictionary[w] = 1 
-#     else: 
-#          dictionary[w] += 1 
-
-# print("dictionary =", dictionary)
-
-# print(" word with max frequency", max(dictionary, key = dictionary.get ) ) 
-
-# # List of words ordered by frequency 
-# sorted_words =  sorted(dictionary, key = dictionary.get) 
-
-# sorted_words.reverse()
-
-# for w in sorted_words: 
-#      print( w, dictionary[w] )
-
-
-
-#****************************************************************
-# Find if a substring: s is inside a string: S
-# Return a list containing the indexes of S where the substring s begins 
-# Example: S = "1234561234", find s="34". Return [2, 8]
-#****************************************************************
-
-# S = "1234561234"
-# s="34"
-# i = S.find(s) 
-# print( " i = ", i)
-
-# i = S.find(s, i+1) 
-# print( " i = ", i)
-
-# i = S.find(s, i+1) 
-# print( " i = ", i)
-
-
-# def find_substring(s, S): 
-
-#    index = []
-#    i = -1 
-#    while  i<len(S)-1: 
-#       i = S.find(s, i+1) 
-#       if i>=0: 
-#         index += [i] 
-#       else:
-#         break
-
-#    if index == []:
-#        index += [ S.find(s) ]
-#    return index 
-
-# print( find_substring(s="34", S = "1234561234" ) )
-# print( find_substring(s="34567", S = "123345671234567" ) )
-
-#****************************************************************
-# Determine the largest substring starting at first position 
-# in S and a list of indexes where the substring begins in S.
-# Example: S = "123345671234567",  Return "123",  [0, 8]
-#****************************************************************
-# def largest_substring(S): 
-
-#   patterns = dict()
-#   j = 0 
-#   for i in range(j+1,len(S)-1):
-#          s = S[j:i+1]  
-#          index = find_substring(s, S)
-#         # print("s =", s, index)
-#          if sum(index) > 0: 
-#                   patterns[s] = index
-
-#   print(patterns)
-#   max_key ="" 
-#   for key in patterns: 
-#     if len(key) > len(max_key): 
-#       max_key = key 
- 
-#   if max_key =="": 
-#       return "", []
-#   else: 
-#       return max_key, patterns[max_key]   
-  
-# print( largest_substring(S = "123345671234567") )
-
-
-#****************************************************************
-# Split a given string S into the largest substrings which appears of S.
-# Return a list of substrings and a list of list  where the substrinf begins in S. 
-# Example: S = "123345671234567",  Return ["123","34567", "12" ] [ [0, 8], [3, 10], [] ]
-#****************************************************************
-# def split_into_substrings(S): 
     
-#     S1 = S 
-#     S_split = []
-#     index = []
 
-#     while len(S1) > 0: 
-#       s1, i1 = largest_substring(S1) 
-#       print("s1 =", s1, i1)
+ 
+def Koch_snowflake(xi, xf, n):  
+
+    global L 
+    if n == 0: 
+        L += [ ( array([ xi[0], xf[0] ]), array([ xi[1], xf[1] ])) ]
+        
+    else:  
+        x1 = xi + (xf - xi) / 3
+        x3 = xf - (xf - xi) / 3
+       
+        R = x3 - x1
+        alpha = arctan2( R[1], R[0] ) + pi / 3
+        x2 = x1 + norm(R) * array( [ cos(alpha), sin(alpha) ] ) 
+
+        Koch_snowflake(xi, x1, n - 1)
+        Koch_snowflake(x1, x2, n - 1)
+        Koch_snowflake(x2, x3, n - 1)
+        Koch_snowflake(x3, xf, n - 1)
+        
+
+def  build_Koch_snowflake():
+    
+    global L 
+    L = [ ]
+    Koch_snowflake( xi = array([0,0]), xf = array([1,0]), n=4 )
+
+    for (p1, p2) in L: 
+        plt.plot(p1, p2)
+    plt.show()
+ 
+build_Koch_snowflake()
+
+
+
+
+
+# ********************************************
+# 2. plot ants, persons as points
+# ********************************************
+# def plot(x, y):
+
+#     plt.plot(x, y, "r.")
+#     plt.xlim(0, 1)
+#     plt.ylim(0, 1)
+#     plt.show()
+
+
+# N = 100
+# x_a = []
+# y_a = []
+
+# for i in range(N):
+#     x_a += [random()]
+#     y_a += [random()]
+
+# plot(x_a, y_a)
+
+
+# for i in range(len(x_a)):
+
+#     if x_a[i] < 0.3:
+#         x_a[i] += 0.3
+
+#     elif y_a[i] < 0.3:
+#         y_a[i] += 0.3
+
+# plot(x_a, y_a)
+
+
+# ********************************************
+# 3. animate points
+# ********************************************
+# def plot(x, y):
+
+#     plt.plot(x, y, "r.")
+#     plt.xlim(0, 1)
+#     plt.ylim(0, 1)
+#     plt.show()
+
+
+# def initial_position():
+#     N = 100
+#     x = []
+#     y = []
+
+#     for i in range(N):
+#         x += [random()]
+#         y += [random()]
+
+#     return x, y
+
+
+# def move_ants(x, y):
+
+#     N = len(x)
+#     dt = 0.01
+
+#     for i in range(N):
+#         vx, vy = [uniform(-1, 1.), uniform(-1., 1.)]
+#         x[i] += dt * vx
+#         y[i] += dt * vy
+
+#     return x, y
+
+
+# x, y = initial_position()
+
+# for i in range(100):
+#     x, y = move_ants(x, y)
+#     plot(x, y)
+#     plt.pause(0.1)
+#     plt.show()
+
+# plt.show()
+
+
+# ********************************************
+# 4. draw circles, rectangles, ...
+# ********************************************
+
+# fig, ax = plt.subplots()
+
+# plt.xlim(0, 10)
+# plt.ylim(0, 10)
+# ax.set_aspect("equal")
+
+# # add rectangle to plot
+# ax.add_patch( Rectangle((1, 1), 2, 6))
+# ax.add_patch( Circle((5, 5),  1) )
+
+# ax.add_patch( Rectangle((6, 6), 1, 1,
+#                        edgecolor='red',
+#                        facecolor='blue',
+#                        fill=True,
+#                        lw=5))
+
+
+# plt.show()
+
+# *****************************************************************
+# Complete GUI for different applications 
+#******************************************************************
+
+
+# def build_gui(): 
+
+#   def update_A(val):
+#     A = val
+#     f = S_f.val
+#     t, s = graph(A, f)
+#     l.set_ydata( s )
+#     fig.canvas.draw_idle()
+
+#   def update_f(val):
+#     f = val
+#     A = S_A.val
+#     t, s = graph(A, f)
+#     l.set_ydata( s )
+#     fig.canvas.draw_idle()
+
+#   def reset(event):
+#     S_f.reset()
+#     S_A.reset()
+
+#   def color(label):
+#     l.set_color(label)
+#     fig.canvas.draw_idle()
+
+#   def graph(A, f): 
+
+#     t = arange(0.0, 1.0, 0.001)
+#     s = A * sin( 2*pi*f*t )
+#     return t, s 
+
+#   fig, ax = plt.subplots()
+#   plt.subplots_adjust(left=0.25, bottom=0.25)
+#   A0 = 5;  f0 = 3
+   
+#   t, s = graph(A0, f0)
+#   l, = plt.plot(t, s, lw=2, color='red')
+#   plt.axis([0, 1, -10, 10])
+
+#   axcolor = "yellow"
+#   axes_f = plt.axes([0.25, 0.1, 0.65, 0.03], facecolor=axcolor)
+#   axes_A = plt.axes([0.25, 0.15, 0.65, 0.03], facecolor=axcolor)
+
+#   S_f = Slider(axes_f, 'Freq', 0.1, 30.0, valinit = f0) 
+#   S_f.on_changed(update_f)
+
+#   S_A = Slider(axes_A, 'Amp', 0.1, 10.0, valinit = A0)
+#   S_A.on_changed(update_A)
+
+#   axes_reset = plt.axes([0.8, 0.025, 0.1, 0.04])
+#   B_reset = Button(axes_reset, 'Reset', color=axcolor, hovercolor='0.975')
+#   B_reset.on_clicked(reset)
+
+#   axes_color = plt.axes([0.025, 0.5, 0.15, 0.15], facecolor=axcolor)
+#   R_color = RadioButtons(axes_color, ('red', 'blue', 'green'), active=0)
+#   R_color.on_clicked(color)
+
+#   plt.show()
+
+# build_gui()
+
+
+
+
+
+
+#********************************************
+# Simple pygame program
+#********************************************
+
+# def pygame_example(): 
+  
+
+#   pygame.init()
+#   screen = pygame.display.set_mode([500, 500])
+
+# # Fill the background with white
+#   screen.fill((255, 255, 255))
+
+# # Draw a solid blue circle in the center
+#   pygame.draw.circle(surface = screen, color = (0, 0, 255), 
+#                      center = (250, 250), radius = 75)
+
+# # Update the display
+#   pygame.display.update()
+
+# # Run until the user asks to quit
+#   running = True
+#   while running:
+
+#     # Did the user click the window close button?
+#     events =  pygame.event.get()
+#     for event in events :
+
+#         if event.type == pygame.QUIT:          
+#             running = False
+
+#         elif event.type == pygame.MOUSEBUTTONUP:
+#                 draw_circle(screen)
+#                 pygame.display.update()  
+
+# def draw_circle(screen):
+ 
+#     pos = get_pos()
+#     pygame.draw.circle(screen, (0,   0, 255), pos, 20)
+
+# def get_pos():
+
+#     return pygame.mouse.get_pos()
+
+# pygame_example()
+
+
+
+
+
+
+
+
+#********************************************************************
+# Music from the physical point of view 
+# #********************************************************************
+
+# def basic_piano_note(frequency, duration, sample_rate=44100):
       
-#       if s1=="":
-#              S_split += [S1]
-#              print("S1 =", S1, "find ", find_substring(S1, S))
-#              index += [find_substring(S1, S)]
-#              print("index =", index)
-#              break 
-#       else: 
-#           S_split += [s1]
-#           index += [ find_substring(s1, S) ]
-#           S1 = S1.replace(s1, "")
-      
-      
+#     # Generate time axis
+#       t = linspace(0, duration, int(sample_rate * duration), endpoint=False)
 
-#     return S_split, index   
+#     # Generate the fundamental frequency component (first harmonic)
+#       waveform = zeros( len(t) )
+    
+#     # Add higher harmonics with decreasing amplitude 
+#       harmonics = [ (1, 1), (2, 0.5), (3, 0.2), (4, 0.1), (5, 0.05) , (6, 0.02) ]  
+     
+#       for n, A in harmonics:
+#         waveform += A * sin(2 * pi * n * frequency * t)
 
-# print( split_into_substrings("123345671234567")) 
-# print( split_into_substrings("123+3+4567+123+4567")) 
-
+#     # Normalize waveform to prevent clipping
+#       waveform /= max(abs(waveform))
+    
+#       return t, waveform
 
 
+
+# def play_wav(file_path):
+#     try:
+#         # Load and play the .wav file directly with simpleaudio
+#           wave_obj = sa.WaveObject.from_wave_file(file_path)
+#           play_obj = wave_obj.play()
+        
+#         # Wait for the playback to finish
+#           play_obj.wait_done()
+#           print("Playback finished.")
+
+#     except FileNotFoundError:
+#           print("File not found. Please check the file path.")
+
+
+# def basic_example(): 
+
+#  # C3 note in Hz
+#    frequency = 130.8; duration = 2.0; fs = 44100   
+
+#  # Generate the note
+#    t, note = basic_piano_note(frequency, duration)
+
+#    N = int( fs / frequency )
+#    plt.plot(t[0:N], note[0:N])
+#    plt.show()
+
+#  # Save to file
+#    file_name = 'piano_note.wav' 
+#    sf.write(file_name, note, 44100)
+
+#    return file_name  
+
+
+# # Wav file with different harmonics 
+# wav_file = basic_example()
+# play_wav( wav_file )
+
+#*********************************************************
+# Creating midi files for musicians 
+#*********************************************************
+
+
+degrees  = [60, 62, 64, 65, 67, 69, 71, 72]  # MIDI note number
+track    = 0
+channel  = 0
+time     = 0    # In beats
+duration = 1    # In beats
+tempo    = 60   # In BPM
+volume   = 100  # 0-127, as per the MIDI standard
+
+MyMIDI = MIDIFile(1)  # One track, defaults to format 1 (tempo track is created
+                      # automatically)
+MyMIDI.addTempo(track, time, tempo)
+
+for i, pitch in enumerate(degrees):
+    MyMIDI.addNote(track, channel, pitch, time + i, duration, volume)
+
+with open("major-scale.mid", "wb") as output_file:
+    MyMIDI.writeFile(output_file)
+
+import os
+
+def play_midi(file_path):
+  # Open and play the MIDI file with the default media player
+    os.startfile(file_path)
+
+play_midi("major-scale.mid")  
                
                 
 

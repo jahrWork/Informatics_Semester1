@@ -1,119 +1,169 @@
-# S = "Hello"
-# for i,c  in enumerate(S):
-#     print("index i in string S =", i, " S[i] = ", S[i], " character in S = ", c )
-
-# L = [ 11, 22, 33, 44 ]
-# for i,e  in enumerate(L):
-#     print("index i in list L =", i, " L[i] = ", L[i], " element in L = ", e )
-
-# for e  in L:
-#     print( " element in L = ", e )
+#***************************************************
+#   Numpy: Matrices, +, -, transose, inverse, determinant
+#   SymPy: 
+#***************************************************
+from numpy import array
 
 
-def a(n): 
-    return 1/2**n 
 
-def a1(n): 
-    return 1/n**2 
+# *********************************************************
+# Operations with  Vectors
+# Since Python is not a vectorial language, numpy is used
+# to overcome this limitation
+# *********************************************************
 
-# N = 10
-# SN = sum( [ a(i) for i in range(1,N+1)] ) 
-# print(" SN = ", SN)
+# V1 = array([1, 2, 3])
+# V2 = array([4, 5, 6])
 
-# SN = 0
-# for n in range(1,N+1): 
-#     SN = SN + a(n)
-# print(" SN = ", SN)
-
-# S = 0; SN = 1
-# n = 1
-# while S != SN :
-#    SN = S 
-#    S = S + a(n)
-#    print("n = ", n, " S = ", S, " S-SN =", S-SN, " a(n) = ", a(n) )
-#    n = n + 1
-
-def sum_N(N, a): 
-    return sum( [ a(i) for i in range(1,N+1)] ) 
-
-def sum_inf(a): 
-
-    S = 0; SN = 1; n = 1
-    while S != SN :
-      SN = S 
-      S = S + a(n)
-      print("n = ", n, " S = ", S, "S-SN =", S-SN, "a(n) = ", a(n) )
-      n = n + 1
-      
-    return S 
-
-print("FINITE sum (a) = ", sum_N(10, a))
-print("INFINITE sum (a) = ", sum_inf(a))
-
-# from math import factorial
+# print("V1 + V2 = ", V1 + V2)
+# print("2 * V1 = ", 2 * V1)
 
 
-# N = 30
-# # N = int(  input("Enter N :") )
-# SN = 0
-# for n in range(1, N+1):
+# V3 = V1[0:1]
+# print(" type of V3 ", type(V3))
 
-#     print(n,  SN)
-#     SN = SN + 1 / factorial(n)
-# #   print("n =", n, "factorial = ", factorial(n)  )
-#     # SN = SN + n / ( 3**n  * factorial(n)  )
+# print("new vector V3= V1[0:1] = ", V3)
+# print("max(V1) = ", max(V1), " min(V1) =", min(V1), "len(V1) =", len(V1))
+# print("sum(V1) = ", sum(V1))
 
-# print("SN = ", SN, "N =", N)
-
-
-# print( " ")
-
-# SN = 0
-# f = 1
-# for n in range(1,N+1):
-
-#     print(n,  SN)
-#     # SN = SN + 1 / 2**n
-#     # f = 1
-
-#     for i in range(1, n+1):
-#         f = f * i
-#     print("n =", n, "factorial = ", f  )
-
-#     SN = SN + n / ( 3**n  * f )
+# M = array( [ [1,2], [3,4] ] )
+# print("M = ", M[0,0], M[0, 1] )
+# print(" first row of M = ", M[0,:])
+# print(" first column of M = ", M[:,0])
+          
 
 
-# print("SN = ",SN, "N =", N)
 
 
-# # S = 0
-# # n = 1
-# # while 1/2**n > 1e-8:
+# Vectors and matrices + PEI2 simulacro
 
-# #     S = S + 1/2**n
-
-# #     print(n,  S)
-
-# #     n = n + 1
+from numpy import zeros, sum, dot, matmul, array,  max, argmax, transpose, size, shape
+from numpy import set_printoptions
+from numpy.linalg import det, norm
 
 
-# # print("S = ",S, "n =", n-1)
+# A = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+# u = array([1, 1, 1])
+
+# print(type(A))
+# print("\n A = ", A)
+# print("\n u = ", u)
+
+# A[0, 0] = 0
+
+# print("\n A = ", A)
+
+# A[:, 0] = -1
+
+# print("\n A = ", A)
+
+# A[1, :] = -2
+
+# print("\n A = ", A)
 
 
-# # def a(n):
+# # # # print("\n A[0,1] = ", A[0, 1])
 
-# #     return 1/2**n
+# print("\n A u = ", matmul(A, u))
 
-
-# # S = 0
-# # n = 1
-# # while a(n) > 1e-8:
-
-# #     S += a(n)
-
-# #     print(n,  S)
-
-# #     n = n + 1
+# # B = A
+# # print(" id of A =", id(A), id(B))
+# # print("\n A + B = ", A+B)
 
 
-# # print("S = ", S, " n = ", n-1)
+# print("\n 3 A = ", 3 * A)
+
+print("\n det(A) = ", det(A))
+
+# # copy submatrix
+# N = 4
+# A = array([[j**2+i for j in range(1, N+1)] for i in range(1, N+1)])
+
+# print("A =", A)
+
+# B = A[0:2, 0:2]
+# C = A[2:4, 2:4]
+# print("B =", B, " C =", C)
+
+
+# ***********************************************************
+# * Examples of vectorial and matrix operations
+# ************************************************************
+# def Matrix_operation_examples():
+
+#     N = 5
+#     V = zeros( (N) )
+#     for i in range(1, N+1): 
+#         V[i-1] = 1/i**2 
+   
+#     W = array( [(-1)**(i+1)/(2*i+1.) for i in range(1, N+1)] )
+
+#     A = array( [ [(i/N)**(j-1) for j in range(1, N+1) ] for i in range(1, N+1)])
+
+#     print(" 1. Sum ( V ) = ", sum(V))
+#     print(" 2. Sum ( A ) = ", sum(A))
+#     print(" 3. Sum ( V, V>0 ) = ", sum(V[V > 0]))
+#     print(" 4. Sum ( A, A>0.1 ) = ", sum(A[A > 0.1]))
+#     print(" 5. dot product  ( V, W ) = ", dot(V, W))
+#     print(" 6. dot product V and A(:,N) = ", dot(V, A[:, N-1]))
+#     print(" 7. mat multiply A times V = ", matmul(A, V))
+
+#     print(" 9. transpose (A) = ")
+#     B = transpose(A)
+#     set_printoptions(precision=3, threshold=8, suppress=True)
+#     print(" B = \n", B)
+
+#     print("10. maxval (A) = ", max(A))
+#     print("11. maxloc (A) = ", argmax(A))
+#     # WARNING: index is for the flattened matrix
+
+
+# Matrix_operation_examples()
+
+
+
+# Vectors and matrices
+
+from numpy import zeros, sum, dot, matmul, array,  max, argmax, transpose, size, shape, trace, identity
+
+
+def Matrices_allocation():
+
+    S = sum([trace(Vandermonde(M)) for M in range(1, 11)])
+    print("1. sum from M=1 to 10 of  trace ( A_M ) =   ", S)
+
+    S = sum([ trace(matmul(Vandermonde(M), Vandermonde(M))) for M in range(1, 6)])
+    print("2. sum from M=1 to 5 of traces ( A_M **2 ) = ", S)
+
+    Ak = array(zeros([8, 8, 6]))
+    for k in range(6):
+        Ak[:, :, k] = power(Vandermonde(8), k)
+
+    S = trace(sum(Ak, axis=2))  # trace( I + Ak + Ak**2 +... Ak**5 )
+    print("3. trace ( sum from k=0 to 10 of A_5**k )=", S)
+
+
+#  Vandermonde matrix A of dimension MxM
+def Vandermonde(N):
+    
+    V = zeros( (N, N) )
+    for i in range(1, N+1): 
+        for j in range(1, N+1): 
+            V[i-1,j-1] = (i/float(N))**(j-1)
+
+    return V
+
+
+# It determines the kth power of matrix A
+def power(A, k):
+
+    (N, M) = shape(A)
+
+    if k == 0:
+        return identity(N)
+    else:
+        return matmul(power(A, k-1), A)
+
+
+Matrices_allocation()
