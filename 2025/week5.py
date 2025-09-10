@@ -74,7 +74,7 @@ from numpy.linalg import det, norm
 
 # print("\n 3 A = ", 3 * A)
 
-print("\n det(A) = ", det(A))
+#print("\n det(A) = ", det(A))
 
 # # copy submatrix
 # N = 4
