@@ -20,6 +20,43 @@ import soundfile as sf
 import simpleaudio as sa
 from midiutil import MIDIFile
 
+# Functions 
+# from numpy import array, pi, sin, norm  
+# import matplotlib.pyplot as plt
+
+
+#***************************************************************
+# Partition of segment [a, b] in N intervals.
+# Determine interior nodes x_i = a + (b-a)/N i from i=0 to i=N
+#***************************************************************
+# def partition(a, b, N): 
+#   x = array([a + (b-a)/N * i for i in range(0, N+1)])
+#   return x 
+
+# def f(x): 
+#     return sin(pi*x)
+
+# def derivative(f,  x, h=1e-3): 
+#     return ( f(x+h) - f(x-h) )/(2*h)
+
+# x = partition(a=0., b=1., N=20)
+# y = f(x)
+# yp = derivative(f, x) 
+
+# print(" x =", x)
+# print( "y = ", y)
+# plt.plot(x,y)
+# plt.plot(x,yp)
+# plt.show()
+
+ 
+
+# print( "yp = ", yp)
+
+
+
+
+
 
 
 # **********************************************

@@ -7,50 +7,50 @@
 from math import exp, sin, log10, cos, sqrt, fabs
 import math
 
-print("Hello world")
+# print("Hello world")
 
-m = 3
-print("The value of m is: ", m)
-print("The type of m is: ", type(m))
+# m = 3
+# print("The value of m is: ", m)
+# print("The type of m is: ", type(m))
 
-name =  " Juan"
-print("The value of name is: ", name)
-print("The type of name is: ", type(name))
+# name =  " Juan"
+# print("The value of name is: ", name)
+# print("The type of name is: ", type(name))
 
-x = 1.
-print("The value of x is: ", x)
-print("The type of x is: ", type(x))
-print( "Expression at x=1 is:", ( 3 * x**3 + 5 * x - 1 ) / ( math.exp(x) + 3 * math.sin(x) - math.log10(x) ) )
+# x = 1.
+# print("The value of x is: ", x)
+# print("The type of x is: ", type(x))
+# print( "Expression at x=1 is:", ( 3 * x**3 + 5 * x - 1 ) / ( math.exp(x) + 3 * math.sin(x) - math.log10(x) ) )
 
-x = 1.
-print( "Expression at x=3 is:", ( 3 * x**3 + 5 * x - 1 ) /( exp(x) + 3 * sin(x) - log10(x) ) )
+# x = 1.
+# print( "Expression at x=3 is:", ( 3 * x**3 + 5 * x - 1 ) /( exp(x) + 3 * sin(x) - log10(x) ) )
 
-x = -3.5
-print("Expression:", (3 * x**3 + 1) / ( cos(x**2) + 5 * log10(  sqrt(fabs(x) ) ) ) )
-print("Expression:", (3 * x**3 + 1) / (math.cos(x**2) + 5 * math.log10(  math.sqrt(math.fabs(x)  )) )) # verbose expression 
-
-
-
-
-PEI1 = 2.1
-PEI2 = 9.9
-PEI3 = 10.
-MOODLE = 10.
-print("\n \nCalcula la media con las siguientes notas", PEI1, PEI2, PEI3, MOODLE )
-
-if PEI1 >=3 and PEI2 >=3 and PEI3 >=3:
-
-    MEDIA = 0.3 * PEI1 + 0.3 * PEI2 + 0.3 * PEI3  + 0.1 * MOODLE
-    print("MEDIA :", MEDIA)
-
-else:
-    print("No se calcula la media. \nNo se alcanza el mínimo exigido en cada una de las partes.")
-    print("Nos vemos en el final.")
+# x = -3.5
+# print("Expression:", (3 * x**3 + 1) / ( cos(x**2) + 5 * log10(  sqrt(fabs(x) ) ) ) )
+# print("Expression:", (3 * x**3 + 1) / (math.cos(x**2) + 5 * math.log10(  math.sqrt(math.fabs(x)  )) )) # verbose expression 
 
 
 
 
-from cmath import sqrt
+# PEI1 = 2.1
+# PEI2 = 9.9
+# PEI3 = 10.
+# MOODLE = 10.
+# print("\n \nCalcula la media con las siguientes notas", PEI1, PEI2, PEI3, MOODLE )
+
+# if PEI1 >=3 and PEI2 >=3 and PEI3 >=3:
+
+#     MEDIA = 0.3 * PEI1 + 0.3 * PEI2 + 0.3 * PEI3  + 0.1 * MOODLE
+#     print("MEDIA :", MEDIA)
+
+# else:
+#     print("No se calcula la media. \nNo se alcanza el mínimo exigido en cada una de las partes.")
+#     print("Nos vemos en el final.")
+
+
+
+
+# from cmath import sqrt
 
 # **********************************************************************
 #   Roots of a second order equation 
@@ -65,167 +65,94 @@ from cmath import sqrt
 #               test1: x**2 -x = 0 , x_1 = 0, x_2 = 1
 #               test2: 2 x**2 + 2  = 0, x_1 = + i, x_2 = - i
 #               test3: x+1 = 0, x_1 = -1
-a = 1.
-b = 1.
-c = 1.
+# a = 1.
+# b = 1.
+# c = 1.
 
-if a == 0:
-    if b == 0:
-        print("There is no solution ")
-    else:
-        print(" There is only one solution = ", -c/b)
+# if a == 0:
+#     if b == 0:
+#         print("There is no solution ")
+#     else:
+#         print(" There is only one solution = ", -c/b)
+# else:
+
+#     x_1 = (-b + sqrt(b**2 - 4*a*c)) / (2*a)
+#     x_2 = (-b - sqrt(b**2 - 4*a*c)) / (2*a)
+#     print("There are two solutions")
+#     print("x_1 = ", x_1)
+#     print("x_2 = ", x_2)
+
+# print("max =", max(abs(x_1), abs(x_2)))
+
+
+
+
+#**************************************************************
+# Determine if n is prime.
+#  n is prime if i has only two divisors:  1 and itself. 
+#**************************************************************
+
+#  for loop is used we perform a spacific number of operations
+print("prime numbers")
+n = 13
+for i in range(2,n): # from i=2 to n-1 
+    if n % i == 0:
+          break
+
+if i<n-1:
+        print(n, "is not prime")
 else:
-
-    x_1 = (-b + sqrt(b**2 - 4*a*c)) / (2*a)
-    x_2 = (-b - sqrt(b**2 - 4*a*c)) / (2*a)
-    print("There are two solutions")
-    print("x_1 = ", x_1)
-    print("x_2 = ", x_2)
-
-print("max =", max(abs(x_1), abs(x_2)))
+        print(n, "is prime")
 
 
-#***********************************************
-# Roots   
-#***********************************************  
-def roots(a, b, c): 
-    if a == 0:
-     if b == 0:
-        print("There is no solution ")
-     else:
-        print(" There is only one solution = ", -c/b)
+
+
+
+# while loop is used when we don't know th number of operations or steps 
+N = 10
+print("Determine N=", N, "first primes")
+
+S_prime = 0
+N_prime = 0
+n = 2
+while N_prime < N:
+
+    is_prime = True
+    for i in range(2, n):
+        if n % i == 0:
+            # print( n, " is not prime because ", i, "is a factor")
+            is_prime = False
+            break
+
+    if is_prime:
+        print(n, "is prime")
+        N_prime = N_prime + 1
+        S_prime = S_prime + n
+
     else:
+        print(n, "is not prime")
+        pass
 
-     x_1 = (-b + sqrt(b**2 - 4*a*c)) / (2*a)
-     x_2 = (-b - sqrt(b**2 - 4*a*c)) / (2*a)
-     print("There are two solutions")
-     print("x_1 = ", x_1)
-     print("x_2 = ", x_2)
+    n = n + 1
 
+print("\n \n")
+print("The sum of the first N primes is =", S_prime)
 
-print( "roots =", roots(1,2,3))
-print( "roots =", roots(1,-2,1))
-print( "roots =", roots(1,-4,1))
+#**********************************************************************
+# A number is perfect when the sum of its primes is equal to the number 
+#**********************************************************************
+print("perfect numbers") 
+n = 6
+S = 0
+for i in range(1,n):
+    if n % i == 0:
+          print( i, "is a factor")
+          S = S + i
 
-
-
-
-# S = "Hello"
-# for i,c  in enumerate(S):
-#     print("index i in string S =", i, " S[i] = ", S[i], " character in S = ", c )
-
-# L = [ 11, 22, 33, 44 ]
-# for i,e  in enumerate(L):
-#     print("index i in list L =", i, " L[i] = ", L[i], " element in L = ", e )
-
-# for e  in L:
-#     print( " element in L = ", e )
+if S==n:
+        print(n, "is perfect")
+else:
+        print(n, "is not perfect")
 
 
-def a(n): 
-    return 1/2**n 
 
-def a1(n): 
-    return 1/n**2 
-
-# N = 10
-# SN = sum( [ a(i) for i in range(1,N+1)] ) 
-# print(" SN = ", SN)
-
-# SN = 0
-# for n in range(1,N+1): 
-#     SN = SN + a(n)
-# print(" SN = ", SN)
-
-# S = 0; SN = 1
-# n = 1
-# while S != SN :
-#    SN = S 
-#    S = S + a(n)
-#    print("n = ", n, " S = ", S, " S-SN =", S-SN, " a(n) = ", a(n) )
-#    n = n + 1
-
-def sum_N(N, a): 
-    return sum( [ a(i) for i in range(1,N+1)] ) 
-
-def sum_inf(a): 
-
-    S = 0; SN = 1; n = 1
-    while S != SN :
-      SN = S 
-      S = S + a(n)
-      print("n = ", n, " S = ", S, "S-SN =", S-SN, "a(n) = ", a(n) )
-      n = n + 1
-      
-    return S 
-
-print("FINITE sum (a) = ", sum_N(10, a))
-print("INFINITE sum (a) = ", sum_inf(a))
-
-# from math import factorial
-
-
-# N = 30
-# # N = int(  input("Enter N :") )
-# SN = 0
-# for n in range(1, N+1):
-
-#     print(n,  SN)
-#     SN = SN + 1 / factorial(n)
-# #   print("n =", n, "factorial = ", factorial(n)  )
-#     # SN = SN + n / ( 3**n  * factorial(n)  )
-
-# print("SN = ", SN, "N =", N)
-
-
-# print( " ")
-
-# SN = 0
-# f = 1
-# for n in range(1,N+1):
-
-#     print(n,  SN)
-#     # SN = SN + 1 / 2**n
-#     # f = 1
-
-#     for i in range(1, n+1):
-#         f = f * i
-#     print("n =", n, "factorial = ", f  )
-
-#     SN = SN + n / ( 3**n  * f )
-
-
-# print("SN = ",SN, "N =", N)
-
-
-# # S = 0
-# # n = 1
-# # while 1/2**n > 1e-8:
-
-# #     S = S + 1/2**n
-
-# #     print(n,  S)
-
-# #     n = n + 1
-
-
-# # print("S = ",S, "n =", n-1)
-
-
-# # def a(n):
-
-# #     return 1/2**n
-
-
-# # S = 0
-# # n = 1
-# # while a(n) > 1e-8:
-
-# #     S += a(n)
-
-# #     print(n,  S)
-
-# #     n = n + 1
-
-
-# # print("S = ", S, " n = ", n-1)

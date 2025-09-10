@@ -3,88 +3,86 @@
 #***************************************************
 
 
-# from math import sqrt, factorial
+#***********************************************
+#  function:  Roots of a second order equation 
+#    inputs: a, b, c 
+#    outputs: roots 
+#*********************************************** 
+  
+from cmath import sqrt
 
+def roots_2nd_order_equation(a, b, c): 
 
-# # Imperative program (sequence of steps, how to )
-# n = 6
-# f = 1
-# for i in range(1, n+1):
-#        f = f * i
-#        print("f =", f)
-
-# # Declarative program (what to do)
-# print( "factorial(n) = ", factorial(n))
-
-
-# z = 3
-
-# # Imperative program (sequence of steps, how to )
-# x = 1
-# f = 1 # f should be zero because f = x**2 - y
-# while abs(f) > 0.001 :
-#    f =  x**2 - z
-#    x =  x - 0.1 * f
-#    print(x)
-
-# # Declarative program (what to do)
-# print("sqrt(z)=", sqrt(z))
-
-
-# print("prime numbers")
-# n = 13
-# for i in range(2,n):
-#     if n % i == 0:
-#           break
-
-# if i<n-1:
-#         print(n, "is not prime")
-# else:
-#         print(n, "is prime")
-
-
-# print("perfect numbers")
-# n = 6
-# S = 0
-# for i in range(1,n):
-#     if n % i == 0:
-#           print( i, "is a factor")
-#           S = S + i
-
-# if S==n:
-#         print(n, "is perfect")
-# else:
-#         print(n, "is not perfect")
-
-
-N = 10
-print("Determine N=", N, "first primes")
-
-S_prime = 0
-N_prime = 0
-n = 2
-while N_prime < N:
-
-    is_prime = True
-    for i in range(2, n):
-        if n % i == 0:
-            # print( n, " is not prime because ", i, "is a factor")
-            is_prime = False
-            break
-
-    if is_prime:
-        print(n, "is prime")
-        N_prime = N_prime + 1
-        S_prime = S_prime + n
-
+    if a == 0:
+       if b == 0:
+         return None 
+       else:
+        x_1 = -c/b
+        return [x_1]
+       
     else:
-        print(n, "is not prime")
-        pass
 
-    n = n + 1
+     x_1 = (-b + sqrt(b**2 - 4*a*c)) / (2*a)
+     x_2 = (-b - sqrt(b**2 - 4*a*c)) / (2*a)
+     return [x_1, x_2] 
+     
+# ****************************************
+# procedure to print different roots 
+# ****************************************     
+def pretty_print(roots): 
 
-print("\n \n")
-print(S_prime)
+    if roots == None: 
+        print("There is no solution ")
+
+    elif len(roots) == 1:     
+          x_1 = roots[0] 
+          print("There is only one solution = ", x_1)
+    else: 
+          [x_1, x_2] = roots   
+          print("There are two solutions")
+          print("x_1 = ", x_1)
+          print("x_2 = ", x_2)
+
+
+roots =  roots_2nd_order_equation(a=0, b=0, c=3)
+pretty_print( roots )
+
+roots =  roots_2nd_order_equation(a=0, b=1, c=1)
+pretty_print( roots ) 
+
+roots =  roots_2nd_order_equation(a=1, b=-4, c=1)
+pretty_print( roots ) 
+
+
+
+
+
+
+
+#*************************************************
+# Paradigms: imperative versus declarative 
+#*************************************************
+
+# Imperative program (sequence of steps, how to )
+n = 6
+def factorial_imperative(n): 
+   f = 1
+   for i in range(1, n+1):
+       f = f * i
+       print("factorial =", f)
+   return f 
+print( "\nfactorial(6) = ", factorial_imperative(n))
+    
+
+# Declarative program (what to do)
+def factorial(n): 
+   if n==0: 
+        return 1 
+   else: 
+       return n * factorial(n-1)
+   
+print( "\nfactorial(6) = ", factorial(n))
+
 
 
 
@@ -99,9 +97,7 @@ print(S_prime)
 #             return False
          
 #       return True and n > 1
-        
-    
-   
+               
 # def First_primes(N): 
 
 #   N_primes = 0 
@@ -166,7 +162,7 @@ print(S_prime)
 # import matplotlib.pyplot as plt
 
 #*************************************************
-# Never do the following 
+# Never do the following: 
 # f(x) is NOT a function 
 # because depends on variable a which is an 
 # external variable 
@@ -174,7 +170,7 @@ print(S_prime)
 
 # a = 3 
 # def f(x): 
-#    return x**2 +a 
+#    return x**2 + a 
 
 # print(" f(2) =", f(2))
 # a = 4 
@@ -184,11 +180,11 @@ print(S_prime)
 # Type of arguments can be specified to improve readability 
 # However, type of actual arguments are not checked 
 #***********************************************************
-def f(x: float) -> float:  
-   return x**2 
+# def f(x: float) -> float:  
+#    return x**2 
 
-print(" f(2) =", f(2))
-print( " f(2.) =", f(2.) )
+# print(" f(2) =", f(2))
+# print( " f(2.) =", f(2.) )
 
 
 
@@ -222,29 +218,6 @@ print( " f(2.) =", f(2.) )
 
 
 
-
-# #***********************************************
-# #  Polynomial evaluation  
-# #***********************************************  
-# def polynomial(x, a): 
-
-#     P = 0 
-#     for i in range(len(a)): 
-#         P  += a[i] * x**i 
-
-#     return P 
-
- 
-# print(" polynomial = ", polynomial( x=2, a=[1, 2, 3] ) ) 
-
-
-# def f(x): 
-    
-#     if x <= 0: 
-#         return cos( pi*x) 
-#     else: 
-#         return 1 + sin( pi*x) 
-    
 
 
 
@@ -288,43 +261,9 @@ print( " f(2.) =", f(2.) )
 
 
 
-# Functions 
-from numpy import array, pi, sin, norm  
-import matplotlib.pyplot as plt
-
-
-#***************************************************************
-# Partition of segment [a, b] in N intervals.
-# Determine interior nodes x_i = a + (b-a)/N i from i=0 to i=N
-#***************************************************************
-def partition(a, b, N): 
-  x = array([a + (b-a)/N * i for i in range(0, N+1)])
-  return x 
-
-def f(x): 
-    return sin(pi*x)
-
-def derivative(f,  x, h=1e-3): 
-    return ( f(x+h) - f(x-h) )/(2*h)
-
-x = partition(a=0., b=1., N=20)
-y = f(x)
-yp = derivative(f, x) 
-
-print(" x =", x)
-print( "y = ", y)
-plt.plot(x,y)
-plt.plot(x,yp)
-plt.show()
-
- 
-
-print( "yp = ", yp)
-
-
+#*****************************************
 # Functions
-
-
+#****************************************
 # """
 #     It determines the first derivative
 
@@ -417,63 +356,86 @@ print( "yp = ", yp)
 
 
 
-from math import sqrt, exp, factorial, sin, cos
+# #***********************************************
+# #  Polynomial evaluation  
+# #***********************************************  
+# def polynomial(x, a): 
+
+#     P = 0 
+#     for i in range(len(a)): 
+#         P  += a[i] * x**i 
+
+#     return P 
+
+ 
+# print(" polynomial = ", polynomial( x=2, a=[1, 2, 3] ) ) 
 
 
-# #***************************************************
-# # Implement Taylor cosine expansion 
-# #***************************************************
-def Taylor_cosine(x, tol): 
+# def f(x): 
     
-    T = 0; n = 0 
+#     if x <= 0: 
+#         return cos( pi*x) 
+#     else: 
+#         return 1 + sin( pi*x) 
     
-    while abs( cos(x)-T) >= tol:
-        T += (-1)**n * x**(2*n) / factorial(2*n)
-        n += 1 
+
+# from math import sqrt, exp, factorial, sin, cos
+
+
+# # #***************************************************
+# # # Implement Taylor cosine expansion 
+# # #***************************************************
+# def Taylor_cosine(x, tol): 
+    
+#     T = 0; n = 0 
+    
+#     while abs( cos(x)-T) >= tol:
+#         T += (-1)**n * x**(2*n) / factorial(2*n)
+#         n += 1 
   
-    return T 
+#     return T 
 
-print("Taylor(1, 1e-3) =", Taylor_cosine(x = 1, tol = 1e-3), "cos(1) =", cos(1.))
-
-
+# print("Taylor(1, 1e-3) =", Taylor_cosine(x = 1, tol = 1e-3), "cos(1) =", cos(1.))
 
 
-# #***************************************************
-# # Implement Taylor expansions 
-# #***************************************************
-def Taylor(df, x0, x, N):
-    """"
-        Taylor expansion =  sum _{k=0} ^N f_k(x0) (x-x0)**k / k!
-            Inputs:
-              df   : function kth derivative of f(x)
-              x0   : origin of Taylor expansion
-                x   : point where Taylor is evaluated
-                N   : last term of Taylor expansion
-
-            return:
-                Taylor expansion evaluated at x
-    """
-
-    def b(k):
-
-        return df(x0, k) * (x - x0)**k / factorial(k)
-
-    return sum([b(k) for k in range(N+1)])
 
 
-# ************************************************************************
-# 4. Taylor expansion of exp(x) origen x0=0 at x =1 with tolerance eps
-# ************************************************************************
-def dexp(x, k):
+# # #***************************************************
+# # # Implement Taylor expansions 
+# # #***************************************************
+# def Taylor(df, x0, x, N):
+#     """"
+#         Taylor expansion =  sum _{k=0} ^N f_k(x0) (x-x0)**k / k!
+#             Inputs:
+#               df   : function kth derivative of f(x)
+#               x0   : origin of Taylor expansion
+#                 x   : point where Taylor is evaluated
+#                 N   : last term of Taylor expansion
 
-    return exp(x)
+#             return:
+#                 Taylor expansion evaluated at x
+#     """
+
+#     def b(k):
+
+#         return df(x0, k) * (x - x0)**k / factorial(k)
+
+#     return sum([b(k) for k in range(N+1)])
 
 
-# T = Taylor(df=dexp, x0=0., x=1., N=12)
-# print(" T = ", T, " E =", exp(1.) - T)
+# # ************************************************************************
+# # 4. Taylor expansion of exp(x) origen x0=0 at x =1 with tolerance eps
+# # ************************************************************************
+# def dexp(x, k):
 
-N = [1, 2, 3, 4, 5, 6, 7, 8, 16]
-for n in N:
-    T = Taylor(df=dexp, x0=0., x=1., N=n)
-    E = exp(1.) - T
-    print("N=", n, "Taylor exp(1.) x0=0   :", T, "Error =", E)
+#     return exp(x)
+
+
+# # T = Taylor(df=dexp, x0=0., x=1., N=12)
+# # print(" T = ", T, " E =", exp(1.) - T)
+
+# N = [1, 2, 3, 4, 5, 6, 7, 8, 16]
+# for n in N:
+#     T = Taylor(df=dexp, x0=0., x=1., N=n)
+#     E = exp(1.) - T
+#     print("N=", n, "Taylor exp(1.) x0=0   :", T, "Error =", E)
