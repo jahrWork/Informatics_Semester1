@@ -86,6 +86,85 @@ import math
 
 
 
+#****************************************************
+# Strings and functions 
+#****************************************************
+
+#S = "my name is John"
+# print( S.split(" ") )
+
+# for c in S: 
+#     print("c = ", c)
+   
+# print("\nString referred by index")    
+# for i in range(len(S)): 
+#     print("c = ", S[i])
+    
+
+# print( " S[0] =",  S[0] ) 
+# #S[0] = "M"
+# S = "M" + S[1:]
+# print(S)
+
+# S = S.upper()  
+# print(S)
+
+
+# s = 'abcd'[0:2]
+# print(s)
+
+# s = "abc"
+# s2 = s[-1:-len(s)-1:-1]
+# print(s2)
+
+# s3 = s[-1:0:-1]
+# print("s3 =", s3)
+# print("abcd"[:2])
+
+
+
+
+
+
+#***********************************************************
+# types and operators 
+#***********************************************************
+# print(7/2)
+# print(7./2.)
+
+# print( (3+2j)*(-1j))
+
+
+# print(2**3**2)
+# print( 2**(3**2) )
+# print( (2**3)**2 )
+# print( 8**3.2 )
+
+# print(13.2/4)
+# print(13.2%4)
+
+# print( type(divmod(5,2)))
+
+
+# print(13.2//4.)
+# print(divmod(13.2,4))
+# z = 1+ 1j 
+# print(z.real, z.imag)
+
+# #from math import floor 
+# from numpy import floor, round, ceil 
+# #from math import floor, ceil
+
+
+# print(round(7.8), type(round(7.8)))
+# print(int(7.8))
+# print(round(7.8, 0))
+# print( type(floor(7.8)) )
+
+
+
+
+
 
 #**************************************************************
 # Determine if n is prime.
