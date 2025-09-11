@@ -1,3 +1,80 @@
+#************************************************************
+# loops: for and while 
+# functions: def, return versus procedures 
+#************************************************************
+
+#**************************************************************
+# Determine if n is prime.
+#  n is prime if i has only two divisors:  1 and itself. 
+#**************************************************************
+
+#  for loop is used we perform a spacific number of operations
+print("prime numbers")
+n = 13
+for i in range(2,n): # from i=2 to n-1 
+    if n % i == 0:
+          break
+
+if i<n-1:
+        print(n, "is not prime")
+else:
+        print(n, "is prime")
+
+
+
+
+
+# while loop is used when we don't know th number of operations or steps 
+N = 10
+print("Determine N=", N, "first primes")
+
+S_prime = 0
+N_prime = 0
+n = 2
+while N_prime < N:
+
+    is_prime = True
+    for i in range(2, n):
+        if n % i == 0:
+            # print( n, " is not prime because ", i, "is a factor")
+            is_prime = False
+            break
+
+    if is_prime:
+        print(n, "is prime")
+        N_prime = N_prime + 1
+        S_prime = S_prime + n
+
+    else:
+        print(n, "is not prime")
+        pass
+
+    n = n + 1
+
+print("\n \n")
+print("The sum of the first N primes is =", S_prime)
+
+#**********************************************************************
+# A number is perfect when the sum of its primes is equal to the number 
+#**********************************************************************
+print("perfect numbers") 
+n = 6
+S = 0
+for i in range(1,n):
+    if n % i == 0:
+          print( i, "is a factor")
+          S = S + i
+
+if S==n:
+        print(n, "is perfect")
+else:
+        print(n, "is not perfect")
+
+
+
+
+
+
 #***************************************************
 #  Functions 
 #***************************************************
