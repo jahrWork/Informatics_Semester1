@@ -1,4 +1,4 @@
-# foundations: Programming in Python
+# Foundations: Programming in Python
 
 How to work with this repository with Visual Studio Code: 
 1) Download ZIP (from Code green button) and extract folder in some local folder
