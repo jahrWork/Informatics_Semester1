@@ -1,6 +1,5 @@
 #***************************************************
-#   Numpy: Matrices, +, -, transose, inverse, determinant
-#   SymPy: 
+#   Numpy: Matrices, +, -, transpose, inverse, determinant
 #***************************************************
 from numpy import array
 
