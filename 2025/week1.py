@@ -161,6 +161,15 @@ import math
 # print(round(7.8, 0))
 # print( type(floor(7.8)) )
 
+# for i in range(4): 
+#     print( "numero :", num)
+
+# print(4*f"num : {num} \n")
+
+# print(4*f'num : {num}', end = '\n')
+
+
+# print(4*'num', num, end = '\n')
 
 
 
