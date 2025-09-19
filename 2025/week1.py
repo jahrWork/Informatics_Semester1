@@ -171,7 +171,9 @@ import math
 
 # print(4*'num', num, end = '\n')
 
-
-
-
+# ouput: 0, 1, 1
+# Once the loop is abandoned, the index retains the last value 
+# for i in range(2):
+#     print(i, end=', ')
+# print(i)
 
