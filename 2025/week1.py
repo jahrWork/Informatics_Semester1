@@ -161,19 +161,53 @@ import math
 # print(round(7.8, 0))
 # print( type(floor(7.8)) )
 
-# for i in range(4): 
-#     print( "numero :", num)
+#******************************************************************
+# Output: print 
+#******************************************************************
+# Every time print is executed a new line is used
+# To avoid new line, use the argument end =', ' 
+# This allows to print multiples values separeted by comma: ", "
+for i in range(4): 
+    print( "index :", i)
 
-# print(4*f"num : {num} \n")
+for i in range(4): 
+    print( "index :", i, end = ', ')
 
-# print(4*f'num : {num}', end = '\n')
+print("\nindex :", end =" ")   
+for i in range(4): 
+    print(i, end = ", ")    
 
-
-# print(4*'num', num, end = '\n')
 
 # ouput: 0, 1, 1
 # Once the loop is abandoned, the index retains the last value 
-# for i in range(2):
-#     print(i, end=', ')
-# print(i)
+print("\n\nlast value when loop is abandoned")
+for i in range(2):
+    print(i, end=', ')
+print(i)
+
+
+# format f in print 
+for i in range(4): 
+  print(f"index : {i}")
+
+# Tables with print 
+# variable:<length (specify the length of the column 
+# string format: 15s fifteen characters
+# float format: 15.2f fifteen digits with two decimals 
+# :< left justified, :>right justified 
+print("\nPretty print table ")
+print(45*"-")
+print(f"{"x":<15s}{"x**2":<15s}{"x**3":<15s}")
+print(45*"-")
+for i in range(1, 5):
+ x = 2*i + 1.
+ print(f'{x:<15.2f}{x**2:<15.2f}{x**3:<15.2f}')
+
+print(45*"-")
+print(f"{"x":>15s}{"x**2":>15s}{"x**3":>15s}")
+print(45*"-")
+for i in range(1, 5):
+ x = 2*i + 1.
+ print(f'{x:>15.2f}{x**2:>15.2f}{x**3:>15.2f}')
+
 

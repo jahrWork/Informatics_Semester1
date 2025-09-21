@@ -61,6 +61,103 @@
 #     S += e  # S = S + e
 # print("Sum(L1) =", S)
 
+
+
+
+# #***********************************************
+# # 1. Determine a list of the first N primes 
+# #***********************************************
+# def is_prime(n): 
+    
+#       for i in range(2,n):
+#           if n % i == 0:  
+#             return False
+         
+#       return True and n > 1
+               
+# def First_primes(N): 
+
+#   N_primes = 0 
+#   n = 1   
+#   primes = []
+  
+#   while N_primes < N: 
+             
+#         if is_prime(n): 
+#             primes += [ n ]
+#             N_primes += 1 
+            
+#         n += 1    
+   
+#   return primes   
+   
+    
+   
+# print("First N primes =", First_primes(7) )     
+
+
+          
+      
+
+# #***********************************************
+# #  Determine a list of the first N perfects 
+# #***********************************************
+# # is_perfect: N -> (T,F)
+# #***********************************************   
+# def is_perfect(n): 
+    
+#       S = 0 
+#       for i in range(1,n):
+#           if n % i == 0:
+#             S = S + i   
+          
+#       return S == n  
+   
+# def First_perfect_numbers(N): 
+
+#   N_perfects = 0 
+#   n = 1 
+#   perfects = [ ]   
+  
+#   while N_perfects < N: 
+             
+#         if is_perfect(n): 
+#             perfects += [ n ]
+#             N_perfects = N_perfects + 1 
+            
+#         n = n + 1 
+   
+#   return perfects      
+      
+
+# print("First N perfect numbers =", First_perfect_numbers(4)  )   
+
+
+
+#***************************************************
+# sum of numeric series with a list 
+#***************************************************
+def a(n): 
+    return 1/2**n 
+
+N = 10
+SN = sum( [ a(i) for i in range(1,N+1)] ) 
+print(" SN = ", SN)
+
+def sum_series(a, i0, N): 
+    
+    return sum( [ a(i) for i in range(i0, N+1)] ) 
+
+print(" SN = ", sum_series(a, i0=1, N=10))
+
+
+
+
+
+
+
+
+
 # *********************************************************
 # Operations with  Tuples
 # Since they are inmutable, insert or remove are not allowed
@@ -103,7 +200,7 @@
 
 
 #***************************************************************
-# Obtain the differences between two lists wihout functions 
+# Obtain the differences between two lists without functions 
 #***************************************************************
 # List_1 = [1, 2, 3, 4]
 # List_2 = [2, 3, 4, 5, 6, 2, 7]
@@ -243,7 +340,7 @@
 
 # def count_in_a_b( L, a, b ): 
 
-#    return  len( [l for l in L if a >= l <= b] )
+#    return  len( [e for e in L if e >= a and e <= b] )
   
 # L1 = [2, 6, 2, 1, -3, 7]
 
@@ -262,7 +359,15 @@
 #************************************
 #  palindrome 
 #************************************
-  
+# Reserve a string 
+S = "abc" 
+print(S[::-1])
+print(S[len(S)-1:-1:-1]) # it does not work 
+print("S =", S[len(S)-1:0:-1] + S[0] ) # it does  work 
+L = [S[e] for e in range(len(S)-1, -1, -1) ]
+print(L, "".join(L) )
+
+
 # S = "somos o no somos"
  
 # S1 = S.replace(" ", "")
@@ -330,14 +435,14 @@
 #***********************************************
 # divisors of a number  n
 #***********************************************  
-def divisors(n): 
+# def divisors(n): 
     
-      d = []
-      for i in range(1,n):
-          if n % i == 0:
-            d += [ i ] 
+#       d = []
+#       for i in range(1,n):
+#           if n % i == 0:
+#             d += [ i ] 
           
-      return d  
+#       return d  
 
 # print(" divisors of 15 : ", divisors(15) )
 
@@ -345,44 +450,44 @@ def divisors(n):
 # Greatest common divisor of different numbers 
 #  Functions with different number of arguments 
 #***********************************************  
-def greatest_common_divisor( *numbers ): 
+# def greatest_common_divisor( *numbers ): 
     
-      common_divisors = set( divisors( numbers[0] ) ) 
-      print("number =", numbers[0], " common divisors =", common_divisors)
+#       common_divisors = set( divisors( numbers[0] ) ) 
+#       print("number =", numbers[0], " common divisors =", common_divisors)
 
-      for i  in range(1, len(numbers)):  
-          D = set( divisors( numbers[i] ) ) 
-          print("number =", numbers[i], " D =", D)
-          common_divisors &= D 
-          print(" common divisors =", common_divisors)
-          input("press enter")
+#       for i  in range(1, len(numbers)):  
+#           D = set( divisors( numbers[i] ) ) 
+#           print("number =", numbers[i], " D =", D)
+#           common_divisors &= D 
+#           print(" common divisors =", common_divisors)
+#           input("press enter")
               
-      return max(common_divisors)
+#       return max(common_divisors)
 
-print(" GCD(24,30,72) = ", greatest_common_divisor(24, 30, 72) ) 
-from math import gcd 
-print(" gcd(24,30,72) = ", gcd(24, 30, 72) ) 
+# print(" GCD(24,30,72) = ", greatest_common_divisor(24, 30, 72) ) 
+# from math import gcd 
+# print(" gcd(24,30,72) = ", gcd(24, 30, 72) ) 
 
 
-def greatest_common_divisor2( n1, n2 ): 
+# def greatest_common_divisor2( n1, n2 ): 
     
-      D1 = set( divisors( n1 ) ) 
-      print("number =", n1, " D1 =", D1)
+#       D1 = set( divisors( n1 ) ) 
+#       print("number =", n1, " D1 =", D1)
  
-      D2 = set( divisors( n2 ) ) 
-      print("number =", n2, " D2 =", D2)
+#       D2 = set( divisors( n2 ) ) 
+#       print("number =", n2, " D2 =", D2)
 
-      common_divisors = D1 & D2  
-      print(" common divisors =", common_divisors)
-      input("press enter")
+#       common_divisors = D1 & D2  
+#       print(" common divisors =", common_divisors)
+#       input("press enter")
               
-      return max(common_divisors)
+#       return max(common_divisors)
 
 
 
 
-print(" GCD(24,30) = ", greatest_common_divisor(24, 30) ) 
-print(" GCD(24,30) = ", greatest_common_divisor2(24, 30) ) 
+# print(" GCD(24,30) = ", greatest_common_divisor(24, 30) ) 
+# print(" GCD(24,30) = ", greatest_common_divisor2(24, 30) ) 
 
 
 

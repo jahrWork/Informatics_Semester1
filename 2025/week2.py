@@ -2,6 +2,18 @@
 # loops: for and while 
 # functions: def, return versus procedures 
 #************************************************************
+# Three ways to use for loop 
+# S = "Hello"
+# for i in range(len(S)):
+#     print("character of S =", S[i] )
+
+# for c in S:
+#     print("character of S =", c )
+
+# for i,c  in enumerate(S):
+#     print("index i in string S =", i, " S[i] = ", S[i], " character in S = ", c )
+
+
 
 #**************************************************************
 # Determine if n is prime.
@@ -9,66 +21,66 @@
 #**************************************************************
 
 #  for loop is used we perform a spacific number of operations
-print("prime numbers")
-n = 13
-for i in range(2,n): # from i=2 to n-1 
-    if n % i == 0:
-          break
+# print("prime numbers")
+# n = 13
+# for i in range(2,n): # from i=2 to n-1 
+#     if n % i == 0:
+#           break
 
-if i<n-1:
-        print(n, "is not prime")
-else:
-        print(n, "is prime")
+# if i<n-1:
+#         print(n, "is not prime")
+# else:
+#         print(n, "is prime")
 
 
 
 
 
 # while loop is used when we don't know th number of operations or steps 
-N = 10
-print("Determine N=", N, "first primes")
+# N = 10
+# print("Determine N=", N, "first primes")
 
-S_prime = 0
-N_prime = 0
-n = 2
-while N_prime < N:
+# S_prime = 0
+# N_prime = 0
+# n = 2
+# while N_prime < N:
 
-    is_prime = True
-    for i in range(2, n):
-        if n % i == 0:
-            # print( n, " is not prime because ", i, "is a factor")
-            is_prime = False
-            break
+#     is_prime = True
+#     for i in range(2, n):
+#         if n % i == 0:
+#             # print( n, " is not prime because ", i, "is a factor")
+#             is_prime = False
+#             break
 
-    if is_prime:
-        print(n, "is prime")
-        N_prime = N_prime + 1
-        S_prime = S_prime + n
+#     if is_prime:
+#         print(n, "is prime")
+#         N_prime = N_prime + 1
+#         S_prime = S_prime + n
 
-    else:
-        print(n, "is not prime")
-        pass
+#     else:
+#         print(n, "is not prime")
+#         pass
 
-    n = n + 1
+#     n = n + 1
 
-print("\n \n")
-print("The sum of the first N primes is =", S_prime)
+# print("\n \n")
+# print("The sum of the first N primes is =", S_prime)
 
 #**********************************************************************
 # A number is perfect when the sum of its primes is equal to the number 
 #**********************************************************************
-print("perfect numbers") 
-n = 6
-S = 0
-for i in range(1,n):
-    if n % i == 0:
-          print( i, "is a factor")
-          S = S + i
+# print("perfect numbers") 
+# n = 6
+# S = 0
+# for i in range(1,n):
+#     if n % i == 0:
+#           print( i, "is a factor")
+#           S = S + i
 
-if S==n:
-        print(n, "is perfect")
-else:
-        print(n, "is not perfect")
+# if S==n:
+#         print(n, "is perfect")
+# else:
+#         print(n, "is not perfect")
 
 
 
@@ -86,49 +98,49 @@ else:
 #    outputs: roots 
 #*********************************************** 
   
-from cmath import sqrt
+# from cmath import sqrt
 
-def roots_2nd_order_equation(a, b, c): 
+# def roots_2nd_order_equation(a, b, c): 
 
-    if a == 0:
-       if b == 0:
-         return None 
-       else:
-        x_1 = -c/b
-        return [x_1]
+#     if a == 0:
+#        if b == 0:
+#          return None 
+#        else:
+#         x_1 = -c/b
+#         return [x_1]
        
-    else:
+#     else:
 
-     x_1 = (-b + sqrt(b**2 - 4*a*c)) / (2*a)
-     x_2 = (-b - sqrt(b**2 - 4*a*c)) / (2*a)
-     return [x_1, x_2] 
+#      x_1 = (-b + sqrt(b**2 - 4*a*c)) / (2*a)
+#      x_2 = (-b - sqrt(b**2 - 4*a*c)) / (2*a)
+#      return [x_1, x_2] 
      
 # ****************************************
 # procedure to print different roots 
 # ****************************************     
-def pretty_print(roots): 
+# def pretty_print(roots): 
 
-    if roots == None: 
-        print("There is no solution ")
+#     if roots == None: 
+#         print("There is no solution ")
 
-    elif len(roots) == 1:     
-          x_1 = roots[0] 
-          print("There is only one solution = ", x_1)
-    else: 
-          [x_1, x_2] = roots   
-          print("There are two solutions")
-          print("x_1 = ", x_1)
-          print("x_2 = ", x_2)
+#     elif len(roots) == 1:     
+#           x_1 = roots[0] 
+#           print("There is only one solution = ", x_1)
+#     else: 
+#           [x_1, x_2] = roots   
+#           print("There are two solutions")
+#           print("x_1 = ", x_1)
+#           print("x_2 = ", x_2)
 
 
-roots =  roots_2nd_order_equation(a=0, b=0, c=3)
-pretty_print( roots )
+# roots =  roots_2nd_order_equation(a=0, b=0, c=3)
+# pretty_print( roots )
 
-roots =  roots_2nd_order_equation(a=0, b=1, c=1)
-pretty_print( roots ) 
+# roots =  roots_2nd_order_equation(a=0, b=1, c=1)
+# pretty_print( roots ) 
 
-roots =  roots_2nd_order_equation(a=1, b=-4, c=1)
-pretty_print( roots ) 
+# roots =  roots_2nd_order_equation(a=1, b=-4, c=1)
+# pretty_print( roots ) 
 
 
 
@@ -141,95 +153,26 @@ pretty_print( roots )
 #*************************************************
 
 # Imperative program (sequence of steps, how to )
-n = 6
-def factorial_imperative(n): 
-   f = 1
-   for i in range(1, n+1):
-       f = f * i
-       print("factorial =", f)
-   return f 
-print( "\nfactorial(6) = ", factorial_imperative(n))
+# n = 6
+# def factorial_imperative(n): 
+#    f = 1
+#    for i in range(1, n+1):
+#        f = f * i
+#        print("factorial =", f)
+#    return f 
+# print( "\nfactorial(6) = ", factorial_imperative(n))
     
 
-# Declarative program (what to do)
-def factorial(n): 
-   if n==0: 
-        return 1 
-   else: 
-       return n * factorial(n-1)
+# # Declarative program (what to do)
+# def factorial(n): 
+#    if n==0: 
+#         return 1 
+#    else: 
+#        return n * factorial(n-1)
    
-print( "\nfactorial(6) = ", factorial(n))
+# print( "\nfactorial(6) = ", factorial(n))
 
 
-
-
-
-# #***********************************************
-# # 1. Determine a list of the first N primes 
-# #***********************************************
-# def is_prime(n): 
-    
-#       for i in range(2,n):
-#           if n % i == 0:  
-#             return False
-         
-#       return True and n > 1
-               
-# def First_primes(N): 
-
-#   N_primes = 0 
-#   n = 1   
-#   primes = []
-  
-#   while N_primes < N: 
-             
-#         if is_prime(n): 
-#             primes += [ n ]
-#             N_primes += 1 
-            
-#         n += 1    
-   
-#   return primes   
-   
-    
-   
-# print("First N primes =", First_primes(7) )     
-
-
-          
-      
-
-# #***********************************************
-# # 2. Determine a list of the first N perfects 
-# # is_perfect: N -> (T,F)
-# #***********************************************   
-# def is_perfect(n): 
-    
-#       S = 0 
-#       for i in range(1,n):
-#           if n % i == 0:
-#             S = S + i   
-          
-#       return S == n  
-   
-# def First_perfect_numbers(N): 
-
-#   N_perfects = 0 
-#   n = 1 
-#   perfects = [ ]   
-  
-#   while N_perfects < N: 
-             
-#         if is_perfect(n): 
-#             perfects += [ n ]
-#             N_perfects = N_perfects + 1 
-            
-#         n = n + 1 
-   
-#   return perfects      
-      
-
-# print("First N perfect numbers =", First_perfect_numbers(4)  )   
 
 
 
@@ -290,12 +233,32 @@ print( "\nfactorial(6) = ", factorial(n))
 
 
 
+from numpy import pi, cos 
+
+def Piecewise_function(x): 
+
+       if x <= -pi/2 : 
+           
+            return 1 
+            
+       elif x <= pi/2. : 
+           
+            return cos(x) 
+            
+       else: 
+            return -2 # x > pi/2
+
+print(Piecewise_function(-pi/2.), Piecewise_function(pi/2.),   Piecewise_function(pi/2.+1e-5) )
 
 
+# lambda functions or anonymous functions 
+f = lambda x : x**2 
+print( "f(x=2) =", f(2)) 
 
-
-
-
+# equivalent to 
+def f(x): 
+      return x**2 
+print( "f(x=2) =", f(2)) 
 
 
 #***********************************************************************
