@@ -1,6 +1,6 @@
 
 #******************************************************
-#   Data analysis. Eigenvalues 
+#   Solve nonlinear equations. Newton scalar  
 #******************************************************
 
 
