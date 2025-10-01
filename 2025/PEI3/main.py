@@ -3,4 +3,4 @@ import gui
 import physics
 
 
-gui.build_gui( physics.graph )
+gui.build_screen( physics.wave )

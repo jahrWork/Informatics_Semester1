@@ -5,7 +5,7 @@ from matplotlib.widgets import Slider
 
 
 
-def build_gui(graph): 
+def build_screen(graph): 
 
   def update_A(val):
     A = val
