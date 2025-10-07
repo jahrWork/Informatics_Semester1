@@ -18,6 +18,12 @@ print( E.subs( x, xs[0] ) )
 Ex = x**2 + 2*x + 1 
 print("Ex = ", Ex, " Ex =", factor(Ex))
 
+
+E = Eq(x**2 + x + 1, 0)
+solution = solve(E,x)
+print("solution =", solution)
+
+
 #************************************************************
 # Algebra 
 #************************************************************
@@ -45,7 +51,7 @@ print("solution =", solution)
 #***************************************************************
 # Calculus 
 #***************************************************************
-from sympy import diff, integrate, exp, limit, series, solve, Eq
+from sympy import diff, integrate, exp, limit, series, solve, Eq, lambdify
 
 x = symbols("x")
 f = x**2 + 2*x + exp(x) 
@@ -59,9 +65,16 @@ print("integral =", If)
 L = limit(f, x, 0)
 print("limit of f with x->0 =", L)
 
-S = series(f, x, x0 = 0, n = 3)
+f = x**2 + 2*x + exp(x) 
+S = series(f, x, x0 = 0, n = 5)
+
 print( "series of f =", S )
 
-E = Eq(x**2 + x + 1, 0)
-solution = solve(E,x)
-print("solution =", solution)
+
+print("Series =", S)
+print("Truncated series =",  S.removeO() )
+print("Series at x =1 : ",  S.removeO().subs(x,1), "=",S.removeO().subs(x,1).evalf() )
+print("Function at x=1 : ", f.subs(x,1), "=", f.subs(x,1).evalf() )
+
+E = f - S.removeO()
+print( "Error  =", E.subs(x, 1).evalf() )
