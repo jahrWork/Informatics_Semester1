@@ -177,3 +177,49 @@ def power(A, k):
 
 
 Matrices_allocation()
+
+def Vandermonde(N): 
+
+    return array( [ [ (i/N)**(j-1) for j in range(1,N+1)] for i in range(1, N+1) ])
+
+def trace(A): 
+ 
+    N, M = shape(A) 
+
+    return sum( array( [ A[i,i] for i in range(0, N) ]  ) ) 
+
+print("\n Trace Vandermonde(2) =", trace( Vandermonde(2)))
+
+from numpy import sin, pi 
+
+#***************************************************************
+# Partition of segment [a, b] in N intervals.
+# Determine interior nodes x_i = a + (b-a)/N i from i=0 to i=N
+#***************************************************************
+def partition(a, b, N): 
+  
+  return array([a + (b-a)/N * i for i in range(0, N+1)])
+
+def f(x): 
+    return sin(pi*x)
+
+def derivative(f,  x, h=1e-3): # h=1e-3 if iti is not specified 
+    return ( f(x+h) - f(x-h) )/(2*h)
+
+
+
+
+print("\nFunctions. Image of an isolated point:")
+xi = 0.5
+yi = f(xi)
+ypi = derivative(f, xi) 
+print(" xi=", xi)
+print(" yi =", yi)
+
+
+print("\nFunctions. Image of whole set of points:")
+x = partition(a=0., b=1., N=20)
+y = f(x)
+yp = derivative(f, x) 
+print(" x=", x)
+print(" y =", y)

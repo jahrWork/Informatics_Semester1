@@ -1,6 +1,6 @@
 
 
 #******************************************************
-#  Contour value problem. Fundamental calculus theorem 
+#  Contour value problem. 
 #******************************************************
 
