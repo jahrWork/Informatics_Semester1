@@ -30,13 +30,13 @@ ________________________________________________________________
 #  elimination (after swapping)
 #  for all rows below pivot:
 
-   for j in range(0, N): 
-     pivoting_row_swapping( A, b, j, N)
+   for i in range(0, N): 
+     pivoting_row_swapping( A, b, i, N)
 
-     for i in range(j+1, N):  
-       c = A[i, j] / A[j,j]  
-       A[i, j:N] = A[i, j:N] - c * A[j, j:N] 
-       b[i] = b[i] - c * b[j] 
+     for k in range(i+1, N):  
+       c = A[k,i] / A[i,i]  
+       A[k,:] = A[k,:] - c * A[i,:] 
+       b[k] = b[k] - c * b[i] 
      
 #  back substiturion
    for i in range(N-1, -1, -1):

@@ -223,3 +223,10 @@ y = f(x)
 yp = derivative(f, x) 
 print(" x=", x)
 print(" y =", y)
+
+
+# boolean masks 
+X = array( [[1,1], [2,2], [3,3], [4,4], [5,5], [6,6] ])
+labels = array( [1,1,2,2,3,3])
+X_2 = X[labels==2,:]
+print("X_1 value 1:", X_2 )
