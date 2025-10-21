@@ -11,19 +11,29 @@ from scipy.linalg import solve, inv, det
 
 A = array(
       [
-          [3, 2],
-          [2, -1],
+          [1, 2],
+          [3, 4],
       ]
     )
 
-b = array([12, 1]) #.reshape((2, 1))
+b = array([1, 1]) 
 
 x = solve(A, b)
 print("x =", x, matmul(A,x)-b )
 
 from scipy.linalg import lu_factor, lu_solve
 
+# Look for max abs of column 0. swap between rows 0 and i 
+# this is piv[0] = i 
+# Look for max abs of column 1 in submatrix. swap 
+# this is piv[1] = j 
+#
+# Matrix A after pivoting is: A = [ 3,4 ], [1,2] ]
+
 LU, piv = lu_factor(A)
+print("LU=", LU)
+print("pivot=", piv)
+
 x = lu_solve((LU, piv), b)
 print("x =", x, matmul(A,x)-b )
  
