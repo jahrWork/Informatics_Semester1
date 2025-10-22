@@ -17,6 +17,7 @@ def Convection_diffusion_E(T):
     T[0], T[N] = 0, 1
     a, b = 5, 1
 
+    # discretized equation only for inner points 
     Equation = zeros(N-1)
     for j in range(1, N): 
        Equation[j-1] =   ( T[j+1] - 2*T[j] + T[j-1] )/dx**2 + \
@@ -27,7 +28,7 @@ def Convection_diffusion_E(T):
 #***************************************************************
 #* If F:RN->RN  is linear F = A x + b where A is a matrix NxN 
 #***************************************************************
-def system_matrix(F, N): 
+def linear_system(F, N): 
 
     delta, A = zeros(N+1), zeros( (N-1,N-1) )
 
@@ -37,13 +38,15 @@ def system_matrix(F, N):
     for i in range(1,N): 
         delta[:] = 0 
         delta[i] = 1 
-        A[i-1, :] = F( delta ) - b     
+        A[i-1, :] = F(delta) - b     
 
     return A, b  
 
+
+
 N = 100 
 x = linspace(0, 1, N+1)
-A, b = system_matrix(F = Convection_diffusion_E, N = N)
+A, b = linear_system(F = Convection_diffusion_E, N = N)
 T = solve(A, -b)
 
 print(A, b)

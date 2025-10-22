@@ -6,18 +6,21 @@ import matplotlib.pyplot as plt
 def first_version(): 
     """ 
     This is a 101 code (our starting point) to integrate an Oscillator with the Euler method.
-
     The objective of this course is to learn how to write 
-    functional programming codes by means of function composition 
-    not to see data flow and to have reusable and easy to maintein codes.
+    functional programming codes by means of function composition.
     The idea is to mimic mathematical concepts or abstractions.  
     """
+    # d2x/dt2 +x = 0 -> U = [ x, xdot ]
+    # dU/dt = F(U) = [ xdot, -x ]
 
+    # initial conditions 
     U = array( [ 1, 0 ])
-    
+
+    #time steps 
     N = 1000 
-    x = array( zeros(N) )
-    y = array( zeros(N) )
+
+    #x,y to plot 
+    x,y = array( zeros(N) ), array( zeros(N) )
     x[0] = 0
     y[0] = U[0]
     
@@ -44,9 +47,6 @@ first_version()
 #******************************************************
 #  Initial value problem ODES. Euler 
 #******************************************************
-
-
-
 """
   Temporal_schemes
 
@@ -63,11 +63,17 @@ def Euler(U, t1, t2, F):
 
     return U + (t2-t1) * F(U, t1)
 
+def RK2(U, t1, t2, F): 
+
+    dt = t2-t1
+    k1 = F(U, t1)
+    k2 = F(U+dt*k1, t2)
+    
+    return U + dt/2 * ( k1 + k2 ) 
+
 
 def Cauchy_problem( F, t, U0, Temporal_scheme ): 
      """
-  
-
     Inputs:  
            F(U,t) : Function dU/dt = F(U,t) 
            t : time partition t (vector of length N+1)
@@ -77,15 +83,11 @@ def Cauchy_problem( F, t, U0, Temporal_scheme ):
     Return: 
            U: matrix[N+1, Nv], Nv state values at N+1 time steps     
      """
-
      N, Nv =  len(t)-1, U0.size
      U = zeros( (N+1, Nv), dtype=type(U0) )
-     #U = zeros( (N+1, Nv), dtype=float64 ) 
 
      U[0,:] = U0
-
      for n in range(N):
-
            U[n+1,:] = Temporal_scheme( U[n, :], t[n], t[n+1],  F ) 
 
      return U
@@ -113,12 +115,16 @@ def partition(a, b, N):
 
 
 t_domain = partition(0.,10., 1000)
-U = Cauchy_problem( F = Oscillator, t = t_domain, U0 = array([1, 0]), Temporal_scheme = Euler)
-
-plt.plot(t_domain, U[:,0] )       # draw lines between points
+U1 = Cauchy_problem( F = Oscillator, t = t_domain, U0 = array([1, 0]), Temporal_scheme = Euler)
+U2 = Cauchy_problem( F = Damped_Oscillator, t = t_domain, U0 = array([1, 0]), Temporal_scheme = Euler)
+plt.plot(t_domain, U1[:,0] )      
+plt.plot(t_domain, U2[:,0] )     
 plt.show()
 
-U = Cauchy_problem( F = Damped_Oscillator, t = t_domain, U0 = array([1, 0]), Temporal_scheme = Euler)
-
-plt.plot(t_domain, U[:,0] )       # draw lines between points
+t_domain = partition(0.,10., 100)
+U1 = Cauchy_problem( F = Oscillator, t = t_domain, U0 = array([1, 0]), Temporal_scheme = Euler)
+U2 = Cauchy_problem( F = Oscillator, t = t_domain, U0 = array([1, 0]), Temporal_scheme = RK2)
+plt.axis("equal")
+plt.plot(U1[:,0], U1[:,1] )  
+plt.plot(U2[:,0], U2[:,1] )     
 plt.show()

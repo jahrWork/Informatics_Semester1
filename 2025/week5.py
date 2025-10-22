@@ -230,3 +230,13 @@ X = array( [[1,1], [2,2], [3,3], [4,4], [5,5], [6,6] ])
 labels = array( [1,1,2,2,3,3])
 X_2 = X[labels==2,:]
 print("X_1 value 1:", X_2 )
+
+
+x = array([1,2,3])
+for i,xi in enumerate(x): 
+    print(i,xi, x[i])
+
+from numpy import concatenate
+y = array([4,5,6])     
+z = concatenate( (x,y) )
+print(z)
