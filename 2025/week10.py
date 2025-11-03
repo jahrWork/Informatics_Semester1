@@ -1,88 +1,148 @@
 
-#******************************************************
-#   Solve nonlinear equations. Newton scalar  
-#******************************************************
 
-def derivative(f, x):
+from numpy import array, polyfit, polyval, linspace, zeros
+from scipy.interpolate import lagrange
+import matplotlib.pyplot as plt
 
-    h = 1e-5  
-    return ( f(x+h) - f(x-h) )/(2*h)
-
-def newton(f,x0):
-
-    x, dx, eps = x0, 1., 1e-10
-
-    while abs(dx) > eps: 
-        dx = -f(x) / derivative(f, x)
-        x = x + dx 
-        print("x =", x, "dx =", dx)
-    return x  
-
-def f(x): 
-
-    return x**2 -1 
-
-print( "sol =", newton(f, 0.8))  
-
-
-#**********************************************************
-#   Solve nonlinear equations. Newton vectorial f: RN-> RN 
-#**********************************************************
-from numpy import array, zeros
-from numpy.linalg import norm  
-from week6 import Gauss 
-
-
-def Newton(F, x0):  
-  """
- ____________________________________________________________________
-  Newton solver 
-        Inputs: 
-                x0   : initial guess and output value 
-                F(X) : vector function  
-        return: 
-                x : solution (F(x)=0)
-
-  Author: Juan A Hernandez (juanantonio.hernandez@upm.es) Oct 2022 
-_____________________________________________________________________
-  """
+def Test_lagrange_scipy(): 
   
-  x, Dx, iteration, itmax = x0, x0, 0, 1000  
-  print("x0 =", x0)
- 
-  while  norm(Dx) > 1e-8 and iteration <= itmax : 
-    
-      iteration = iteration + 1 
-      Dx = Gauss( Jacobian( F, x0 ), -F(x0)) 
-      x[:] = x[:] + Dx  # WARNING x = x + Dx (does not work)
-      
-      print("x =", x, "iteration =", iteration, "Newton norm(Dx) = ",  norm(Dx) ) 
+  # given points
+  x = array([0, 1, 2, 3, 4, 5, 6])
+  y = array([1, 2, 0, 5, 4, 3, 0])
 
-  return x 
+  # polynomial
+  P = lagrange(x, y)
+  dPdx = P.deriv()
 
-  
-def Jacobian( F, x ):  
+  xp = linspace(0, 6, 100)
+  yp = P(xp)
+  dypdx = dPdx(xp)
 
-   Dx = 1e-3     
-   Dxi = zeros( len(x) ) # WARNING Dxi = x does not work 
-   J = zeros( (len(x), len(x)) )
-       
-   for i, _ in enumerate(x):
+  plt.scatter(x, y, label='Data')
+  plt.plot(xp, yp, 'r', label='Lagrange polynomial')
+  plt.plot(xp, dypdx, 'r', label='Derivative of Lagrange polynomial')
+  plt.legend()
+  plt.show()
 
-       Dxi[:] = 0
-       Dxi[i] = Dx
-       J[:,i] =  ( F(x + Dxi) - F(x - Dxi) )/(2*Dx)  
+  x = array([0, 1, 2])
+  y = array([1, 0, 0])
+  P = lagrange(x, y)
+  dPdx = P.deriv()
+  d2Pdx2 = dPdx.deriv()
+  print( d2Pdx2(0) )
+
+  x = array([0, 1, 2])
+  y = array([0, 1, 0])
+  P = lagrange(x, y)
+  dPdx = P.deriv()
+  d2Pdx2 = dPdx.deriv()
+  print( d2Pdx2(1) ) 
+
+# ******************************************************************************************
+#                                 Lagrange polynomials
+# 
+#   Recurrence relation  to obtain derivatives  values of the Lagrange polynomials 
+#   at xp from a set of nodes x(0:N)
+#
+#       lagrange_j{n} (x) = (x-x0)(x-x1)(x-x2)........(x-xn) / (xj- x0)(xj-x1)(xj-x2).......(xj-xn), j=0...n
+#       lagrange_j{n} (x) = (x-xn)/(xj-xn) lagrange_j{n-1} (x) 
+# 
+#       d^k lagrange_j{n} (x) /dx^k  = 
+#        ( d^k lagrange_j{n-1} (x) /dx^k (x-xn) + k d^(k-1) lagrange_j{n-1} (x) /dx^(k-1) ) / (xj -xn ), n=0...N  
+#
+#        k =  0 means value of lagrange_j{n} (x) at xp 
+#        k > 1  means derivative value of lagrange_j{n} (x) at xp 
+# 
+#  It returns Lagrange_polynomials(k,j) 
+# 
+#      k: meaning given above 
+#      j: corresponding with l_j(x) (this polynomial equals to one in x_j and vanishes at the rest of nodes) 
+# 
+#  Author : Juan A Hernandez (juanantonio.hernandez@upm.es) November 2025 
+# *************************************************************************************************
+
+def Lagrange_polynomials( x, xp ):  
    
-   return J    
+ # first index: derivative, second:j polynomial, third: order
+   N = len(x)-1
+   Lagrange = zeros((N+1, N+1, N+1)) 
+
+   for  j in range(N+1):  
+      # lagrange j polynomial of order 0 is equal to 1 
+      Lagrange[0, j, 0] = 1 
+     
+      n = 1 
+      for i in range(N+1):  
+         
+         if i!=j:  
+          for k in range(N, -1, -1): 
+            Lagrange[k,j,n] = ( Lagrange[k,j,n-1] *( xp - x[i] ) + k * Lagrange[k-1,j,n-1] )/( x[j] - x[i] )  
+          n = n + 1 
+
+   return Lagrange[:,:,n-1] 
+
+#************************************************************************
+# It determines finite difference formulas of any order
+#  I(x) = sum ( f_j Langrange_j(x) )
+#  DF =  ( d^k I /dx^k )_{x_i} = sum ( f_j d^k Lagrange_j/dx^k (x_i))
+#  Df = sum_j ( f_j D_{ij} ) 
+#  
+#   Input: 
+#          x modes j=0.... N 
+#   return:
+#          D_{ij}  
+# 
+# Author:   Juan A Hernandez (juanantonio.hernandez@upm.es) November 2025
+#*************************************************************************
+def FD_formulas(x): 
+   
+  N = len(x) - 1 
+  # derivative, j lagrange polynomial, i point 
+  D = zeros((N+1,N+1,N+1)) 
+
+  for i in range(len(x)):
+    D[:,:,i] = Lagrange_polynomials(x, x[i])
+
+  return D 
 
 
 
+def Test_FD_formulas(N): 
+   
+  # N order of polynomial to calculate FD formulas 
+  x = array( [ i for i in range(N+1) ] )
+
+  D = FD_formulas(x) 
+  print("First derivative =", D[1,:,0])
+  print("First derivative =", D[1,:,1])
+  print("First derivative =", D[1,:,2])
+
+  print("Second derivative =", D[2,:,0])
+  print("Second derivative =", D[2,:,1])
+  print("Second derivative =", D[2,:,2])
 
 
 
-def f(x): 
+def Test_Lagrange(): 
+   
+  N = 2 # order of polynomial 
+  x = array( [ i for i in range(N+1) ] )
+  from numpy import linspace
+  import matplotlib.pyplot as plt 
 
-    return array( [ x**2 - 1 ] ) 
+  M = 100
+  xm = linspace(0, N, M)
+  ym = zeros((M,3))
+  for i in range(M):
+    L = Lagrange_polynomials(x, xm[i])
+    ym[i,:] = L[0,:]
 
-x0 = array( [ 0.1 ])
-print(" solution =", Newton(f, x0 ) )
+  plt.plot(xm, ym)
+  plt.show()
+
+
+if __name__ == "__main__":
+
+   Test_lagrange_scipy()
+   Test_Lagrange()  
+   Test_FD_formulas(N=2)

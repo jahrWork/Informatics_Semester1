@@ -4,6 +4,7 @@
 #******************************************************
 
 from numpy import array, zeros, max, dot 
+from scipy.linalg import solve
 
 
 def  Gauss(A, b):
@@ -74,24 +75,30 @@ def pivoting_row_swapping( A, b, k, N):
 
 
 
-def Test():
+def Test_Gauss():
      
+     
+
      A =  array( [ [1, 1, 1] , [1, -1, -1] , [1, -1, 1] ] )
      b =  array( [1, 2, 3 ] ) 
      x = Gauss( A, b )
      xsol = array([ 1.5, -1., 0.5])
-     print("Error =", xsol - x ) 
+     print("my Error =", xsol - x )
+     print("scipy Error =", xsol - solve(A, b) ) 
 
      A =  array( [ [1, 2, 3] , [1, -2, -3] , [1, -2, 3] ] )
      b =  array( [1, 2, 3 ] ) 
      x = Gauss( A, b )
      xsol = array([ 1.5, -0.5,  1/6.])
-     print("Error =", xsol - x ) 
+     print("my Error =", xsol - x ) 
+     print("scipy Error =", xsol - solve(A, b) ) 
 
+     
+    
 
 
 if __name__ == "__main__":
 
-    Test()
+    Test_Gauss()
 
 
