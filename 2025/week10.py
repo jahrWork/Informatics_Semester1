@@ -1,4 +1,4 @@
-from numpy import array, linspace, zeros
+from numpy import array, linspace, zeros, dot, sin, cos, pi  
 
 
 
@@ -166,12 +166,43 @@ def Test_Lagrange2():
   print("k=1  L(1,:) =", L[1,:])
   print("k=0  L(0,:) =", L[0,:])
 
+def Test_oscillations():
+
+  from numpy.random import rand
+
+  N = 10 # order of polynomial 
+  x = linspace(0,1,N+1) 
+  import matplotlib.pyplot as plt 
+  f = zeros((N+1,2))
+  f[:,0] = 1  
+  eps = 1e-2
+  f[:,0] = f[:,0] + eps*rand(N+1)
+  f[:,1] =  eps*rand(N+1)
+
+  M = 200
+  xm = linspace(0, 1, M)
+  Im = zeros((M,2))
+ 
+  for i in range(M):
+    L = Lagrange_polynomials(x, xm[i])
+    for k in range(2): 
+     Im[i,k] = dot( L[k,:], f[:,0] ) 
+
+
+  plt.plot(x, f, ".") 
+  plt.plot(xm, Im)
+  plt.legend(['function', 'first derivative', 'interpolated function', 'approximation first derivative']) 
+ 
+  plt.show()
+
+
+
 
 
 if __name__ == "__main__":
 
-     Test_Lagrange2()
-     Test_lagrange_scipy()
-     Test_Lagrange()  
-     Test_FD_formulas(N=2)
-     
+    #  Test_Lagrange2()
+    #  Test_lagrange_scipy()
+    #  Test_Lagrange()  
+    #  Test_FD_formulas(N=2)
+     Test_oscillations()
