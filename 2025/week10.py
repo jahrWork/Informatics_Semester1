@@ -117,6 +117,28 @@ def FD_formulas(x):
 
   return D 
 
+def partition(a, b, N): 
+  
+  return array([a + (b-a)/N * i for i in range(0, N+1)])
+
+# Integral of f(x) from x=a to x=b with N+1 points
+# Trapezoidal rule = piecewise linear approximation 
+def Trapezoidal_rule(f, a, b, N): 
+
+  x = partition(a,b,N)
+  y = f(x) 
+  dx = (b-a)/N
+  print( len(y) )
+  return dx/2 * ( y[0] + y[N] + 2* sum(y[1:N]) ) 
+
+# Integral of f(x) from x=a to x=b with N+1 points (N+1 must be odd)
+# Simpson rule = piecewise parabolic approximation  
+def Simpson_rule(f, a, b, N): 
+
+  x = partition(a,b,N)
+  y = f(x) 
+  dx = (b-a)/N
+  return dx/3 * ( y[0] + y[N] + 4*sum(y[1:N:2]) + 2*sum(y[2:N-1:2]) )
 
 
 def Test_FD_formulas(N): 
@@ -134,6 +156,15 @@ def Test_FD_formulas(N):
   print("Second derivative =", D[2,:,1])
   print("Second derivative =", D[2,:,2])
 
+def Test_Trapecio_Simpson(): 
+ 
+
+  def h(x): 
+    return x**4
+   
+  print("Integral Trapezoidal rule =", Trapezoidal_rule(f=h, a=0, b=1, N=10 ))
+  print("Integral Simpson rule =", Simpson_rule(f=h, a=0, b=1, N=10 ))
+  print("Integral exact value =", 1/5)
 
 
 def Test_Lagrange(): 
@@ -205,4 +236,6 @@ if __name__ == "__main__":
     #  Test_lagrange_scipy()
     #  Test_Lagrange()  
     #  Test_FD_formulas(N=2)
-     Test_oscillations()
+      Test_Trapecio_Simpson()
+
+    # Test_oscillations()

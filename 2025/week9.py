@@ -228,5 +228,5 @@ if __name__ == "__main__":
 
 
    Test_iterative()
-   Test_roots() 
-   Test_Neton_vectorial()
+#    Test_roots() 
+#    Test_Neton_vectorial()
