@@ -1,0 +1,59 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Compilar LaTeX → PDF",
+            "type": "shell",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "${fileBasename}"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                {
+                    "owner": "latex",
+                    "fileLocation": ["relative", "${fileDirname}"],
+                    "pattern": {
+                        "regexp": "^(.+):(\\d+):\\s+(.+)$",
+                        "file": 1,
+                        "line": 2,
+                        "message": 3
+                    }
+                }
+            ]
+        },
+        {
+            "label": "Compilar LaTeX + Abrir PDF",
+            "type": "shell",
+            "command": "pdflatex -synctex=1 -interaction=nonstopmode -file-line-error '${fileBasename}' ; if ($?) { Start-Process 'C:\\Users\\Juan\\AppData\\Local\\SumatraPDF\\SumatraPDF.exe' -ArgumentList '${fileDirname}\\${fileBasenameNoExtension}.pdf' }",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared",
+                "clear": true
+            },
+            "options": {
+                "cwd": "${fileDirname}",
+                "shell": {
+                    "executable": "powershell.exe",
+                    "args": ["-NoProfile", "-Command"]
+                }
+            },
+            "problemMatcher": []
+        }
+    ]
+}

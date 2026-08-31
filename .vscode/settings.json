@@ -1,5 +1,34 @@
 {
     "python-envs.defaultEnvManager": "ms-python.python:system",
     "python-envs.defaultPackageManager": "ms-python.python:pip",
-    "python-envs.pythonProjects": []
+    "python-envs.pythonProjects": [],
+
+    // Abrir PDFs con la aplicación externa del sistema (SumatraPDF)
+    "workbench.editorAssociations": {
+        "*.pdf": "default"
+    },
+
+    // --- Configuración LaTeX ---
+    "files.associations": {
+        "*.tex": "latex",
+        "*.sty": "latex",
+        "*.cls": "latex"
+    },
+    // Botón de ejecución para LaTeX (como el de Python)
+    "code-runner.executorMap": {
+        "latex": "cd $dir && pdflatex -synctex=1 -interaction=nonstopmode $fileName && Start-Process 'C:\\Users\\Juan\\AppData\\Local\\SumatraPDF\\SumatraPDF.exe' -ArgumentList '$fileNameWithoutExt.pdf'"
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.fileDirectoryAsCwd": true,
+    // Ocultar ficheros auxiliares LaTeX del explorador
+    "files.exclude": {
+        "**/*.aux": true,
+        "**/*.log": true,
+        "**/*.synctex.gz": true,
+        "**/*.fls": true,
+        "**/*.fdb_latexmk": true,
+        "**/*.out": true,
+        "**/*.toc": true
+    }
 }

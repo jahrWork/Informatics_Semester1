@@ -1,0 +1,11 @@
+// Atajo de teclado para compilar LaTeX
+// Coloca este fichero en: C:\Users\Juan\AppData\Roaming\Code\User\keybindings.json
+// O usa: File > Preferences > Keyboard Shortcuts > "Open Keyboard Shortcuts (JSON)"
+[
+    {
+        "key": "ctrl+shift+b",
+        "command": "workbench.action.tasks.runTask",
+        "args": "Compilar LaTeX + Abrir PDF",
+        "when": "resourceExtname == '.tex'"
+    }
+]
