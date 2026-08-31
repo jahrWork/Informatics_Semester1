@@ -1,27 +1,17 @@
 {
+    // ─── Python ───────────────────────────────────────────────────────────────
     "python-envs.defaultEnvManager": "ms-python.python:system",
     "python-envs.defaultPackageManager": "ms-python.python:pip",
     "python-envs.pythonProjects": [],
 
-    // Abrir PDFs con la aplicación externa del sistema (SumatraPDF)
-    "workbench.editorAssociations": {
-        "*.pdf": "default"
-    },
-
-    // --- Configuración LaTeX ---
+    // ─── Asociaciones de ficheros ──────────────────────────────────────────────
     "files.associations": {
         "*.tex": "latex",
         "*.sty": "latex",
         "*.cls": "latex"
     },
-    // Botón de ejecución para LaTeX (como el de Python)
-    "code-runner.executorMap": {
-        "latex": "cd $dir && pdflatex -synctex=1 -interaction=nonstopmode $fileName && Start-Process 'C:\\Users\\Juan\\AppData\\Local\\SumatraPDF\\SumatraPDF.exe' -ArgumentList '$fileNameWithoutExt.pdf'"
-    },
-    "code-runner.runInTerminal": true,
-    "code-runner.saveFileBeforeRun": true,
-    "code-runner.fileDirectoryAsCwd": true,
-    // Ocultar ficheros auxiliares LaTeX del explorador
+
+    // ─── Ocultar ficheros auxiliares LaTeX del explorador ─────────────────────
     "files.exclude": {
         "**/*.aux": true,
         "**/*.log": true,
@@ -30,5 +20,37 @@
         "**/*.fdb_latexmk": true,
         "**/*.out": true,
         "**/*.toc": true
-    }
+    },
+
+    // ─── LaTeX Workshop ───────────────────────────────────────────────────────
+
+    // Herramienta: pdflatex directo (sin latexmk ni Perl)
+    "latex-workshop.latex.tools": [
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        }
+    ],
+
+    // Receta: compilar dos veces para referencias cruzadas
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "pdflatex x2",
+            "tools": ["pdflatex", "pdflatex"]
+        }
+    ],
+    "latex-workshop.latex.recipe.default": "pdflatex x2",
+
+    // Visor de PDF: pestaña integrada de LaTeX Workshop (con SyncTeX)
+    "latex-workshop.view.pdf.viewer": "tab",
+
+    // Limpiar ficheros auxiliares: desactivado (latexmk necesita Perl)
+    // Los .aux/.log/etc. ya están ocultos en el explorador via files.exclude
+    "latex-workshop.latex.autoClean.run": "never"
 }

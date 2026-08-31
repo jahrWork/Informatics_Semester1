@@ -11,10 +11,7 @@
                 "-file-line-error",
                 "${fileBasename}"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "presentation": {
                 "reveal": "always",
                 "panel": "shared",
@@ -40,7 +37,10 @@
             "label": "Compilar LaTeX + Abrir PDF",
             "type": "shell",
             "command": "pdflatex -synctex=1 -interaction=nonstopmode -file-line-error '${fileBasename}' ; if ($?) { Start-Process 'C:\\Users\\Juan\\AppData\\Local\\SumatraPDF\\SumatraPDF.exe' -ArgumentList '${fileDirname}\\${fileBasenameNoExtension}.pdf' }",
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "presentation": {
                 "reveal": "always",
                 "panel": "shared",
