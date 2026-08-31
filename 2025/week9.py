@@ -112,7 +112,7 @@ def my_newton(f, x0):
     while abs(dx) > eps: 
         dx = -f(x) / derivative(f, x)
         x = x + dx 
-        print("  iteration newton x =", x, "dx =", dx)
+      #  print("  iteration newton x =", x, "dx =", dx)
     return x  
 
 
@@ -126,7 +126,7 @@ def secant(f, x0, x1):
         x0 = x 
         x = x + dx 
 
-        print("  iteration secant x =", x, "dx =", dx)
+      #  print("  iteration secant x =", x, "dx =", dx)
     return x  
 
 #  3. bisection method 
@@ -142,7 +142,7 @@ def bisection(f, a, b):
         else:
             x1 = xm 
         dx = x2 - x1
-        print("  iteration secant x =", xm, "dx =", x2-x1)
+      #  print("  iteration secant x =", xm, "dx =", x2-x1)
     return xm  
 
 
@@ -227,6 +227,7 @@ def Test_Neton_vectorial():
 if __name__ == "__main__":
 
 
-   Test_iterative()
-#    Test_roots() 
+#  Test_iterative()
+#
+    Test_roots() 
 #    Test_Neton_vectorial()

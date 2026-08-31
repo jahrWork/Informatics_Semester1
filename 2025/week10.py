@@ -24,8 +24,8 @@ def Test_lagrange_scipy():
   dypdx = dPdx(xp)
 
   plt.scatter(x, y, label='Data')
-  plt.plot(xp, yp, 'r', label='Lagrange polynomial')
-  plt.plot(xp, dypdx, 'r', label='Derivative of Lagrange polynomial')
+  plt.plot(xp, yp, 'r', label='Interpolant polynomial')
+  plt.plot(xp, dypdx, 'r', label='Derivative of the Interpolant')
   plt.legend()
   plt.show()
 
@@ -167,15 +167,15 @@ def Test_Trapecio_Simpson():
   print("Integral exact value =", 1/5)
 
 
-def Test_Lagrange(): 
+def Test_Lagrange(N): 
    
-  N = 2 # order of polynomial 
+  
   x = array( [ i for i in range(N+1) ] )
   import matplotlib.pyplot as plt 
 
   M = 100
   xm = linspace(0, N, M)
-  ym = zeros((M,3))
+  ym = zeros((M,N+1))
   for i in range(M):
     L = Lagrange_polynomials(x, xm[i])
     ym[i,:] = L[0,:]
@@ -232,10 +232,10 @@ def Test_oscillations():
 
 if __name__ == "__main__":
 
-    #  Test_Lagrange2()
-    #  Test_lagrange_scipy()
-    #  Test_Lagrange()  
-    #  Test_FD_formulas(N=2)
+   #  Test_Lagrange2()
+   #   Test_lagrange_scipy()
+     # Test_Lagrange(N=2)  
+      # Test_FD_formulas(N=2)
       Test_Trapecio_Simpson()
 
     # Test_oscillations()
