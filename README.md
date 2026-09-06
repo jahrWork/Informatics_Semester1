@@ -9,4 +9,4 @@ Final assignment [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/ma
 
 Additional exercises [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/doc/build/PEI12.pdf).
 
-Programming assistant: [GEMA](https://gemini.google.com/gem/1U_v3FwEIe70mypdNL6RxWMcYQObIq2Id?usp=sharing).
+Programming assistant: [GEMA](https://gemini.google.com/gem/b3c3d3fb3acb?usp=sharing).
