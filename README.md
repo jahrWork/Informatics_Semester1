@@ -8,3 +8,4 @@ How to work with this repository with Visual Studio Code:
 Final assignment [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/doc/build/Trabajos_Finales.pdf). Oral presentation.  
 
 Additional exercises [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/doc/build/PEI12.pdf).
+Programming assistant: [GEMA]https://gemini.google.com/gem/1U_v3FwEIe70mypdNL6RxWMcYQObIq2Id?usp=sharing
