@@ -34,13 +34,11 @@ import math
 
 # PEI1 = 2.1
 # PEI2 = 9.9
-# PEI3 = 10.
-# MOODLE = 10.
-# print("\n \nCalcula la media con las siguientes notas", PEI1, PEI2, PEI3, MOODLE )
+# print("\n \nCalcula la media con las siguientes notas", PEI1, PEI2)
 
-# if PEI1 >=3 and PEI2 >=3 and PEI3 >=3:
+# if PEI1 >=3 and PEI2 >=3 :
 
-#     MEDIA = 0.3 * PEI1 + 0.3 * PEI2 + 0.3 * PEI3  + 0.1 * MOODLE
+#     MEDIA = 0.5 * PEI1 + 0.5 * PEI2
 #     print("MEDIA :", MEDIA)
 
 # else:
