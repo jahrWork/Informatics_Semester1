@@ -1,0 +1,105 @@
+
+\section{Senda de Aterrizaje y Dinámica de Frenado de una Aeronave Comercial}
+
+	\subsection*{Contexto Físico y Objetivo}
+	
+	La fase de aproximación, aterrizaje (touchdown) y frenado (roll-out) constituye uno de los segmentos más críticos en la operación de cualquier aeronave comercial. Durante esta maniobra, el avión debe capturar la senda de planeo (glide slope) del sistema ILS, atravesar la capa límite atmosférica donde el perfil de vientos varía drásticamente, y finalmente disipar su energía cinética en la pista mediante sistemas de frenado aerodinámicos y mecánicos.
+	
+	El objetivo de esta práctica es desarrollar una herramienta computacional de análisis de telemetría que permita a la oficina técnica evaluar el desempeño de un aterrizaje. Como ingenieros, no solo debéis calcular los parámetros físicos clave de la maniobra, sino también integrar vuestros resultados en un \textbf{Panel de Control (Dashboard) Interactivo}. Para ello, se exigirá un uso riguroso de operaciones vectorizadas con \texttt{numpy} para garantizar el máximo rendimiento computacional, evitando los bucles tradicionales de Python (\texttt{for}, \texttt{while}) siempre que sea matemáticamente posible.
+	
+	\vspace{0.3cm}
+	\hrule
+	\vspace{0.3cm}
+	
+	\subsection*{Datos de Partida (Telemetría Simulada)}
+	
+	Copiad y pegad el siguiente bloque de datos en vuestro script. Estos arrays contienen las mediciones de los sensores de a bordo y de las estaciones terrestres.
+	
+	\begin{lstlisting}[language=Python]
+		import numpy as np
+		
+		# Datos para el Sistema Lineal (Geometria del tren y pesos)
+		# x_cg, peso_total, momentos en x e y
+		params_masa = np.array([18.5, 75000 * 9.81, 13600000.0, 0.0]) 
+		matriz_geometria = np.array([
+		[1.0, 1.0, 1.0],           # Suma de fuerzas verticales
+		[3.2, 20.1, 20.1],         # Brazos de palanca eje X 
+		[0.0, -4.5, 4.5]           # Brazos de palanca eje Y
+		])
+		
+		# Datos para Regresion Lineal (Telemetria ILS: Distancia a pista vs Altitud)
+		x_ils = np.linspace(-10000, -500, 200)
+		# Altitud con ruido de medicion del radar
+		h_ils = 0.0524 * np.abs(x_ils) + 15.0 + np.random.normal(0, 8, 200) 
+		
+		# Datos para Interpolacion 1D (Perfil de viento en la capa limite)
+		altitudes_viento = np.array([0, 50, 100, 200, 500, 1000]) # [m]
+		velocidad_viento = np.array([2.1, 4.5, 7.2, 8.5, 12.0, 15.3]) # [m/s]
+		
+		# Datos para Derivacion e Integracion (Dinamica de frenado)
+		tiempo_frenado = np.linspace(0, 35, 1000) # [s]
+		# Perfil de velocidad [m/s]
+		velocidad_frenado = 70.0 * np.exp(-0.04 * tiempo_frenado)-1.2*tiempo_frenado 
+		velocidad_frenado[velocidad_frenado < 0] = 0
+\end{lstlisting}
+	
+	\vspace{0.3cm}
+	\hrule
+	\vspace{0.3cm}
+	
+	\subsection*{Desarrollo Matemático}
+	
+	Deberéis resolver secuencialmente los siguientes 6 problemas matemáticos implementando los algoritmos numéricos correspondientes.
+	
+	\subsection*{1. Sistema Lineal de Ecuaciones: Reparto de Cargas}
+	Antes del aterrizaje, es vital conocer la distribución del peso en el tren de morro ($R_m$) y los trenes principales ($R_{pi}, R_{pd}$). Plantead y resolved el sistema lineal $A \mathbf{x} = \mathbf{b}$, donde $\mathbf{x} = [R_m, R_{pi}, R_{pd}]^T$, utilizando la matriz de geometría y el vector de cargas estáticas \texttt{params\_masa} (Suma de fuerzas = Peso, Suma de momentos en X e Y). \\
+	\textbf{Requisito:} Utilizar \texttt{np.linalg.solve}.
+	
+	\subsection*{2. Regresión Lineal: Calibración de la Senda de Planeo}
+	Las normativas de la OACI exigen que el ángulo de descenso ($\gamma$) sea de aproximadamente $3^\circ$. Utilizad los datos de telemetría del ILS (\texttt{x\_ils}, \texttt{h\_ils}) para realizar un ajuste por mínimos cuadrados a una recta $h = m x + n$. \\
+	\textbf{Requisito:} Implementar las ecuaciones normales de la regresión lineal utilizando operaciones matriciales de \texttt{numpy} (ej. productos punto e inversas). Calculad el ángulo real de descenso $\gamma = \arctan(m)$ en grados.
+	
+	\subsection*{3. Interpolación 1D: Viento en la Altura de Decisión}
+	La altitud de decisión (Decision Height) para este aterrizaje es de $60$ metros. Determinad la velocidad del viento cruzado a esa altitud exacta utilizando una interpolación lineal sobre los arrays \texttt{altitudes\_viento} y \texttt{velocidad\_viento}. \\
+	\textbf{Requisito:} Utilizar la función vectorizada \texttt{np.interp}.
+	
+	\subsection*{4. Ecuación No Lineal: Instante de Velocidad de Rodaje}
+	Una vez que el avión toca pista, debe alcanzar una velocidad segura de rodaje ($V_{taxi} = 15 \text{ m/s}$) para abandonar la pista. El perfil de velocidad durante el frenado responde a una ecuación trascendental simplificada:
+	\begin{equation}
+		V(t) = 70 e^{-0.04 t} - 1.2 t
+	\end{equation}
+	\textbf{Requisito:} Implementar el \textbf{Método de Newton-Raphson} para encontrar la raíz de la función $f(t) = V(t) - 15 = 0$. Podéis usar un bucle \texttt{while} exclusivamente para las iteraciones de este método, tomando una semilla inicial $t_0 = 10$.
+	
+	\subsection*{5. Derivación Numérica 1D: Perfil de Desaceleración}
+	La comodidad de los pasajeros exige que la desaceleración no supere $0.3g$ ($\approx 2.94 \text{ m/s}^2$). Utilizando los arrays \texttt{tiempo\_frenado} y \texttt{velocidad\_frenado}, calculad la aceleración instantánea $a(t) = \frac{dV}{dt}$. \\
+	\textbf{Requisito:} Aplicar el método de \textbf{Diferencias Finitas Centrales} vectorizando las operaciones con el \textit{slicing} de arrays en \texttt{numpy} (ej. \texttt{array[2:] - array[:-2]}).
+	
+	\subsection*{6. Integración Numérica 1D: Distancia de Pista Consumida}
+	Para garantizar que el avión no se sale de la pista, calculad la distancia total recorrida desde el instante del touchdown hasta que la aeronave se detiene por completo ($V = 0$). Sabiendo que $S = \int V(t) dt$. \\
+	\textbf{Requisito:} Programar la \textbf{Regla del Trapecio} de forma puramente vectorizada (sin usar bucles ni \texttt{np.trapz}), operando directamente sobre los arrays.
+	
+	\vspace{0.3cm}
+	\hrule
+	\vspace{0.3cm}
+	
+	\subsection*{Requisitos del Dashboard (Interfaz Gráfica)}
+	
+	No se aceptarán scripts que generen 6 ventanas de gráficas estáticas consecutivas. Debéis construir una única Interfaz Gráfica de Usuario (GUI) interactiva utilizando \texttt{matplotlib} y su módulo \texttt{matplotlib.widgets}.
+	
+	\begin{enumerate}
+		\item \textbf{Diseño de la Ventana:} La figura (\texttt{plt.figure}) debe tener un área principal para mostrar la gráfica y un panel lateral o inferior para los controles.
+		\item \textbf{Interactividad (RadioButtons):} Implementad un widget de tipo \texttt{RadioButtons} que permita al usuario alternar entre tres vistas lógicas:
+		\begin{itemize}
+			\item \textit{Aproximación:} Muestra la gráfica de regresión del ILS y marca el ángulo calculado.
+			\item \textit{Atmósfera:} Muestra el perfil de vientos y un punto rojo interpolado en la Altitud de Decisión.
+			\item \textit{Frenado:} Muestra dos sub-gráficas (velocidad y aceleración), sombreando el área de la distancia integrada y marcando $t_{taxi}$ de Newton-Raphson.
+		\end{itemize}
+		\item \textbf{Salida Numérica:} Utilizad anotaciones (\texttt{plt.text}) dinámicas en la gráfica o en un eje de texto reservado para mostrar en pantalla las soluciones numéricas requeridas (Cargas, Ángulo, Viento, $t_{taxi}$, Distancia) que se actualicen según la vista seleccionada.
+	\end{enumerate}
+	
+	\subsection*{Criterios de Entrega}
+	\begin{itemize}
+		\item \textbf{Vectorización:} El uso de bucles iterativos (\texttt{for}, \texttt{while}) penalizará fuertemente la nota, con la única excepción de la iteración del método de Newton-Raphson.
+		\item \textbf{Interpretación:} El código debe incluir la función \texttt{print()} proporcionando una evaluación física de los resultados obtenidos (¿Es seguro el aterrizaje? ¿Supera la desaceleración máxima?).
+		\item \textbf{Legibilidad:} Respetar la normativa PEP 8.
+	\end{itemize}

@@ -1,0 +1,101 @@
+
+
+\section{Telemetría y Dinámica de Vuelo del Cohete Sonda ``AeroPy-I''}
+
+	
+	\subsection*{Contexto Físico y Objetivo}
+	
+	El equipo de propulsión de la agencia aeroespacial ha finalizado con éxito el primer vuelo suborbital de prueba del cohete sonda \textbf{AeroPy-I}. Durante el lanzamiento, la computadora de a bordo y los sistemas de telemetría terrestres registraron una gran cantidad de datos crudos. Sin embargo, para validar los modelos teóricos de diseño, es necesario procesar esta información, calibrar los sensores y extraer los parámetros críticos del vuelo (rendimiento del motor, aerodinámica y perfil térmico).
+	
+	El objetivo de esta práctica es desarrollar un \textbf{dashboard interactivo} de análisis de telemetría. Como ingenieros de vuelo, deberéis procesar los datos experimentales en bruto implementando algoritmos de métodos numéricos. \textbf{Toda la resolución matemática debe estar estrictamente vectorizada} utilizando la biblioteca \texttt{numpy}. El uso de bucles iterativos nativos de Python (\texttt{for}, \texttt{while}) resultará en una penalización severa, ya que la eficiencia computacional es un requisito indispensable en el procesamiento de telemetría en tiempo real.
+	
+	\subsection*{Datos de Partida}
+	
+	Copiad las siguientes matrices de datos simulados en vuestro script. Representan las lecturas del banco de pruebas y la telemetría del vuelo:
+	
+	\begin{lstlisting}[language=Python]
+		import numpy as np
+		
+		# 1. Calibracion del sensor principal de empuje (Voltaje [V] vs Fuerza [kN])
+		voltaje_sensor = np.array([0.0, 1.25, 2.45, 3.80, 5.10])
+		fuerza_real = np.array([0.0, 15.2, 31.0, 48.5, 65.3])
+		
+		# 2. Reacciones en la plataforma de lanzamiento (Coordenadas apoyos y pesos)
+		# Matriz de geometria estatica (distancias en m) para el balance de masas
+		matriz_estatica = np.array([
+		[1.0, 1.0, 1.0],         # Suma de fuerzas Z
+		[0.0, 1.5, -1.5],        # Momentos en X
+		[-2.0, 1.0, 1.0]         # Momentos en Y
+		])
+		vector_cargas = np.array([25000.0, 1500.0, -800.0]) # [N, Nm, Nm]
+		
+		# 3. Datos de Atmosfera Estandar (Altitud [m], Temperatura [K], Presion [Pa])
+		h_atm = np.array([0, 2000, 4000, 6000, 8000, 10000, 12000, 14000])
+		T_atm = np.array([288.15, 275.15, 262.15, 249.15, 236.15, 223.15, 216.65, 216.65])
+		P_atm = np.array([101325, 79501, 61660, 47217, 35651, 26499, 19399, 14170])
+		
+		# 4. Telemetria de vuelo: Tiempo [s] y Velocidad [m/s]
+		t_vuelo = np.linspace(0, 60, 1200) # Muestreo a 20 Hz
+		# (Perfil simulado de velocidad de un cohete)
+		v_vuelo = 800 * np.sin(np.pi * t_vuelo / 60) * np.exp(-0.02 * t_vuelo) 
+	\end{lstlisting}
+	
+	\subsection*{Desarrollo Matemático}
+	
+	El dashboard deberá contener y visualizar la resolución secuencial de los siguientes 6 problemas:
+	
+	\subsection*{Apartado 1: Balance de Masas (Sistema Lineal)}
+	Antes del despegue, el cohete descansa sobre tres apoyos en la plataforma. Conociendo la matriz geométrica del sistema y el vector de cargas (peso total y momentos flectores por viento), determinad la fuerza de reacción en cada uno de los tres apoyos resolviendo el sistema lineal $\mathbf{A} \vec{x} = \vec{b}$.
+	\begin{itemize}
+		\item \textbf{Requisito NumPy:} Utilizar un método de la sub-biblioteca de álgebra lineal para encontrar $\vec{x}$.
+	\end{itemize}
+	
+	\subsection*{Apartado 2: Calibración del Motor (Regresión Lineal)}
+	El sensor piezoeléctrico de la tobera emite un voltaje que debe traducirse a Empuje (Fuerza). Encontrad la recta de mejor ajuste $F(V) = m \cdot V + c$ minimizando el error cuadrático medio respecto a los datos de calibración proporcionados.
+	\begin{itemize}
+		\item \textbf{Requisito NumPy:} Calcular el ajuste polinómico de grado 1 de forma vectorizada.
+	\end{itemize}
+	
+	\subsection*{Apartado 3: Perfil Atmosférico (Interpolación 1D)}
+	Asumiendo que la altitud del cohete en función del tiempo viene dada por $h(t) = 300 \cdot t$ (una aproximación lineal para los primeros instantes), estimad la Temperatura ambiente $T(t)$ experimentada por el cohete a lo largo de todo su vector temporal \texttt{t\_vuelo}.
+	\begin{itemize}
+		\item \textbf{Requisito NumPy:} Interpolar la temperatura usando las tablas atmosféricas dadas.
+	\end{itemize}
+	
+	\subsection*{Apartado 4: Búsqueda del Régimen Transónico (Ecuación No Lineal)}
+	Queremos conocer el instante exacto $t_c$ en el que el cohete alcanza un Número de Mach crítico de $M = 1.2$. Sabiendo que $M(t) = \frac{v_{vuelo}(t)}{a(t)}$ y que la velocidad del sonido es 
+	$a(t) = \sqrt{\gamma R T(t)}$ (donde $\gamma=1.4$ y $R=287  J/(kg \cdot K)$):
+	\begin{itemize}
+		\item \textbf{Requisito NumPy:} Localizar el cruce por cero de la función $f(t) = M(t) - 1.2$. Podéis usar operaciones condicionales sobre arrays para detectar cambios de signo e interpolar localmente el punto exacto, sin bucles.
+	\end{itemize}
+	
+	\subsection*{Apartado 5: Acelerómetro Virtual (Derivación Numérica)}
+	Calculad la aceleración longitudinal del cohete $a_{long}(t) = \frac{dv}{dt}$ a partir del vector de telemetría de velocidades.
+	\begin{itemize}
+		\item \textbf{Requisito NumPy:} Utilizar diferencias finitas centradas de segundo orden (investigad las funciones de gradiente integradas en numpy).
+	\end{itemize}
+	
+	\subsection*{Apartado 6: Altitud Apogeo (Integración Numérica)}
+	A partir de la curva de velocidad experimental \texttt{v\_vuelo}, calculad la altitud total alcanzada a los $t=60\text{ s}$ mediante la integración del área bajo la curva $h_{total} = \int_{0}^{60} v(t) dt$.
+	\begin{itemize}
+		\item \textbf{Requisito NumPy:} Aplicar la regla del trapecio de forma puramente matemática con arrays o usar la función específica de integración acumulada de numpy.
+	\end{itemize}
+	
+	\subsection*{Requisitos de la Interfaz Gráfica (GUI)}
+	
+	Queda \textbf{estrictamente prohibido} generar múltiples ventanas estáticas. Se debe entregar una (y solo una) ventana interactiva haciendo uso del módulo \texttt{matplotlib.widgets}.
+	
+	\begin{enumerate}
+		\item \textbf{Navegación:} La figura debe reservar un panel a la izquierda que contenga un \texttt{RadioButtons}. Este botón radial permitirá al usuario seleccionar qué apartado (del 1 al 6) se está visualizando en el eje principal.
+		\item \textbf{Interactividad:} Añadid un \texttt{Slider} que controle un parámetro físico (por ejemplo, permitir al usuario variar el Mach crítico buscado entre 0.8 y 2.5 en el Apartado 4, actualizándose la gráfica automáticamente).
+		\item \textbf{Reporte Numérico:} El resultado numérico escalar de cada apartado (ej. la altitud máxima, o el instante $t_c$) debe imprimirse limpiamente superpuesto en la figura mediante un \texttt{TextBox} inactivo o un texto estático (\texttt{ax.text}) que se actualice dinámicamente.
+	\end{enumerate}
+	
+	\subsection*{Criterios de Entrega}
+	
+	\begin{itemize}
+		\item \textbf{Vectorización:} Un código que contenga la palabra clave \texttt{for} iterando sobre arrays de tiempo o datos resultará en un "Insuficiente" automático en la categoría de programación. Pensad en arrays completos.
+		\item \textbf{Calidad:} El código debe seguir PEP 8, estar modularizado (una función de Python por apartado) y correctamente comentado.
+		\item \textbf{Interpretación:} Cada función debe imprimir en la terminal (además de en la GUI) una frase que interprete el resultado. Por ejemplo: \textit{"La matriz de calibración indica un sesgo de X Newtons, lo que es físicamente consistente con el peso en vacío del sensor."}
+	\end{itemize}
+	

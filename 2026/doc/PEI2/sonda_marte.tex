@@ -1,0 +1,86 @@
+\section{Análisis Telemétrico y Aerodinámico del Lanzamiento de una Sonda a Marte}
+	
+	\subsection*{Contexto Físico y Objetivo}
+	
+	El departamento de misiones espaciales ha registrado los datos de telemetría del primer vuelo de prueba atmosférico del vehículo de lanzamiento pesado \textit{Ares-I}, cuyo propósito es insertar una sonda científica en una trayectoria de transferencia hacia Marte. Durante la primera etapa del ascenso a través de la atmósfera terrestre, resulta crítico para la integridad estructural y el control de vuelo monitorizar el reparto de masas, las cargas aerodinámicas (como la presión dinámica) y el rendimiento propulsivo.
+	
+	El objetivo de esta práctica es desarrollar un \textbf{Panel de Control de Telemetría (Dashboard) Interactivo} en Python. Deberás procesar los datos brutos del vuelo, aplicando métodos numéricos fundamentales para extraer información física vital de la misión. Como futuros ingenieros aeroespaciales, se exige un código computacionalmente eficiente; por ello, la resolución matemática deberá apoyarse íntegramente en las operaciones vectorizadas de la biblioteca \texttt{numpy}, erradicando el uso de bucles nativos ineficientes de Python.
+	
+	\subsection*{Datos de Partida}
+	
+	Copia el siguiente bloque de código en tu script para inicializar los datos simulados de telemetría y modelos atmosféricos:
+	
+	\begin{lstlisting}[language=Python]
+		import numpy as np
+		
+		# 1. Datos para calibracion del tubo Pitot (Voltaje [V] vs Presion [kPa])
+		V_sensor = np.array([0.5, 1.2, 2.3, 3.1, 4.0, 4.8])
+		P_sensor = np.array([10.1, 25.5, 48.0, 65.2, 83.9, 101.3])
+		
+		# 2. Modelo atmosferico terrestre simplificado (Altitud [m] vs Densidad [kg/m^3])
+		altitudes_tab = np.array([0, 5000, 10000, 15000, 20000, 25000, 30000])
+		densidades_tab = np.array([1.225, 0.736, 0.413, 0.194, 0.088, 0.040, 0.018])
+		
+		# 3. Telemetria de vuelo: Tiempo [s] (muestreo a 1 Hz durante 2 min)
+		t_vuelo = np.linspace(0, 120, 121) 
+		
+		# Perfil de velocidad simulado [m/s] (modelo logistico)
+		v_vuelo = 2500 * (1 / (1 + np.exp(-0.05 * (t_vuelo - 60)))) - 118
+	\end{lstlisting}
+	
+	\subsection*{Desarrollo Matemático}
+	
+	El Dashboard interactivo deberá constar de 6 modos de visualización distintos, correspondientes a los siguientes 6 análisis numéricos secuenciales. Debes organizar tu código en funciones (ej. \texttt{def calcular\_altitud(t, v):}) antes de conectarlas a la interfaz.
+	
+	\subsection*{Sistema Lineal de Ecuaciones: Balance de Masas de Propelente}
+	La primera etapa del cohete alberga tres tanques de propergol líquido de masas $m_1$, $m_2$ y $m_3$. Los sensores indican que la masa total actual de propergol es de $50000 \text{ kg}$. Por cuestiones de estabilidad aerodinámica, el ordenador de vuelo requiere que la suma de la masa de los dos primeros tanques supere a la del tercero en $15000 \text{ kg}$. Además, los flujos másicos exigen que la masa contenida en el tanque 1 sea exactamente el doble que la del tanque 2.
+	Plantea este escenario como un sistema $A \vec{x} = \vec{b}$:
+	\[
+	\begin{cases}
+		m_1 + m_2 + m_3 = 50000 \\
+		m_1 + m_2 - m_3 = 15000 \\
+		m_1 - 2 m_2 = 0
+	\end{cases}
+	\]
+	\textbf{Tarea:} Resuelve el sistema utilizando el módulo de álgebra lineal de \texttt{numpy} para encontrar la masa en cada tanque.
+	
+	\subsection*{Regresión Lineal: Calibración del Sensor de Presión Dinámica}
+	Para medir la carga aerodinámica, la sonda utiliza transductores analógicos. Tenemos pares de datos de calibración en laboratorio que relacionan la señal del sensor en Voltios ($V$) con la presión en kiloPascales ($P$).\\
+	\textbf{Tarea:} Implementa un ajuste por mínimos cuadrados (puedes programar la ecuación normal matricial $\vec{\theta} = (X^T X)^{-1} X^T \vec{y}$ o usar funciones de ajuste vectorizadas) para encontrar la recta de calibración del sensor: 
+	\[ P(V) = \theta_1 V + \theta_0 \]
+	
+	\subsection*{Integración Numérica 1D: Reconstrucción de la Trayectoria (Altitud)}
+	El radar de tierra ha perdido la señal de la posición altimétrica, pero disponemos del vector de velocidades $v(t)$ (array \texttt{v\_vuelo}).\\
+	\textbf{Tarea:} Obtén el perfil de altitud $h(t)$ integrando la velocidad respecto al tiempo mediante la \textbf{regla del trapecio múltiple o acumulada}, utilizando única y exclusivamente el array de datos y operaciones matriciales (no iteraciones paso a paso).
+	\[ h(t_k) = \int_{0}^{t_k} v(\tau) d\tau \]
+	
+	\subsection*{Interpolación 1D: Estimación de la Densidad Atmosférica}
+	Con el array $h(t)$ calculado en el apartado anterior, ahora conocemos la altitud en cada segundo del vuelo. Sin embargo, nuestro modelo atmosférico (\texttt{altitudes\_tab}) solo ofrece datos cada $5000 \text{ m}$.\\
+	\textbf{Tarea:} Utiliza un algoritmo de interpolación lineal en 1D (como \texttt{np.interp}) para construir un nuevo array con la densidad atmosférica $\rho(t)$ correspondiente a cada instante temporal del vuelo.
+	
+	\subsection*{Derivación Numérica 1D: Cálculo de Aceleración Estructural}
+	La integridad de la carga de pago requiere que la aceleración axial no supere ciertos límites críticos.\\
+	\textbf{Tarea:} A partir del vector discretizado de telemetría \texttt{v\_vuelo}, calcula el perfil de aceleración $a(t)$ empleando el método de \textbf{diferencias finitas centrales} para los puntos interiores (y diferencias adelantadas/atrasadas de primer orden para los extremos del array). Todo de forma estrictamente vectorizada.
+	\[ a_i = \frac{v_{i+1} - v_{i-1}}{t_{i+1} - t_{i-1}} \]
+	
+	\subsection*{Ecuación No Lineal: Instante Crítico del Vuelo (Mach target)}
+	Es vital conocer el tiempo exacto $t_{crit}$ en el que el cohete alcanza una velocidad diana específica (por defecto, $v_{target} = 340 \text{ m/s}$, equivalente a Mach 1 para atravesar la barrera del sonido). Para este apartado asume que la velocidad sigue estrictamente la función teórica continua:
+	\[ v(t) = 2500 \left( \frac{1}{1 + e^{-0.05(t-60)}} \right) - 118 \]
+	\textbf{Tarea:} Implementa el método de \textbf{Newton-Raphson} o el método de la \textbf{Bisección} para encontrar la raíz temporal de la función residual: $f(t) = v(t) - v_{target} = 0$.
+	
+	\subsection*{Requisitos del Dashboard Interactivo (GUI)}
+	
+	Tu práctica no debe imprimir texto genérico en consola ni generar gráficas estáticas aisladas. Deberás orquestar una ventana interactiva de \texttt{matplotlib} (utilizando el módulo \texttt{matplotlib.widgets}) que contenga:
+	\begin{enumerate}
+		\item \textbf{RadioButtons:} Un menú lateral de botones radiales que permita al usuario alternar visualmente entre los 6 apartados de la práctica. Al pulsar un botón, la gráfica principal debe actualizarse limpiando los ejes (\texttt{ax.clear()}) y ploteando la curva pertinente con sus unidades físicas correctas.
+		\item \textbf{Slider Interactivo:} Exclusivamente en la vista del Apartado 6, añade un \texttt{Slider} que controle el parámetro de velocidad diana $v_{target}$ (rango de $300 \text{ m/s}$ a $1000 \text{ m/s}$). Al mover el slider, el algoritmo de búsqueda de raíces debe recalcular $t_{crit}$ en tiempo real, actualizando dinámicamente un punto indicador en la gráfica y el texto informativo.
+		\item \textbf{Display Numérico:} Dentro del lienzo de cada gráfica, utiliza herramientas como \texttt{ax.text} para mostrar el resultado numérico exacto y una breve frase que explique el significado físico de ese resultado para la misión.
+	\end{enumerate}
+	
+	\subsection*{Criterios de Entrega y Defensa Oral}
+	
+	\begin{itemize}
+		\item \textbf{Eficiencia (Vectorización):} Se evaluará negativamente la presencia de bucles \texttt{for} o \texttt{while} en operaciones operables vectorialmente por \texttt{numpy}. (Excepción: el bucle necesario para el algoritmo iterativo del Apartado 6).
+		\item \textbf{Defensa Oral:} Deberás ejecutar la interfaz gráfica ante el profesor, demostrar su dinamismo utilizando el \textit{Slider}, y responder a preguntas técnicas tanto de tu código como de la física subyacente.
+	\end{itemize}
+	

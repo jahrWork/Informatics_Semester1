@@ -1,0 +1,89 @@
+
+
+
+\section{Análisis de Trayectoria Balística con resistencia aerodinámica}
+
+
+	
+
+	
+	\subsection*{Contexto Físico y Objetivo}
+	Sois el equipo de dinámica de vuelo y telemetría de la misión \textbf{ÍCARO}, encargada de probar un nuevo diseño de sonda atmosférica. Esta sonda se lanza mediante un tiro parabólico, e incorpora un sistema de freno aerodinámico pasivo para limitar su velocidad de impacto. 
+	
+	Vuestro objetivo como ingenieros es desarrollar un \textit{script} integral en Python que procese los datos en bruto obtenidos durante el primer vuelo de prueba. Deberéis calibrar los sensores de lanzamiento, caracterizar el perfil aerodinámico de la sonda a partir de ensayos en túnel de viento, calcular el estado atmosférico, procesar la telemetría del radar para obtener la cinemática del vuelo, y finalmente, estimar el trabajo disipado por la atmósfera y el instante exacto del impacto. 
+	
+	\subsection*{Datos de Partida}
+	Para inicializar vuestro código, deberéis importar las librerías científicas de Python y cargar los siguientes arrays con los datos brutos recopilados por los equipos de instrumentación:
+	
+	\begin{lstlisting}[language=Python]
+		import numpy as np
+		
+		# 1. Matriz de acoplamiento del acelerometro 3D y voltajes medidos (mV)
+		M_calib = np.array([[1.05,0.02,-0.01], [0.01,0.98,0.03], [-0.02,0.01,1.02]])
+		V_medido = np.array([15.2, -4.5, 98.1]) 
+		
+		# 2. Ensayos en tunel de viento: Presion dinamica (Pa) y Fuerza Drag (N)
+		q_tunel = np.array([500, 1000, 1500, 2000, 2500, 3000])
+		F_drag_tunel = np.array([12.1, 25.3, 37.8, 51.0, 62.5, 76.2])
+		
+		# 3. Atmosfera Estandar (ISA): Altitud (m) y Densidad (kg/m^3)
+		altitudes_isa = np.array([0, 500, 1000, 1500, 2000, 2500])
+		densidades_isa = np.array([1.225, 1.167, 1.112, 1.058, 1.007, 0.957])
+		
+		# 4. Telemetria del Radar: Tiempo (s), Posicion X (m) y Posicion Y (m)
+		t_tel = np.linspace(0, 8, 17)
+		x_tel = np.array([0,48,93,137,178,218,256,292,326,359,390,419,448,474,500,524,547])
+		y_tel = np.array([0,85,160,225,280,325,360,385,400,405,400,385,360,325,280,225,160])
+	\end{lstlisting}
+	
+	\newpage
+	\subsection*{Desarrollo de la Práctica}
+	
+	\subsection*{Apartado 1: Calibración de la plataforma de lanzamiento (Sistema Lineal)}
+	La sonda cuenta con un acelerómetro triaxial cuyas lecturas en voltaje $\vec{V}$ están acopladas debido a tolerancias de fabricación. La relación entre las aceleraciones reales $\vec{a} = (a_x, a_y, a_z)^T$ y el voltaje medido viene dada por el sistema lineal: $M \cdot \vec{a} = \vec{V}$.
+	\begin{itemize}
+		\item \textbf{Tarea:} Implementad la resolución numérica de este sistema (usando \texttt{scipy.linalg} o \texttt{numpy.linalg}) para hallar el vector de aceleración inicial $\vec{a}$ en m/s$^2$. 
+	\end{itemize}
+	
+	\subsection*{Apartado 2: Caracterización Aerodinámica (Regresión Lineal)}
+	En régimen subsónico, la fuerza de resistencia aerodinámica $F_D$ es proporcional a la presión dinámica $q = \frac{1}{2}\rho v^2$. La constante de proporcionalidad es el producto del coeficiente de resistencia por el área de referencia: $F_D = (C_D A) \cdot q$.
+	\begin{itemize}
+		\item \textbf{Tarea:} Realizad un ajuste por mínimos cuadrados (regresión lineal) a los datos del túnel de viento para calcular el parámetro geométrico-aerodinámico $(C_D A)$. 
+	\end{itemize}
+	
+	\subsection*{Apartado 3: Modelo Atmosférico Local (Interpolación 1D)}
+	Para los cálculos aerodinámicos en vuelo, necesitamos la densidad del aire a la altitud máxima (apogeo) registrada por el radar ($y \approx 405$ m), pero este valor no está directamente en las tablas ISA.
+	\begin{itemize}
+		\item \textbf{Tarea:} Utilizad interpolación por splines cúbicos (mediante \texttt{scipy.interpolate}) sobre los datos de la Atmósfera Estándar para estimar la densidad del aire $\rho$ exactamente a $h = 405$ m.
+	\end{itemize}
+	
+	\subsection*{Apartado 4: Cinemática a partir de Telemetría (Derivación Numérica)}
+	El radar nos proporciona vectores discretos de posición $(x, y)$ frente al tiempo $t$. Necesitamos conocer los perfiles de velocidad para evaluar las fuerzas dinámicas.
+	\begin{itemize}
+		\item \textbf{Tarea:} Empleando derivación numérica (diferencias finitas centrales, y progresivas/regresivas en los extremos), calculad la componente horizontal $v_x(t)$ y vertical $v_y(t)$ de la velocidad. Calculad el módulo de la velocidad $v(t) = \sqrt{v_x^2 + v_y^2}$. 
+	\end{itemize}
+	
+	\subsection*{Apartado 5: Energía Disipada por la Atmósfera (Integración Numérica)}
+	El trabajo total realizado por la fuerza de resistencia (energía disipada) desde el lanzamiento hasta el último punto de telemetría se define como la integral de la potencia aerodinámica a lo largo del tiempo:
+	$$ W_{drag} = \int_{0}^{t_f} F_D(t) \cdot v(t) \, dt = \int_{0}^{t_f} \left( (C_D A) \cdot \frac{1}{2} \rho_{media} v(t)^2 \right) v(t) \, dt $$
+	\begin{itemize}
+		\item \textbf{Tarea:} Usando la densidad interpolada en el Apartado 3 (como aproximación de $\rho_{media}$), el parámetro $(C_D A)$ del Apartado 2, y el vector de velocidades $v(t)$ del Apartado 4, calculad esta integral numérica empleando la regla de Simpson o el método de los trapecios (\texttt{scipy.integrate}).
+	\end{itemize}
+	
+	\subsection*{Apartado 6: Predicción del Impacto (Búsqueda de Raíces)}
+	El equipo de aerodinámica ha desarrollado un modelo analítico preliminar para la altitud de la sonda durante su fase final de caída (válido para $t > 5$ s), dado por la ecuación no lineal:
+	$$ y(t) = 400 - 35 (t - 5) - 150 e^{-0.2 (t - 5)} $$
+	\begin{itemize}
+		\item \textbf{Tarea:} Utilizad un método numérico de búsqueda de raíces (Newton-Raphson, Bisección o \texttt{scipy.optimize.root\_scalar}) para encontrar el instante exacto de tiempo $t_{impacto}$ en el que la sonda tocará el suelo ($y(t) = 0$). Justificad vuestra elección del intervalo o punto inicial (seed).
+	\end{itemize}
+	
+	\subsection*{Requisitos del Dashboard (GUI)}
+	En lugar de generar múltiples ventanas con gráficas estáticas aisladas, el alumno deberá integrar la visualización de todos los apartados en una única Interfaz Gráfica de Usuario (GUI) interactiva programada \textbf{exclusivamente con matplotlib} (haciendo uso del módulo \texttt{matplotlib.widgets}).
+	\begin{itemize}
+		\item \textbf{Navegación:} Cread un menú (usando \texttt{RadioButtons} o varios \texttt{Button}) que permita al usuario cambiar la vista principal para alternar entre los resultados de los diferentes apartados.
+		\item \textbf{Interactividad Dinámica:} Al menos en uno de los análisis (ej. la regresión o la predicción de impacto), incluid un \texttt{Slider} que permita modificar un parámetro de entrada y observar cómo se actualiza la gráfica en tiempo real.
+		\item \textbf{Resultados Numéricos:} Utilizad comandos de texto de matplotlib (\texttt{ax.text}) para mostrar en pantalla las soluciones numéricas (ej. la matriz de aceleración calculada o la energía disipada) junto a las gráficas correspondientes.
+	\end{itemize}
+	
+	\subsection*{Requisitos de Entrega}
+	El código debe entregarse en diferentes archivos \texttt{*.py} que se llaman desde ub archivo \texttt{main.py}. Debe estar correctamente comentado y modularizado (utilizad funciones para estructurar el código). \textbf{Es obligatorio incluir sentencias \texttt{print()} (o mostrar el texto en la propia GUI) que acompañen a cada resultado numérico con una breve frase interpretando su sentido físico.}

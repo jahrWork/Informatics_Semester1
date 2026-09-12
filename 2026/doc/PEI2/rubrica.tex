@@ -1,0 +1,90 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage[a4paper, top=2.5cm, bottom=2.5cm, left=2cm, right=2cm]{geometry}
+
+
+
+
+
+% Add because main language is not English
+\usepackage{enumitem}
+\setlist[itemize]{label=-}
+% ---------------------------------
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\oddsidemargin -1.5cm 
+\textwidth 19 cm
+
+\pagestyle{empty}
+
+\begin{document}
+
+
+\begin{center}
+	\LARGE \textbf{Presentaciones Orales de acuerdo a la \\ GUÍA DE APRENDIZAJE
+		PROGRAMACIÓN. \\ GRADO EN INGENIERÍA AEROESPACIAL.} \\
+	\LARGE \textbf{Rúbrica de Evaluación Docente.}
+\end{center}
+\vspace{0.5cm}
+
+\noindent
+\begin{tabularx}{\textwidth}{|p{1cm}|p{6.5cm}|p{10.2cm}|}
+	\toprule
+	\textbf{Peso} & \textbf{Categoría de Evaluación} & \textbf{Criterios de Excelencia}  \\
+	\midrule
+	\textbf{30\%} & \textbf{Selección de Métodos Numéricos e Implementación Matemática} \newline \small Evalúa la implementación matemática, el uso de \texttt{numpy} / \texttt{scipy} y la exactitud de los resultados numéricos en los 6 apartados. 
+	& \begin{itemize}[leftmargin=*, nosep]
+		\item Resuelve correctamente el sistema lineal.
+		\item Realiza la regresión adecuadamente.
+		\item Interpola correctamente.
+		\item Implementa diferencias finitas sin errores en índices o extremo.
+		\item Integra correctamente aplicando Simpson/Trapecios.
+		\item Encuentra la raíz  con tolerancia adecuada.
+	\end{itemize} \\
+	\midrule
+	\textbf{30\%} & \textbf{Calidad y Estructura del Código} \newline \small Evalúa las buenas prácticas de programación, modularización, paradigma funcional, vectorización frente a bucles for, y nomenclatura.
+	& \begin{itemize}[leftmargin=*, nosep]
+		\item Código modular, uso adecuado de \texttt{def} para separar lógica y funciones del GUI.
+		\item Excelente uso de la vectorización de \texttt{numpy} (sin bucles \texttt{for} innecesarios en arrays).
+		\item Nomenclatura descriptiva.
+		\item Código limpio, ordenado y fácil de leer.
+	\end{itemize}  \\
+	\midrule
+	\textbf{10\%} & \textbf{Interpretación Física} \newline \small Evalúa la capacidad del alumno para conectar el número con la realidad del problema aeroespacial.
+	& \begin{itemize}[leftmargin=*, nosep]
+		\item Las salidas detallan claramente las magnitudes con sus unidades físicas (SI).
+		\item Contiene comentarios que validan el orden de magnitud de los resultados.
+		\item Justifica la elección de puntos iniciales en el cálculo de raíces.
+	\end{itemize}  \\
+	\midrule
+	\textbf{10\%} & \textbf{Visualización de Datos} \newline \small Evalúa el dominio de \texttt{matplotlib} y \texttt{matplotlib.widgets} para crear una GUI interactiva.
+	& \begin{itemize}[leftmargin=*, nosep]
+		\item Interfaz única con navegación funcional.(\texttt{Buttons}) 
+		\item Implementa un \texttt{Slider} que recalcula y actualiza una gráfica dinámicamente.
+		\item Integración de los resultados numéricos como texto dentro de la GUI.
+		\item Gráficas con calidad científica: títulos, etiquetas con unidades, grid y leyendas.
+	\end{itemize}  \\
+		\midrule
+	\textbf{20\%} & \textbf{Claridad de la exposición} 
+	\newline \small Evalúa un discurso articulado, fluido y con un hilo conductor nítido. Se pondera la precisión del vocabulario técnico, la coherencia lógica en la transición entre las ideas expuestas.
+	& \begin{itemize}[leftmargin=*, nosep]
+		\item Existe un hilo argumental de principio a fin.
+		\item El vocabulario utilizado es riguroso, técnico y adecuado al nivel del curso. 
+		\item Soporte visual minimalista, coherente y en fase con la voz del ponente (las diapositivas no contienen bloques de texto que compitan con la voz del ponente).
+		\item Ausencia de muletillas. El discurso tiene fluidez natural.
+	\end{itemize}  \\
+	\bottomrule
+\end{tabularx}
+
+\end{document}
+

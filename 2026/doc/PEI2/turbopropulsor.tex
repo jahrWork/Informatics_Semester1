@@ -1,0 +1,116 @@
+
+
+\section{Análisis Numérico y Telemetría del Rendimiento de un Turbopropulsor}
+
+	
+	\subsection*{Contexto Físico y Objetivo}
+	
+	El departamento de propulsión de su compañía aeroespacial ha finalizado la primera campaña de ensayos en banco de pruebas de un nuevo motor turbopropulsor diseñado para aviación regional. La próxima semana, el equipo de ingeniería deberá realizar una \textbf{presentación oral ejecutiva} ante la junta directiva para defender la viabilidad técnica y el rendimiento aerotermodinámico del motor.
+	
+	Para dar soporte visual y técnico a esta presentación, se le ha encomendado el desarrollo de un \textit{dashboard} interactivo. Este panel de control no solo debe procesar los datos de telemetría sin procesar utilizando métodos numéricos rigurosos, sino que debe permitir al ingeniero ponente interactuar con las gráficas en tiempo real durante la presentación para responder a posibles preguntas de la junta. El objetivo de esta práctica es implementar los seis análisis numéricos requeridos utilizando operaciones vectorizadas y empaquetar los resultados en una Interfaz Gráfica de Usuario (GUI) interactiva.
+	
+	\subsection*{Datos de Partida}
+	
+	A continuación, se proporcionan los datos experimentales simulados que deberá cargar en su script como \textit{arrays} de \texttt{numpy}.
+	
+	\begin{lstlisting}[language=Python]
+		from numpy import array, exp, pi, sin, linspace
+		
+		# 1. Calibracion: Matriz de interferencia de la balanza (C) y voltajes leidos (V)
+		C_matrix = array([[10.5, -0.2], [-0.1, 8.4]]) # [mV/kN, mV/kNm]
+		V_vector = array([250.3, 198.5])              # [mV]
+		
+		# 2. Regresion: Potencia en el eje (kW) y Flujo de combustible (kg/h)
+		P_ensayo = array([500.0, 750.0, 1000.0, 1250.0, 1500.0])
+		m_dot_f = array([145.2, 208.5, 275.1, 335.8, 398.4])
+		
+		# 3. Interpolacion: Atmosfera Estandar (Altitud en m, Temperatura en K)
+		h_tabla = array([0, 2000, 4000, 6000, 8000, 10000])
+		T_tabla = array([288.15, 275.15, 262.15, 249.15, 236.15, 223.15])
+		
+		# 4. Parametros para la Ecuacion No Lineal
+		M_critico = 0.82
+		D_helice = 2.5       # Diametro en metros
+		RPM_crucero = 1200   # Revoluciones por minuto
+		V_vuelo = 150        # Velocidad de avance en m/s
+		gamma = 1.4          # Coeficiente adiabatico del aire
+		R_g = 287.05         # Constante de los gases ideales [J/(kg K)]
+		
+		# 5 y 6. Telemetria de arranque: Tiempo (s), RPM y Par motor (Nm)
+		t_telemetria = linspace(0, 10, 200)
+		RPM_telemetria = 1500*(1-exp(-0.5 * t_telemetria))+ 15*sin(2*pi*t_telemetria)
+		Par_motor = 2000 * (1-exp(-0.8 * t_telemetria)) 
+	\end{lstlisting}
+	
+	\subsection*{Desarrollo Matemático}
+	
+	El script deberá resolver de forma secuencial y estructurada los siguientes 6 apartados, utilizando exclusivamente funciones y vectorización de \texttt{numpy}.
+	
+	\subsection*{1. Resolución de un sistema lineal (Calibración)}
+	
+	La balanza aerodinámica acopla las lecturas de Empuje ($T$) y Par ($Q$). El modelo linealizado de la celda de carga es $\mathbf{C} \cdot \vec{F} = \vec{V}$, donde $\vec{F} = [T, Q]^T$.
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Resuelva el sistema de ecuaciones para obtener el vector de fuerzas $\vec{F}$ (Empuje en kN y Par en kNm).
+	\end{itemize}
+	
+	\subsection*{2. Regresión Lineal (Consumo Específico)}
+	
+	El consumo de combustible ($\dot{m}_f$) presenta un comportamiento aproximadamente lineal respecto a la potencia ($P$) en régimen de crucero.
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Ajuste el modelo $\dot{m}_f = a \cdot P + b$ por mínimos cuadrados. Calcule los coeficientes y determine el valor estimado de flujo de combustible para una potencia de diseño de $1100 \text{ kW}$.
+	\end{itemize}
+	
+	\subsection*{3. Interpolación 1D (Propiedades Atmosféricas)}
+	
+	Para evaluar el rendimiento en altitudes no ensayadas, es necesario estimar la temperatura ambiente.
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Utilice interpolación lineal para definir una función que calcule la temperatura $T(h)$ a una altitud de $5250 \text{ m}$ basándose en los datos tabulados (\texttt{h\_tabla}, \texttt{T\_tabla}).
+	\end{itemize}
+	
+	\subsection*{4. Ecuación No Lineal (Mach Crítico en Punta de Pala)}
+	
+	El rendimiento de la hélice cae drásticamente si el número de Mach en la punta de la pala alcanza un valor crítico. El número de Mach en la punta de la hélice a una altitud $h$ es:
+	$$ M_{tip}(h) = \frac{\sqrt{V_{vuelo}^2 + (\omega \cdot R)^2}}{\sqrt{\gamma \cdot R_g \cdot T(h)}} $$
+	Donde $\omega$ es la velocidad angular en rad/s y $R$ el radio de la hélice.
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Encuentre la altitud $h$ (entre 0 y 10000 m) que satisface la ecuación no lineal $M_{tip}(h) - M_{crit} = 0$. \textit{Pista:} Al estar restringido el uso de bucles, evalúe la función en un vector denso de altitudes y encuentre la intersección con el cero utilizando diferencias de signo y aproximación lineal.
+	\end{itemize}
+	
+	\subsection*{5. Derivación Numérica 1D (Aceleración del Eje)}
+	
+	La telemetría de arranque proporciona las RPM a lo largo del tiempo.
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Convierta las RPM a velocidad angular $\omega(t)$ (rad/s) y utilice esquemas de diferencias finitas centrales para obtener la aceleración angular $\alpha(t) = \frac{d\omega}{dt}$ (rad/s$^2$).
+	\end{itemize}
+	
+	\subsection*{6. Integración Numérica 1D (Trabajo Mecánico)}
+	
+	La potencia desarrollada por el motor es el producto del par motor por la velocidad angular: $P(t) = Q(t) \cdot \omega(t)$.
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Calcule el trabajo mecánico total (energía en Julios) entregado por el motor durante los 10 segundos de la telemetría, integrando numéricamente la potencia $W = \int_{0}^{t_{final}} P(t) \, dt$.
+	\end{itemize}
+	
+	\subsection*{Requisitos del Dashboard Interactivo (GUI)}
+	
+	Para la presentación oral, se exige abandonar las figuras estáticas aisladas. Usted deberá programar una única ventana gráfica utilizando \texttt{matplotlib} (y su módulo \texttt{matplotlib.widgets}) con los siguientes elementos:
+	
+	\begin{enumerate}
+		\item \textbf{Área Principal de Gráficos:} Un sistema de ejes principal (Axes) donde se visualizará la gráfica correspondiente al análisis seleccionado.
+		\item \textbf{Selector de Análisis (RadioButtons):} Un widget de tipo \texttt{RadioButtons} situado en el margen izquierdo o inferior, que permita al ponente cambiar instantáneamente la vista entre los 6 análisis planteados (ej. "1. Calibración", "2. Regresión", etc.).
+		\item \textbf{Display de Resultados Numéricos:} Un área reservada (puede ser utilizando \texttt{matplotlib.pyplot.text} o un \texttt{TextBox} inactivo) donde se muestre claramente la solución numérica del apartado actualmente seleccionado, incluyendo sus unidades físicas correctas.
+	\end{enumerate}
+	
+	\subsection*{Criterios de Entrega y Restricciones}
+	
+	\begin{itemize}
+		\item \textbf{Vectorización Absoluta:} Se prohíbe taxativamente el uso de bucles \texttt{for} o \texttt{while} para iterar sobre los arrays de datos. Toda operación debe aprovechar la vectorización de \texttt{numpy}.
+		\item \textbf{Estructura:} Cada apartado numérico debe estar encapsulado en una función (ej. \texttt{def resolver\_mach\_critico(h\_array):}).
+		\item \textbf{Interpretación:} En el código, agregue comentarios (docstrings) breves que expliquen si el orden de magnitud del resultado obtenido tiene sentido físico en el contexto aeronáutico.
+	\end{itemize}
+	

@@ -1,0 +1,100 @@
+\section{Análisis Orbital y de Telecomunicaciones de la Constelación Starlink}
+
+	\subsection*{Contexto Físico y Objetivo}
+	
+	La constelación \textbf{Starlink} de SpaceX representa el mayor despliegue de satélites de órbita terrestre baja (LEO) de la historia, diseñados para proporcionar conectividad global de banda ancha y baja latencia. Tras el despliegue inicial desde el vehículo de lanzamiento Falcon 9, los satélites utilizan propulsores de efecto Hall (iónicos) de argón/criptón para elevar su órbita (orbit-raising) hasta su altitud operativa final (típicamente entre $540\text{ km}$ y $550\text{ km}$). Durante esta fase crítica, la telemetría continua y el análisis del entorno atmosférico son fundamentales para garantizar la supervivencia del satélite y la calidad del enlace de comunicaciones (bandas Ku y Ka).
+	
+	El objetivo de esta práctica es desarrollar un \textbf{dashboard interactivo} que procese y analice los datos de telemetría simulados de un satélite Starlink durante una maniobra de ascenso de $120\text{ minutos}$. Se requiere que implementéis herramientas de análisis numérico para evaluar la posición, velocidad, entorno aerodinámico y capacidad de transferencia de datos del satélite. Todo el análisis debe realizarse bajo el paradigma de \textbf{programación vectorizada}, demostrando un dominio absoluto de la biblioteca computacional moderna.
+	
+	\subsection*{Datos de Partida}
+	
+	Copiad y pegad el siguiente bloque de código en vuestro script. Contiene los datos simulados de telemetría (vectores de tamaño $N=1000$) y las matrices de calibración.
+	\begin{lstlisting}[language=Python]
+		import numpy as np
+		
+		# Semilla para reproducibilidad
+		np.random.seed(42)
+		
+		# Tiempo de la mision [minutos]
+		t = np.linspace(0, 120, 1000)
+		
+		# Altitud registrada por telemetria [km] (con ligeras oscilaciones)
+		h = 250 + 1.2 * t + 5 * np.sin(0.1 * t)
+		
+		# Potencia de senal recibida en la estacion terrestre (Gateway) [dBm]
+		P_rx = -40 - 0.15 * t + 1.5 * np.random.randn(1000)
+		
+		# Datos atmosfericos tabulados de la U.S. Standard Atmosphere
+		h_tab = np.array([200, 300, 400, 500, 600]) # Altitud [km]
+		rho_tab = np.array([2.789e-10, 1.95e-11, 2.82e-12, 5.21e-13, 1.13e-13])
+		
+		# Matriz de acoplamiento de la antena phased-array y retardos medidos
+		A_cal = np.array([[1.20, 0.30, 0.10], 
+		[0.20, 1.05, 0.20], 
+		[0.10, 0.15, 1.10]])
+		b_cal = np.array([15.2, 12.5, 14.8])
+\end{lstlisting}
+	
+	\subsection*{Desarrollo Matemático}
+	
+	Implementad los siguientes 6 apartados secuenciales utilizando \textbf{exclusivamente funciones de NumPy}. El uso de bucles \texttt{for} o \texttt{while} nativos resultará en una fuerte penalización.
+	
+	\subsection*{1. Resolución de un sistema lineal (Calibración de la Antena)}
+	Las estaciones terrestres de Starlink utilizan antenas de arreglo en fase (phased-array). Durante la recepción, existe un acoplamiento electromagnético entre tres sectores principales del arreglo. El retardo real de propagación de la señal $\mathbf{x} = [x_1, x_2, x_3]^T$ se relaciona con el retardo aparente medido $\mathbf{b_{cal}}$ mediante la matriz de interferencia $\mathbf{A_{cal}}$ según la ecuación: $\mathbf{A_{cal}} \mathbf{x} = \mathbf{b_{cal}}$.
+	
+	\begin{itemize}
+		\item \textbf{Se pide:} Resolver el sistema lineal algebraico para hallar el vector de retardos verdaderos $\mathbf{x}$ empleando las rutinas de álgebra lineal de NumPy.
+	\end{itemize}
+	
+	\subsection*{2. Regresión lineal (Modelo de Atenuación de Señal)}
+	La potencia de la señal de telemetría $P_{rx}$ sufre una atenuación a lo largo de la maniobra debido al aumento de la distancia y las condiciones ionosféricas.
+	
+	\begin{itemize}
+		\item \textbf{Se pide:} Ajustar los datos dispersos $(t, P_{rx})$ a un modelo lineal $P_{rx}(t) = m \cdot t + c$. Calculad la pendiente $m$ (tasa de degradación en $\text{dBm/min}$) y la ordenada en el origen $c$ mediante un ajuste de mínimos cuadrados. Mostrad la recta de regresión superpuesta a los datos ruidosos.
+	\end{itemize}
+	
+	\subsection*{3. Interpolación 1D (Perfil de Densidad Atmosférica)}
+	Para predecir el frenado aerodinámico (drag) en régimen de flujo molecular libre, es necesario conocer la densidad del aire en cualquier instante de la trayectoria.
+	
+	\begin{itemize}
+		\item \textbf{Se pide:} Interpolar el vector de altitud continua $h$ utilizando los datos tabulados discretos \texttt{h\_tab} y \texttt{rho\_tab} para obtener un vector continuo de densidad $\rho(t)$ correspondiente a cada instante de la misión. \textit{Sugerencia: Debido al comportamiento exponencial de la atmósfera, se valorará positivamente interpolar en escala logarítmica.}
+	\end{itemize}
+	
+	\subsection*{4. Resolución de una Ecuación No Lineal (Altitud Crítica)}
+	La resistencia atmosférica decae exponencialmente. SpaceX define un umbral de seguridad donde el ``drag'' es considerado insignificante, permitiendo el despliegue total de los paneles solares. Asumiremos que este umbral se alcanza a una altitud exacta de $h_{crit} = 375 \text{ km}$.
+	
+	\begin{itemize}
+		\item \textbf{Se pide:} Encontrar el instante exacto de tiempo $t_{crit}$ en el que el satélite alcanza dicha altitud, resolviendo la raíz de la ecuación no lineal $h(t) - 375 = 0$. Emplead un método vectorizado (ej. localizar el cambio de signo temporal mediante diferencias y aplicar interpolación local lineal).
+	\end{itemize}
+	
+	\subsection*{5. Derivación Numérica 1D (Cinemática del Satélite)}
+	A partir de los datos de altitud $h(t)$, debemos caracterizar la tasa de ascenso.
+	
+	\begin{itemize}
+		\item \textbf{Se pide:} Calcular el vector de velocidad radial $v(t) = \frac{dh}{dt}$ (en $\text{m/s}$) y la aceleración radial $a(t) = \frac{d^2h}{dt^2}$ (en $\text{m/s}^2$) utilizando esquemas numéricos de diferencias finitas centrales. Aseguraos de tratar adecuadamente las condiciones en los bordes del array.
+	\end{itemize}
+	
+	\subsection*{6. Integración Numérica 1D (Telemetría de Datos Transmitidos)}
+	La capacidad de ancho de banda del satélite depende de la relación señal/ruido. Asumiremos un modelo empírico donde la tasa de bits instantánea en Megabytes por minuto se aproxima exponencialmente a partir de la potencia de señal recibida: $R(t) = 10 \cdot 10^{\frac{P_{rx}(t) + 60}{20}} \quad [\text{MB/min}]$.
+	
+	\begin{itemize}
+		\item \textbf{Se pide:} Calcular el volumen total de datos $V$ (en Gigabytes) transmitidos con éxito a la Tierra durante toda la misión, aplicando integración numérica (ej. Regla del Trapecio compuesto) sobre la curva $R(t)$:
+		$$ V = \int_{0}^{t_{final}} R(t) dt $$
+	\end{itemize}
+	
+	\subsection*{Requisitos del Dashboard (GUI Interfaz Gráfica)}
+	La práctica debe culminar en una única ventana interactiva programada íntegramente con \texttt{matplotlib} y su módulo \texttt{matplotlib.widgets}.
+	
+	\begin{enumerate}
+		\item \textbf{Panel de Control:} En la zona lateral o inferior de la figura, debéis incluir un widget \texttt{RadioButtons} que permita al usuario cambiar dinámicamente entre las 6 gráficas correspondientes a los 6 cálculos realizados.
+		\item \textbf{Interactividad:} Incluir al menos un widget \texttt{Slider}. Por ejemplo, un deslizador que permita modificar el umbral crítico de altitud del apartado 4 (entre $300$ y $450\text{ km}$) y que actualice instantáneamente en la gráfica la posición del punto calculado.
+		\item \textbf{Resultados Numéricos:} Utilizad la función \texttt{plt.text} (o equivalente) anclada en un rincón de la figura gráfica para mostrar en texto claro el resultado matemático fundamental del apartado activo (ej. \textit{"Tasa de degradación: -0.15 dBm/min"}, o \textit{"Total de datos: 4.2 GB"}).
+	\end{enumerate}
+	
+	\subsection*{Criterios de Entrega}
+	\begin{itemize}
+		\item Se entregará un único script \texttt{.py}.
+		\item \textbf{Tolerancia Cero a Bucles:} Todo cálculo en arrays debe hacerse mediante \textit{broadcasting} o funciones nativas de \texttt{numpy}. Se restará hasta un 50\% de la nota matemática por usar \texttt{for} o \texttt{while} innecesarios.
+		\item El código debe seguir las normas de estilo PEP-8, con un código modularizado (uso de funciones \texttt{def} para separar la matemática de la interfaz gráfica).
+		\item Se valorará profundamente la interpretación física de los resultados impresa tanto en los comentarios del código como en la propia interfaz visual.
+	\end{itemize}

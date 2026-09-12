@@ -1,0 +1,112 @@
+
+\section{Análisis de Telemetría y Ascenso de una Sonda Meteorológica Estratosférica }
+
+
+
+	
+	\subsection*{Contexto Físico y Objetivo}
+	
+	El estudio de la atmósfera terrestre es fundamental en la ingeniería aeroespacial, tanto para la predicción meteorológica como para el cálculo de trayectorias de vehículos de lanzamiento. En esta práctica, formáis parte del equipo de análisis de la misión \textit{AeroSonde-I}, un globo meteorológico de gran altitud instrumentado con sensores de presión, temperatura, acelerómetros y un sistema de telemetría.
+	
+	Durante su reciente lanzamiento, la sonda transmitió un paquete de datos crudos (raw data) que presenta ruido, intervalos irregulares y requiere calibración. Vuestro objetivo es procesar matemáticamente esta telemetría para reconstruir la cinemática del vuelo y las propiedades atmosféricas. Para la \textbf{defensa oral} de la práctica, deberéis programar un \textit{Dashboard} interactivo que permita al equipo de control de misión visualizar los seis análisis matemáticos secuenciales, demostrando dominio absoluto de la computación numérica vectorizada.
+	
+	\subsection*{Datos de Partida}
+	
+	Copien y peguen el siguiente bloque de datos en su script. Queda \textbf{terminantemente prohibido} el uso de bucles \texttt{for} o \texttt{while} de Python para el procesamiento de estos arrays; toda operación debe estar vectorizada con \texttt{numpy}.
+	
+	\begin{lstlisting}[language=Python]
+		import numpy as np
+		
+		# 1. Matriz de calibracion del anemometro 3D (Voltajes) 
+		# y vector de velocidades de viento de referencia (m/s)
+		voltajes_anemometro = np.array([[1.2, 0.3, 0.1], [0.2, 1.5, 0.4], [0.1, 0.2, 1.1]])
+		viento_referencia = np.array([15.5, -5.2, 3.1])
+		
+		# 2. Datos de calibracion del altimetro barometrico: Voltaje (V) vs Presion log (ln(Pa))
+		v_sensor = np.array([0.5, 1.2, 2.0, 2.8, 3.5, 4.1, 5.0])
+		ln_presion = np.array([11.5, 10.8, 9.9, 9.1, 8.2, 7.5, 6.4])
+		
+		# 3. Telemetria irregular: Tiempos de recepcion (s) y Altitud registrada (m)
+		t_telemetria = np.array([0, 12, 25, 43, 58, 71, 89, 105, 120, 145])
+		altitud_cruda = np.array([500, 650, 820, 1050, 1280, 1500, 1790, 2100, 2350, 2800])
+		
+		# 4. Perfil de temperatura atmosferica en funcion del tiempo T(t) en grados Celsius
+		# Modelo polinomico ajustado: T(t) = 15 - 0.05*t - 0.001*t^2 + 2e-5*t^3
+		
+		# 6. Datos de consumo de potencia del calefactor de a bordo (W) en el tiempo
+		# (Se calculara a partir de los tiempos interpolados en el apartado 3)
+	\end{lstlisting}
+	
+	\subsection*{Desarrollo Matemático}
+	
+	Deberán implementar los siguientes 6 módulos numéricos secuenciales:
+	
+	\subsection*{1. Sistema Lineal: Calibración del Anemómetro}
+	
+	La sonda cuenta con un anemómetro de tres ejes. La relación entre los voltajes medidos en los ejes $V_i$ y las componentes de la velocidad del viento real $W_i$ obedece a un sistema lineal $A \cdot \vec{c} = \vec{W}_{ref}$, donde $A$ es la matriz de \texttt{voltajes\_anemometro} y $\vec{W}_{ref}$ es el \texttt{viento\_referencia}.
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Resuelvan el sistema lineal para hallar el vector de coeficientes de calibración $\vec{c}$.
+	\end{itemize}
+	
+	\subsection*{2. Regresión Lineal: Calibración Barométrica}
+	
+	El sensor de presión emite un voltaje que es inversamente proporcional al logaritmo de la presión atmosférica.
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Implementen un ajuste por mínimos cuadrados (regresión lineal) para encontrar la recta $\ln(P) = m \cdot V + n$ que mejor ajuste los datos de \texttt{v\_sensor} y \texttt{ln\_presion}.
+	\end{itemize}
+	
+	\subsection*{3. Interpolación 1D: Reconstrucción de la Trayectoria}
+	
+	Por pérdidas de señal, la telemetría se recibió en instantes asimétricos (\texttt{t\_telemetria}). Para el análisis de vuelo, necesitamos la altitud en intervalos regulares.
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Creen un nuevo vector temporal $t_{reg}$ desde 0 hasta 145 segundos con 200 puntos equiespaciados. Utilicen interpolación lineal o polinómica de \texttt{numpy} o \texttt{scipy.interpolate} para estimar la altitud $h(t_{reg})$ en estos nuevos instantes.
+	\end{itemize}
+	
+	\subsection*{4. Ecuación No Lineal: Detección de la Tropopausa}
+	
+	La temperatura de la atmósfera desciende con la altitud hasta alcanzar un punto mínimo y estabilizarse. El modelo térmico de la sonda viene dado por:
+	
+	\[
+	T(t) = 15 - 0.05t - 0.001t^2 + 2 \times 10^{-5}t^3
+	\]
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Apliquen un método numérico (Bisección o Newton-Raphson) para encontrar el instante de tiempo exacto $t_{crit}$ en el que la temperatura alcanza los $-10^\circ \text{C}$ (temperatura de riesgo de congelación para las baterías).
+	\end{itemize}
+	
+	\subsection*{5. Derivación Numérica: Perfil de Velocidad Ascensional}
+	
+	A partir de la altitud interpolada regularmente $h(t_{reg})$ obtenida en el Apartado 3.
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Calculen la velocidad ascensional $v_z(t) = \frac{dh}{dt}$ utilizando esquemas de diferencias finitas centrales de orden $\mathcal{O}(\Delta t^2)$ (y diferencias hacia adelante/atrás en los extremos).
+	\end{itemize}
+	
+	\subsection*{6. Integración Numérica: Consumo Energético}
+	
+	El calefactor de la sonda tiene un consumo de potencia dependiente de la velocidad y el tiempo estimado por la función: $P(t) = 5 + 0.1 \cdot |v_z(t)| + 0.02 \cdot t$ (en Vatios).
+	
+	\begin{itemize}
+		\item \textbf{Tarea:} Calculen la energía total consumida en Julios $E = \int_{0}^{145} P(t) \, dt$ utilizando la regla del Trapecio o Simpson aplicada al vector de potencias calculado sobre $t_{reg}$.
+	\end{itemize}
+	
+	\subsection*{Requisitos del Dashboard (GUI Interactivo)}
+	
+	Para la \textbf{presentación oral}, no se admiten figuras aisladas. Deberán construir un único entorno interactivo utilizando exclusivamente la biblioteca \texttt{matplotlib} y su módulo de \textit{widgets} (\texttt{matplotlib.widgets}).
+	
+	\begin{enumerate}
+		\item \textbf{Selector de Análisis (RadioButtons):} Un menú lateral que permita al profesor alternar visualmente entre las 6 gráficas correspondientes a los 6 apartados. Al hacer clic en una opción, el eje principal debe limpiarse (\texttt{ax.clear()}) y dibujar el análisis correspondiente.
+		\item \textbf{Panel Numérico (Text):} Un área de la figura dedicada a mostrar el texto con las respuestas numéricas del apartado activo (ej. "Energía total: 1250.3 J").
+		\item \textbf{Control Interactivo (Slider):} Añadan un deslizador (\textit{Slider}) visible durante el Apartado 4 que permita modificar la "Temperatura Crítica" (entre $0^\circ \text{C}$ y $-20^\circ \text{C}$) y recalcule/redibuje en tiempo real la raíz de la ecuación (el instante $t_{crit}$).
+	\end{enumerate}
+	
+	\subsection*{Criterios de Entrega}
+	
+	\begin{itemize}
+		\item \textbf{Vectorización (Obligatoria):} Se auditará el código. El uso injustificado de estructuras de control iterativas (\texttt{for}, \texttt{while}) para operaciones matemáticas sobre vectores conllevará el suspenso automático de la práctica.
+		\item \textbf{Presentación:} La legibilidad del código (PEP-8) y la física detrás de los resultados (impresos en consola o en la GUI) son vitales. Justifiquen si los valores de velocidad o energía calculados tienen sentido en un entorno aeroespacial.
+	\end{itemize}
+	
