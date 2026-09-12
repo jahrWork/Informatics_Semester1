@@ -188,6 +188,7 @@ for i in count(2):
       print("i =", i)
    else:
       break
+   
 name = "Juan"
 print( "".join(islice( name, 2)) )
  
