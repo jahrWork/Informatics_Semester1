@@ -2,7 +2,6 @@
     // ─── Python ───────────────────────────────────────────────────────────────
     "python-envs.defaultEnvManager": "ms-python.python:system",
     "python-envs.defaultPackageManager": "ms-python.python:pip",
-    "python-envs.pythonProjects": [],
 
     // ─── Asociaciones de ficheros ──────────────────────────────────────────────
     "files.associations": {
