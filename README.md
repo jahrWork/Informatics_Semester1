@@ -1,6 +1,7 @@
 # Foundations: Programming in Python
 
 A) 6-Week_Programming_Learning_Path [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/2026/doc/6-Week_Programming_Learning_Path.pdf)
+
 B) Engineering Scientific Computing Roadmap [PDF](https://github.com/jahrWork/Informatics_Semester1/blob/master/2026/doc/Engineering_Scientific_Computing_Roadmap.pdf)
 
 
