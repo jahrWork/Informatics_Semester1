@@ -61,65 +61,65 @@
 #     S += e  # S = S + e
 # print("Sum(L1) =", S)
 
-L1 = [1, 2, 3, 4, 5]
-# print 5, 4, 3, 2, 1 
-print(L1[-1],L1[-2], L1[-3], L1[-4], L1[-5])
+# L1 = [1, 2, 3, 4, 5]
+# # print 5, 4, 3, 2, 1 
+# print(L1[-1],L1[-2], L1[-3], L1[-4], L1[-5])
 
-L = [ [1,2,3], "abc"]
-print(L[1][1]) # print b  
+# L = [ [1,2,3], "abc"]
+# print(L[1][1]) # print b  
 
-T = ( 1, [1, 2, 3])
-print(T[1][2]) # print 3 
+# T = ( 1, [1, 2, 3])
+# print(T[1][2]) # print 3 
 
-T = (1) 
-print( type(T) ) # T is int
-T = (1,) 
-print( type(T) ) # T is int
+# T = (1) 
+# print( type(T) ) # T is int
+# T = (1,) 
+# print( type(T) ) # T is int
 
-L = [1] 
-print( type(L), L ) # L is list
-L = [1,] 
-print( type(L), L ) # T is list
+# L = [1] 
+# print( type(L), L ) # L is list
+# L = [1,] 
+# print( type(L), L ) # T is list
 
-L = [1,2,3,4,5,6]
-del(L[3]) # del this element 
-L.pop(0)  # del element of index 0 
-L.remove(5) # del element with value 5 
-print(L) 
-L.pop()   # del last element 
-print(L) 
-L.clear()  # del all elements 
-print(L) 
-L = [1,2,3,4,5,6]
-del( L[:] ) # del all elements 
-print(L) 
-del(L)      # destroy list structure 
-            # L does not exist 
+# L = [1,2,3,4,5,6]
+# del(L[3]) # del this element 
+# L.pop(0)  # del element of index 0 
+# L.remove(5) # del element with value 5 
+# print(L) 
+# L.pop()   # del last element 
+# print(L) 
+# L.clear()  # del all elements 
+# print(L) 
+# L = [1,2,3,4,5,6]
+# del( L[:] ) # del all elements 
+# print(L) 
+# del(L)      # destroy list structure 
+#             # L does not exist 
 
-L = [1,2,3,4,5]  
-L.append(6)     # add elemnt 6 to the list 
-L.extend([7,8]) # extend the list with elements 7,8 
-L.insert(0,1)   # insert 1 at index 0 
-print(L)
-L.insert(20,9)  # insert 9 at the end 
-print(L)
+# L = [1,2,3,4,5]  
+# L.append(6)     # add elemnt 6 to the list 
+# L.extend([7,8]) # extend the list with elements 7,8 
+# L.insert(0,1)   # insert 1 at index 0 
+# print(L)
+# L.insert(20,9)  # insert 9 at the end 
+# print(L)
 
-L = [ [1,2], [3, 4] ]
-print( L[1:2], type(L[1:2]) )
-print( L[1][0:2], type(L[1][0:2]) )
-print( L[1][0], type(L[1][0]) )
+# L = [ [1,2], [3, 4] ]
+# print( L[1:2], type(L[1:2]) )
+# print( L[1][0:2], type(L[1][0:2]) )
+# print( L[1][0], type(L[1][0]) )
 
   
-# #***********************************************
-# # 1. Determine a list of the first N primes 
-# #***********************************************
-# def is_prime(n): 
+#***********************************************
+# 1. Determine a list of the first N primes 
+#***********************************************
+def is_prime(n): 
     
-#       for i in range(2,n):
-#           if n % i == 0:  
-#             return False
+      for i in range(2,n):
+          if n % i == 0:  
+            return False
          
-#       return True and n > 1
+      return True and n > 1
                
 # def First_primes(N): 
 
@@ -179,9 +179,23 @@ print( L[1][0], type(L[1][0]) )
 # print("First N perfect numbers =", First_perfect_numbers(4)  )   
 
 
+# Version pure functional programming with generators and iterators
+from itertools import count, islice
 
+N = 10
+for i in count(2):
+   if i < N :
+      print("i =", i)
+   else:
+      break
+name = "Juan"
+print( "".join(islice( name, 2)) )
+ 
+def sum_first_n_primes(N): 
+    
+    return sum(islice( (i for i in count(2) if is_prime(i)), N))
 
-
+print("sum of first N primes =", sum_first_n_primes(3) )
 
 
 
@@ -385,17 +399,17 @@ print( L[1][0], type(L[1][0]) )
 
 
 
-def capicua(N): 
+# def capicua(N): 
 
-     s = str(N) 
-     reverse_s = s[::-1]
+#      s = str(N) 
+#      reverse_s = s[::-1]
 
-     if s == reverse_s: 
-           return True
-     else: 
-           return False
+#      if s == reverse_s: 
+#            return True
+#      else: 
+#            return False
 
-print(capicua(131))     
+# print(capicua(131))     
 
 
 
