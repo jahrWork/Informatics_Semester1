@@ -165,47 +165,56 @@ import math
 # Every time print is executed a new line is used
 # To avoid new line, use the argument end =', ' 
 # This allows to print multiples values separeted by comma: ", "
-for i in range(4): 
-    print( "index :", i)
+# for i in range(4): 
+#     print( "index :", i)
 
-for i in range(4): 
-    print( "index :", i, end = ', ')
+# for i in range(4): 
+#     print( "index :", i, end = ', ')
 
-print("\nindex :", end =" ")   
-for i in range(4): 
-    print(i, end = ", ")    
-
-
-# ouput: 0, 1, 1
-# Once the loop is abandoned, the index retains the last value 
-print("\n\nlast value when loop is abandoned")
-for i in range(2):
-    print(i, end=', ')
-print(i)
+# print("\nindex :", end =" ")   
+# for i in range(4): 
+#     print(i, end = ", ")    
 
 
-# format f in print 
-for i in range(4): 
-  print(f"index : {i}")
-
-# Tables with print 
-# variable:<length (specify the length of the column 
-# string format: 15s fifteen characters
-# float format: 15.2f fifteen digits with two decimals 
-# :< left justified, :>right justified 
-print("\nPretty print table ")
-print(45*"-")
-print(f"{"x":<15s}{"x**2":<15s}{"x**3":<15s}")
-print(45*"-")
-for i in range(1, 5):
- x = 2*i + 1.
- print(f'{x:<15.2f}{x**2:<15.2f}{x**3:<15.2f}')
-
-print(45*"-")
-print(f"{"x":>15s}{"x**2":>15s}{"x**3":>15s}")
-print(45*"-")
-for i in range(1, 5):
- x = 2*i + 1.
- print(f'{x:>15.2f}{x**2:>15.2f}{x**3:>15.2f}')
+# # ouput: 0, 1, 1
+# # Once the loop is abandoned, the index retains the last value 
+# print("\n\nlast value when loop is abandoned")
+# for i in range(2):
+#     print(i, end=', ')
+# print(i)
 
 
+# # format f in print 
+# for i in range(4): 
+#   print(f"index : {i}")
+
+# # Tables with print 
+# # variable:<length (specify the length of the column 
+# # string format: 15s fifteen characters
+# # float format: 15.2f fifteen digits with two decimals 
+# # :< left justified, :>right justified 
+# print("\nPretty print table ")
+# print(45*"-")
+# print(f"{"x":<15s}{"x**2":<15s}{"x**3":<15s}")
+# print(45*"-")
+# for i in range(1, 5):
+#  x = 2*i + 1.
+#  print(f'{x:<15.2f}{x**2:<15.2f}{x**3:<15.2f}')
+
+# print(45*"-")
+# print(f"{"x":>15s}{"x**2":>15s}{"x**3":>15s}")
+# print(45*"-")
+# for i in range(1, 5):
+#  x = 2*i + 1.
+#  print(f'{x:>15.2f}{x**2:>15.2f}{x**3:>15.2f}')
+
+#******************************************************************
+# Operators: +, -, *, /, **, //, %, abs, round, divmod
+#******************************************************************
+print(" 8/3 =", 8/3)
+print(" 8//3 =", 8//3) # floor division
+print(" 8%3 =", 8%3)   # modulus
+print(" divmod(8,3) =", divmod(8,3)) # returns a tuple with the quotient and the remainder
+
+print(" 2*'Juan' =", 2*'Juan') # string repetition
+print (" 'Juan' + 'Hernandez' =", 'Juan' + 'Hernandez') # string concatenation
