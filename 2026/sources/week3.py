@@ -110,36 +110,7 @@
 # print( L[1][0], type(L[1][0]) )
 
   
-#***********************************************
-# 1. Determine a list of the first N primes 
-#***********************************************
-def is_prime(n): 
-    
-      for i in range(2,n):
-          if n % i == 0:  
-            return False
-         
-      return True and n > 1
-               
-# def First_primes(N): 
 
-#   N_primes = 0 
-#   n = 1   
-#   primes = []
-  
-#   while N_primes < N: 
-             
-#         if is_prime(n): 
-#             primes += [ n ]
-#             N_primes += 1 
-            
-#         n += 1    
-   
-#   return primes   
-   
-    
-   
-# print("First N primes =", First_primes(7) )     
 
 
           

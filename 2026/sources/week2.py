@@ -13,79 +13,45 @@
 # for i,c  in enumerate(S):
 #     print("index i in string S =", i, " S[i] = ", S[i], " character in S = ", c )
 
+#******************************************************************
+# Output: print 
+#******************************************************************
+# Every time print is executed a new line is used
+# To avoid new line, use the argument end =', ' 
+# This allows to print multiples values separeted by comma: ", "
+# for i in range(4): 
+#     print( "index :", i)
+
+# for i in range(4): 
+#     print( "index :", i, end = ', ')
+
+# print("\nindex :", end =" ")   
+# for i in range(4): 
+#     print(i, end = ", ")    
 
 
-#**************************************************************
-# Determine if n is prime.
-#  n is prime if i has only two divisors:  1 and itself. 
-#**************************************************************
-
-#  for loop is used we perform a spacific number of operations
-# print("prime numbers")
-# n = 13
-# for i in range(2,n): # from i=2 to n-1 
-#     if n % i == 0:
-#           break
-
-# if i<n-1:
-#         print(n, "is not prime")
-# else:
-#         print(n, "is prime")
-
-
-
-
-
-# while loop is used when we don't know th number of operations or steps 
-# N = 10
-# print("Determine N=", N, "first primes")
-
-# S_prime = 0
-# N_prime = 0
-# n = 2
-# while N_prime < N:
-
-#     is_prime = True
-#     for i in range(2, n):
-#         if n % i == 0:
-#             # print( n, " is not prime because ", i, "is a factor")
-#             is_prime = False
-#             break
-
-#     if is_prime:
-#         print(n, "is prime")
-#         N_prime = N_prime + 1
-#         S_prime = S_prime + n
-
-#     else:
-#         print(n, "is not prime")
-#         pass
-
-#     n = n + 1
-
-# print("\n \n")
-# print("The sum of the first N primes is =", S_prime)
-
-#**********************************************************************
-# A number is perfect when the sum of its primes is equal to the number 
-#**********************************************************************
-# print("perfect numbers") 
-# n = 6
-# S = 0
-# for i in range(1,n):
-#     if n % i == 0:
-#           print( i, "is a factor")
-#           S = S + i
-
-# if S==n:
-#         print(n, "is perfect")
-# else:
-#         print(n, "is not perfect")
+# # ouput: 0, 1, 1
+# # Once the loop is abandoned, the index retains the last value 
+# print("\n\nlast value when loop is abandoned")
+# for i in range(2):
+#     print(i, end=', ')
+# print(i)
 
 
 
+# **********************************************************************
+#   Roots of a second order equation 
+#***********************************************************************
 
-
+# 1. specification:  obtain roots of secnd order equation
+# 2. math model : a x**2 + b x + c = 0, if a==0 equation is b x + c = 0
+# 3. algorithm: x_1 = ( -b + .... ) if a == 0 x_1 = - c / b
+# 4. code:
+# 5. run:
+# 6. validation:
+#               test1: x**2 -x = 0 , x_1 = 0, x_2 = 1
+#               test2: 2 x**2 + 2  = 0, x_1 = + i, x_2 = - i
+#               test3: x+1 = 0, x_1 = -1
 
 #***************************************************
 #  Functions 
@@ -114,6 +80,60 @@
 #      x_1 = (-b + sqrt(b**2 - 4*a*c)) / (2*a)
 #      x_2 = (-b - sqrt(b**2 - 4*a*c)) / (2*a)
 #      return [x_1, x_2] 
+
+#***********************************************
+# 1. Determine a list of the first N primes 
+#***********************************************
+# def is_prime(n): 
+    
+#       for i in range(2,n):
+#           if n % i == 0:  
+#             return False
+         
+#       return True and n > 1
+               
+# def First_primes(N): 
+
+#   N_primes = 0 
+#   n = 1   
+#   primes = []
+  
+#   while N_primes < N: 
+             
+#         if is_prime(n): 
+#             primes += [ n ]
+#             N_primes += 1 
+            
+#         n += 1    
+   
+#   return primes   
+   
+    
+   
+# print("First N primes =", First_primes(7) )     
+
+#**********************************************************************
+# A number is perfect when the sum of its primes is equal to the number 
+#**********************************************************************
+# print("perfect numbers") 
+# n = 6
+# S = 0
+# for i in range(1,n):
+#     if n % i == 0:
+#           print( i, "is a factor")
+#           S = S + i
+
+# if S==n:
+#         print(n, "is perfect")
+# else:
+#         print(n, "is not perfect")
+
+
+
+
+
+
+
      
 # ****************************************
 # procedure to print different roots 
@@ -200,11 +220,11 @@
 # Type of arguments can be specified to improve readability 
 # However, type of actual arguments are not checked 
 #***********************************************************
-# def f(x: float) -> float:  
-#    return x**2 
+def f(x: int) -> int:  
+   return x**2 
 
-# print(" f(2) =", f(2))
-# print( " f(2.) =", f(2.) )
+print(" f(2) =", f(2))
+print( " f(2.) =", f(2.) )
 
 
 
@@ -233,32 +253,32 @@
 
 
 
-from numpy import pi, cos 
+# from numpy import pi, cos 
 
-def Piecewise_function(x): 
+# def Piecewise_function(x): 
 
-       if x <= -pi/2 : 
+#        if x <= -pi/2 : 
            
-            return 1 
+#             return 1 
             
-       elif x <= pi/2. : 
+#        elif x <= pi/2. : 
            
-            return cos(x) 
+#             return cos(x) 
             
-       else: 
-            return -2 # x > pi/2
+#        else: 
+#             return -2 # x > pi/2
 
-print(Piecewise_function(-pi/2.), Piecewise_function(pi/2.),   Piecewise_function(pi/2.+1e-5) )
+# print(Piecewise_function(-pi/2.), Piecewise_function(pi/2.),   Piecewise_function(pi/2.+1e-5) )
 
 
 # lambda functions or anonymous functions 
-f = lambda x : x**2 
-print( "f(x=2) =", f(2)) 
+# f = lambda x : x**2 
+# print( "f(x=2) =", f(2)) 
 
-# equivalent to 
-def f(x): 
-      return x**2 
-print( "f(x=2) =", f(2)) 
+# # equivalent to 
+# def f(x): 
+#       return x**2 
+# print( "f(x=2) =", f(2)) 
 
 
 #***********************************************************************
