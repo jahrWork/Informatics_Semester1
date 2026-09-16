@@ -81,36 +81,96 @@
 #      x_2 = (-b - sqrt(b**2 - 4*a*c)) / (2*a)
 #      return [x_1, x_2] 
 
+
+
+#*************************************************
+# Paradigms: imperative versus declarative 
+#*************************************************
+
+# Imperative program (sequence of steps, how to )
+
+# def factorial_imperative(n: int) -> int: 
+
+#    f = 1
+#    for i in range(1, n+1):
+#        f = f * i
+#        print("factorial =", f)
+#    return f 
+
+# print( "\nfactorial(6) = ", factorial_imperative(n = 6))
+    
+
+# # Declarative program (what to do)
+# def factorial(n: int) -> int: 
+
+#    if n==0: 
+#         return 1 
+#    else: 
+#        return n * factorial(n-1)
+   
+# print( "\nfactorial(6) = ", factorial(n=6))
+
+
+# from math import prod 
+
+# def factorial(n: int) -> int:
+
+#     if n == 0: 
+#         return 1
+    
+#     elif n>0: 
+#         return prod( [ i for i in range(1, n+1) ] ) 
+
+#     else: 
+#         return("Factorial of a negative number is not defined")
+
+# #print(factorial(-5))  # Output: Factorial of a negative number is not defined
+# print(factorial(6))   # Output: 120
+
+
+
+
+
 #***********************************************
 # 1. Determine a list of the first N primes 
 #***********************************************
-# def is_prime(n): 
+def is_prime(n): 
     
-#       for i in range(2,n):
-#           if n % i == 0:  
-#             return False
+      for i in range(2,n):
+          if n % i == 0:  
+            return False
          
-#       return True and n > 1
-               
-# def First_primes(N): 
+      return True and n > 1
 
-#   N_primes = 0 
-#   n = 1   
-#   primes = []
+# imperative version               
+def First_primes(N: int) -> list: 
+
+  N_primes = 0 
+  n = 1   
+  primes = []
   
-#   while N_primes < N: 
+  while N_primes < N: 
              
-#         if is_prime(n): 
-#             primes += [ n ]
-#             N_primes += 1 
+        if is_prime(n): 
+            primes += [ n ]
+            N_primes += 1 
             
-#         n += 1    
+        n += 1    
    
-#   return primes   
+  return primes   
    
-    
+
+print("First N primes =", First_primes(7) )   
+
+from itertools import islice, count
+
+# declarative version using itertools
+def First_primes(N: int) -> list: 
+ 
+ return list( islice( filter(is_prime, count(2)), N) )
+
    
-# print("First N primes =", First_primes(7) )     
+print("First N primes =", First_primes(7) )     
 
 #**********************************************************************
 # A number is perfect when the sum of its primes is equal to the number 
@@ -168,33 +228,6 @@
 
 
 
-#*************************************************
-# Paradigms: imperative versus declarative 
-#*************************************************
-
-# Imperative program (sequence of steps, how to )
-# n = 6
-# def factorial_imperative(n): 
-#    f = 1
-#    for i in range(1, n+1):
-#        f = f * i
-#        print("factorial =", f)
-#    return f 
-# print( "\nfactorial(6) = ", factorial_imperative(n))
-    
-
-# # Declarative program (what to do)
-# def factorial(n): 
-#    if n==0: 
-#         return 1 
-#    else: 
-#        return n * factorial(n-1)
-   
-# print( "\nfactorial(6) = ", factorial(n))
-
-
-
-
 
 # Functions 
 #from numpy import array, pi, sin,  cos  
@@ -220,11 +253,11 @@
 # Type of arguments can be specified to improve readability 
 # However, type of actual arguments are not checked 
 #***********************************************************
-def f(x: int) -> int:  
-   return x**2 
+# def f(x: int) -> int:  
+#    return x**2 
 
-print(" f(2) =", f(2))
-print( " f(2.) =", f(2.) )
+# print(" f(2) =", f(2))
+# print( " f(2.) =", f(2.) )
 
 
 
