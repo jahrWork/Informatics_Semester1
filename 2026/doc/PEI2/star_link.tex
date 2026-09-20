@@ -37,13 +37,25 @@
 	
 	\subsection*{Desarrollo Matemático}
 	
-	Implementad los siguientes 6 apartados secuenciales utilizando \textbf{exclusivamente funciones de NumPy}. El uso de bucles \texttt{for} o \texttt{while} nativos resultará en una fuerte penalización.
+	Implementad los siguientes 6 apartados secuenciales 
+	utilizando \textbf{exclusivamente funciones de NumPy}. 
 	
 	\subsection*{1. Resolución de un sistema lineal (Calibración de la Antena)}
-	Las estaciones terrestres de Starlink utilizan antenas de arreglo en fase (phased-array). Durante la recepción, existe un acoplamiento electromagnético entre tres sectores principales del arreglo. El retardo real de propagación de la señal $\mathbf{x} = [x_1, x_2, x_3]^T$ se relaciona con el retardo aparente medido $\mathbf{b_{cal}}$ mediante la matriz de interferencia $\mathbf{A_{cal}}$ según la ecuación: $\mathbf{A_{cal}} \mathbf{x} = \mathbf{b_{cal}}$.
+	Las estaciones terrestres de Starlink utilizan antenas 
+	de puesta en fase (phased-array). 
+	Durante la recepción, 
+	existe un acoplamiento electromagnético 
+	entre tres sectores principales. 
+	El retardo real de propagación de la señal 
+	$\mathbf{x} = [x_1, x_2, x_3]^T$ se relaciona 
+	con el retardo aparente medido $\mathbf{b_{cal}}$ 
+	mediante la matriz de interferencia $\mathbf{A_{cal}}$ 
+	según la ecuación: $\mathbf{A_{cal}} \mathbf{x} = \mathbf{b_{cal}}$.
 	
 	\begin{itemize}
-		\item \textbf{Se pide:} Resolver el sistema lineal algebraico para hallar el vector de retardos verdaderos $\mathbf{x}$ empleando las rutinas de álgebra lineal de NumPy.
+		\item \textbf{Se pide:} Resolver el sistema lineal 
+		algebraico para hallar el vector de retardos verdaderos 
+		$\mathbf{x}$ empleando las rutinas de álgebra lineal.
 	\end{itemize}
 	
 	\subsection*{2. Regresión lineal (Modelo de Atenuación de Señal)}
@@ -93,8 +105,12 @@
 	
 	\subsection*{Criterios de Entrega}
 	\begin{itemize}
-		\item Se entregará un único script \texttt{.py}.
-		\item \textbf{Tolerancia Cero a Bucles:} Todo cálculo en arrays debe hacerse mediante \textit{broadcasting} o funciones nativas de \texttt{numpy}. Se restará hasta un 50\% de la nota matemática por usar \texttt{for} o \texttt{while} innecesarios.
-		\item El código debe seguir las normas de estilo PEP-8, con un código modularizado (uso de funciones \texttt{def} para separar la matemática de la interfaz gráfica).
-		\item Se valorará profundamente la interpretación física de los resultados impresa tanto en los comentarios del código como en la propia interfaz visual.
+		
+		\item El código debe seguir las normas 
+		de una metode estilo con un código modularizado 
+		(uso de funciones \texttt{def} para separar la matemática 
+		de la interfaz gráfica).
+		\item Se valorará profundamente 
+		la interpretación física de los resultados 
+		impresa tanto en los comentarios del código como en la propia interfaz visual.
 	\end{itemize}

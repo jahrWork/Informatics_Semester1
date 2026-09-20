@@ -54,7 +54,8 @@
 	\subsection*{Apartado 3: Modelo Atmosférico Local (Interpolación 1D)}
 	Para los cálculos aerodinámicos en vuelo, necesitamos la densidad del aire a la altitud máxima (apogeo) registrada por el radar ($y \approx 405$ m), pero este valor no está directamente en las tablas ISA.
 	\begin{itemize}
-		\item \textbf{Tarea:} Utilizad interpolación por splines cúbicos (mediante \texttt{scipy.interpolate}) sobre los datos de la Atmósfera Estándar para estimar la densidad del aire $\rho$ exactamente a $h = 405$ m.
+		\item \textbf{Tarea:} Utilizad un interpolante
+		sobre los datos de la Atmósfera Estándar para estimar la densidad del aire $\rho$ exactamente a $h = 405$ m.
 	\end{itemize}
 	
 	\subsection*{Apartado 4: Cinemática a partir de Telemetría (Derivación Numérica)}
@@ -67,14 +68,24 @@
 	El trabajo total realizado por la fuerza de resistencia (energía disipada) desde el lanzamiento hasta el último punto de telemetría se define como la integral de la potencia aerodinámica a lo largo del tiempo:
 	$$ W_{drag} = \int_{0}^{t_f} F_D(t) \cdot v(t) \, dt = \int_{0}^{t_f} \left( (C_D A) \cdot \frac{1}{2} \rho_{media} v(t)^2 \right) v(t) \, dt $$
 	\begin{itemize}
-		\item \textbf{Tarea:} Usando la densidad interpolada en el Apartado 3 (como aproximación de $\rho_{media}$), el parámetro $(C_D A)$ del Apartado 2, y el vector de velocidades $v(t)$ del Apartado 4, calculad esta integral numérica empleando la regla de Simpson o el método de los trapecios (\texttt{scipy.integrate}).
+		\item \textbf{Tarea:} Usando la densidad interpolada 
+		en el Apartado 3 (como aproximación de $\rho_{media}$), 
+		el parámetro $(C_D A)$ del Apartado 2, 
+		y el vector de velocidades $v(t)$ del Apartado 4, 
+		calculad esta integral numérica empleando 
+		la regla de Simpson o el método de los trapecios. 
+		
 	\end{itemize}
 	
 	\subsection*{Apartado 6: Predicción del Impacto (Búsqueda de Raíces)}
 	El equipo de aerodinámica ha desarrollado un modelo analítico preliminar para la altitud de la sonda durante su fase final de caída (válido para $t > 5$ s), dado por la ecuación no lineal:
 	$$ y(t) = 400 - 35 (t - 5) - 150 e^{-0.2 (t - 5)} $$
 	\begin{itemize}
-		\item \textbf{Tarea:} Utilizad un método numérico de búsqueda de raíces (Newton-Raphson, Bisección o \texttt{scipy.optimize.root\_scalar}) para encontrar el instante exacto de tiempo $t_{impacto}$ en el que la sonda tocará el suelo ($y(t) = 0$). Justificad vuestra elección del intervalo o punto inicial (seed).
+		\item \textbf{Tarea:} Utilizad un método numérico 
+		de búsqueda de raíces (Newton-Raphson o Bisección) 
+		para encontrar el instante exacto de tiempo $t_{impacto}$ 
+		en el que la sonda tocará el suelo ($y(t) = 0$). 
+		Justificad vuestra elección del intervalo o punto inicial.
 	\end{itemize}
 	
 	\subsection*{Requisitos del Dashboard (GUI)}
@@ -86,4 +97,7 @@
 	\end{itemize}
 	
 	\subsection*{Requisitos de Entrega}
-	El código debe entregarse en diferentes archivos \texttt{*.py} que se llaman desde ub archivo \texttt{main.py}. Debe estar correctamente comentado y modularizado (utilizad funciones para estructurar el código). \textbf{Es obligatorio incluir sentencias \texttt{print()} (o mostrar el texto en la propia GUI) que acompañen a cada resultado numérico con una breve frase interpretando su sentido físico.}
+	El código debe entregarse en diferentes archivos 
+	\texttt{*.py} que se llaman desde un archivo 
+	\texttt{main.py}. 
+	Debe estar correctamente comentado y modularizado (utilizad funciones para estructurar el código). \textbf{Es obligatorio incluir sentencias \texttt{print()} (o mostrar el texto en la propia GUI) que acompañen a cada resultado numérico con una breve frase interpretando su sentido físico.}

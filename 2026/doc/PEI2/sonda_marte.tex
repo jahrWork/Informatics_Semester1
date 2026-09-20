@@ -42,7 +42,8 @@
 		m_1 - 2 m_2 = 0
 	\end{cases}
 	\]
-	\textbf{Tarea:} Resuelve el sistema utilizando el módulo de álgebra lineal de \texttt{numpy} para encontrar la masa en cada tanque.
+	\textbf{Tarea:} Resuelve el sistema utilizando 
+	el módulo de álgebra lineal para encontrar la masa en cada tanque.
 	
 	\subsection*{Regresión Lineal: Calibración del Sensor de Presión Dinámica}
 	Para medir la carga aerodinámica, la sonda utiliza transductores analógicos. Tenemos pares de datos de calibración en laboratorio que relacionan la señal del sensor en Voltios ($V$) con la presión en kiloPascales ($P$).\\
@@ -56,7 +57,8 @@
 	
 	\subsection*{Interpolación 1D: Estimación de la Densidad Atmosférica}
 	Con el array $h(t)$ calculado en el apartado anterior, ahora conocemos la altitud en cada segundo del vuelo. Sin embargo, nuestro modelo atmosférico (\texttt{altitudes\_tab}) solo ofrece datos cada $5000 \text{ m}$.\\
-	\textbf{Tarea:} Utiliza un algoritmo de interpolación lineal en 1D (como \texttt{np.interp}) para construir un nuevo array con la densidad atmosférica $\rho(t)$ correspondiente a cada instante temporal del vuelo.
+	\textbf{Tarea:} Utiliza un algoritmo de interpolación 
+	lineal en 1D  para construir un nuevo array con la densidad atmosférica $\rho(t)$ correspondiente a cada instante temporal del vuelo.
 	
 	\subsection*{Derivación Numérica 1D: Cálculo de Aceleración Estructural}
 	La integridad de la carga de pago requiere que la aceleración axial no supere ciertos límites críticos.\\
@@ -80,7 +82,7 @@
 	\subsection*{Criterios de Entrega y Defensa Oral}
 	
 	\begin{itemize}
-		\item \textbf{Eficiencia (Vectorización):} Se evaluará negativamente la presencia de bucles \texttt{for} o \texttt{while} en operaciones operables vectorialmente por \texttt{numpy}. (Excepción: el bucle necesario para el algoritmo iterativo del Apartado 6).
+		
 		\item \textbf{Defensa Oral:} Deberás ejecutar la interfaz gráfica ante el profesor, demostrar su dinamismo utilizando el \textit{Slider}, y responder a preguntas técnicas tanto de tu código como de la física subyacente.
 	\end{itemize}
 	

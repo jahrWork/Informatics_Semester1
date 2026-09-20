@@ -115,64 +115,6 @@
 
           
       
-
-# #***********************************************
-# #  Determine a list of the first N perfects 
-# #***********************************************
-# # is_perfect: N -> (T,F)
-# #***********************************************   
-# def is_perfect(n): 
-    
-#       S = 0 
-#       for i in range(1,n):
-#           if n % i == 0:
-#             S = S + i   
-          
-#       return S == n  
-   
-# def First_perfect_numbers(N): 
-
-#   N_perfects = 0 
-#   n = 1 
-#   perfects = [ ]   
-  
-#   while N_perfects < N: 
-             
-#         if is_perfect(n): 
-#             perfects += [ n ]
-#             N_perfects = N_perfects + 1 
-            
-#         n = n + 1 
-   
-#   return perfects      
-      
-
-# print("First N perfect numbers =", First_perfect_numbers(4)  )   
-
-
-# Version pure functional programming with generators and iterators
-from itertools import count, islice
-
-N = 10
-for i in count(2):
-   if i < N :
-      print("i =", i)
-   else:
-      break
-   
-name = "Juan"
-print( "".join(islice( name, 2)) )
- 
-def sum_first_n_primes(N): 
-    
-    return sum(islice( (i for i in count(2) if is_prime(i)), N))
-
-print("sum of first N primes =", sum_first_n_primes(3) )
-
-
-
-
-
 # *********************************************************
 # Operations with  Tuples
 # Since they are inmutable, insert or remove are not allowed

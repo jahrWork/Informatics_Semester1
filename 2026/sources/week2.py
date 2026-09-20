@@ -142,27 +142,44 @@ def is_prime(n):
          
       return True and n > 1
 
-# imperative version               
-def First_primes(N: int) -> list: 
+# # imperative version               
+# def First_primes(N: int) -> list: 
 
-  N_primes = 0 
-  n = 1   
-  primes = []
+#   N_primes = 0 
+#   n = 1   
+#   primes = []
   
-  while N_primes < N: 
+#   while N_primes < N: 
              
-        if is_prime(n): 
-            primes += [ n ]
-            N_primes += 1 
+#         if is_prime(n): 
+#             primes += [ n ]
+#             N_primes += 1 
             
-        n += 1    
+#         n += 1    
    
-  return primes   
+#   return primes   
    
 
-print("First N primes =", First_primes(7) )   
+# print("First N primes =", First_primes(7) )   
 
-from itertools import islice, count
+
+# Step by step implementation of the first N primes using itertools
+from itertools import count, islice
+
+N = 10
+for i in count(2):
+   if i < N :
+      print("i =", i)
+   else:
+      break
+
+L = [1,2,3,4,5]
+print("L =", L)
+L_primes = list( filter(is_prime, L) )
+print("L_primes =", L_primes)
+
+L_2primes = list( islice( filter(is_prime, L), 2  ) )
+print("L_2primes =", L_2primes)
 
 # declarative version using itertools
 def First_primes(N: int) -> list: 
@@ -170,7 +187,53 @@ def First_primes(N: int) -> list:
  return list( islice( filter(is_prime, count(2)), N) )
 
    
-print("First N primes =", First_primes(7) )     
+print("First N primes =", First_primes(2) )    
+   
+
+
+
+
+
+
+
+
+# #***********************************************
+# #  Determine a list of the first N perfects 
+# #***********************************************
+# # is_perfect: N -> (T,F)
+# #***********************************************   
+# def is_perfect(n): 
+    
+#       S = 0 
+#       for i in range(1,n):
+#           if n % i == 0:
+#             S = S + i   
+          
+#       return S == n  
+   
+# def First_perfect_numbers(N): 
+
+#   N_perfects = 0 
+#   n = 1 
+#   perfects = [ ]   
+  
+#   while N_perfects < N: 
+             
+#         if is_perfect(n): 
+#             perfects += [ n ]
+#             N_perfects = N_perfects + 1 
+            
+#         n = n + 1 
+   
+#   return perfects      
+      
+
+# print("First N perfect numbers =", First_perfect_numbers(4)  )   
+
+
+
+
+
 
 #**********************************************************************
 # A number is perfect when the sum of its primes is equal to the number 
@@ -265,23 +328,25 @@ print("First N primes =", First_primes(7) )
 #***********************************************
 #  ExampleS f: R -> R, f: R2 -> R, f: R2 -> R2  
 #***********************************************
-# def f1(x): 
+# from numpy import ndarray, array
+
+# def f1(x: float) -> float: 
     
 #     return x**2 
 
-# def f2(x, y): 
+# def f2(x: ndarray) -> float: 
     
-#     return x**2 + y**2 
+#     return x[0]**2 + x[1]**2 
 
 
-# def f3(x): 
+# def f3(x: ndarray) -> ndarray: 
     
 #     return array( [ x[1],  -x[0] ] )
 
 
 # print( " f(2.) =", f1( 2. ) )
 # print( " f(2.) =", f1( x = 2. ) )
-# print( " f(2., 2.) =", f2(x  = 2, y = 2.) )
+# print( " f([2., 2.]) =", f2(x  = array([2, 2.]) ) )
 # print( " f( array( [1, 2]) =", f3( x = array([1, 2]) ) )
 
 

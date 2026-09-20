@@ -12,7 +12,8 @@
 	
 	\subsection*{Datos de Partida}
 	
-	Copien y peguen el siguiente bloque de datos en su script. Queda \textbf{terminantemente prohibido} el uso de bucles \texttt{for} o \texttt{while} de Python para el procesamiento de estos arrays; toda operación debe estar vectorizada con \texttt{numpy}.
+	Copien y peguen el siguiente bloque de datos en su script. 
+	Toda operación debe estar vectorizada con \texttt{numpy}.
 	
 	\begin{lstlisting}[language=Python]
 		import numpy as np
@@ -62,7 +63,11 @@
 	Por pérdidas de señal, la telemetría se recibió en instantes asimétricos (\texttt{t\_telemetria}). Para el análisis de vuelo, necesitamos la altitud en intervalos regulares.
 	
 	\begin{itemize}
-		\item \textbf{Tarea:} Creen un nuevo vector temporal $t_{reg}$ desde 0 hasta 145 segundos con 200 puntos equiespaciados. Utilicen interpolación lineal o polinómica de \texttt{numpy} o \texttt{scipy.interpolate} para estimar la altitud $h(t_{reg})$ en estos nuevos instantes.
+		\item \textbf{Tarea:} Creen un nuevo vector 
+		temporal $t_{reg}$ desde 0 hasta 145 segundos con 200 puntos 
+		equiespaciados. 
+		Utilicen interpolación lineal o polinómica 
+		 para estimar la altitud $h(t_{reg})$ en estos nuevos instantes.
 	\end{itemize}
 	
 	\subsection*{4. Ecuación No Lineal: Detección de la Tropopausa}
@@ -99,14 +104,21 @@
 	
 	\begin{enumerate}
 		\item \textbf{Selector de Análisis (RadioButtons):} Un menú lateral que permita al profesor alternar visualmente entre las 6 gráficas correspondientes a los 6 apartados. Al hacer clic en una opción, el eje principal debe limpiarse (\texttt{ax.clear()}) y dibujar el análisis correspondiente.
-		\item \textbf{Panel Numérico (Text):} Un área de la figura dedicada a mostrar el texto con las respuestas numéricas del apartado activo (ej. "Energía total: 1250.3 J").
+		\item \textbf{Panel Numérico (Text):} 
+		Un área de la figura dedicada a mostrar el texto con las 
+		respuestas numéricas del apartado activo. 
+	
 		\item \textbf{Control Interactivo (Slider):} Añadan un deslizador (\textit{Slider}) visible durante el Apartado 4 que permita modificar la "Temperatura Crítica" (entre $0^\circ \text{C}$ y $-20^\circ \text{C}$) y recalcule/redibuje en tiempo real la raíz de la ecuación (el instante $t_{crit}$).
 	\end{enumerate}
 	
 	\subsection*{Criterios de Entrega}
 	
 	\begin{itemize}
-		\item \textbf{Vectorización (Obligatoria):} Se auditará el código. El uso injustificado de estructuras de control iterativas (\texttt{for}, \texttt{while}) para operaciones matemáticas sobre vectores conllevará el suspenso automático de la práctica.
-		\item \textbf{Presentación:} La legibilidad del código (PEP-8) y la física detrás de los resultados (impresos en consola o en la GUI) son vitales. Justifiquen si los valores de velocidad o energía calculados tienen sentido en un entorno aeroespacial.
+		
+		\item \textbf{Presentación:} 
+		La legibilidad del código y 
+		la física detrás de los resultados 
+		(impresos en consola o en la GUI) son vitales. 
+		Justifiquen si los valores de velocidad o energía calculados tienen sentido en un entorno aeroespacial.
 	\end{itemize}
 	
