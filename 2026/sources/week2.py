@@ -164,35 +164,58 @@ def is_prime(n):
 
 
 # Step by step implementation of the first N primes using itertools
-from itertools import count, islice
+# from itertools import count, islice
+# from typing import Any
 
-N = 10
-for i in count(2):
-   if i < N :
-      print("i =", i)
-   else:
-      break
 
-L = [1,2,3,4,5]
-print("L =", L)
-L_primes = list( filter(is_prime, L) )
-print("L_primes =", L_primes)
+# N = 10
 
-L_2primes = list( islice( filter(is_prime, L), 2  ) )
-print("L_2primes =", L_2primes)
+# n=0,1,2,3,..... infinite sequence of integers
+# for i in count(2):
+#    if i < N :
+#       print("i =", i)
+#    else:
+#       break
 
-# declarative version using itertools
-def First_primes(N: int) -> list: 
+# L = [1,2,3,4,5]
+# print("L =", L)
+# L_primes = list( filter(is_prime, L) )
+# print("L_primes =", L_primes)
+
+# L_2primes = list( islice( filter(is_prime, L), 2  ) )
+# print("L_2primes =", L_2primes)
+
+# # declarative version using itertools
+# def First_primes(N: int) -> list: 
  
- return list( islice( filter(is_prime, count(2)), N) )
+#  return list( islice( filter(is_prime, count(2)), N) )
 
    
-print("First N primes =", First_primes(2) )    
-   
+# print("First N primes =", First_primes(2) )    
 
+# def sum_first_primes(N: int) -> int:
+    
+#     return sum(  islice( filter(is_prime, count(2)), N) )
 
+# print("Sum of first N primes =", sum_first_primes(2) ) 
 
+# # math iteration a[n+1] = f( a[n] ), n=0,1,2,... 
+# # to obtain a sequence of the first N primes
 
+# def next_prime(n: int) -> int:
+    
+#     for i in count(n+1):
+#         if is_prime(i):
+#             return i
+
+# def sum_first_primes(N: int) -> int: 
+    
+#     a = [2] * N
+
+#     for i in range(0, N-1):
+#         a[i+1] = next_prime( a[i] )
+
+#     return sum(a)
 
 
 
