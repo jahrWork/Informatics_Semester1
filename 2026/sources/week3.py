@@ -327,6 +327,36 @@
 
 
 
+# First class functions: functions can be passed as arguments to other functions
+from typing import Callable
+
+
+def a(n: int) -> float: 
+
+    return 1/2**n 
+
+def a1(n: int) -> float: 
+
+    return 1/n**2 
+
+    
+def sum_N(a: Callable[[int], float], N: int) -> float: 
+
+    return sum( [ a(i) for i in range(1,N+1)] ) 
+
+def sum_inf(a: Callable[[int], float]) -> float: 
+
+    S = 0; SN = 1; n = 1
+    while S != SN :
+      SN = S 
+      S = S + a(n)
+      print("n = ", n, " S = ", S, "S-SN =", S-SN, "a(n) = ", a(n) )
+      n = n + 1
+      
+    return S 
+
+print("FINITE sum (a) = ", sum_N(a, 10))
+print("INFINITE sum (a) = ", sum_inf(a))
 
 
 
