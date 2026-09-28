@@ -27,7 +27,7 @@ def load_matrix( filename ):
     return data.values 
 
 
-A = load_matrix("./2025/data.csv") 
+A = load_matrix("./2026/sources/data.csv") 
 print("\n")
 print(" type of A: ", type(A))
 print(A)
@@ -51,7 +51,7 @@ print(A)
  #*******************************************
  # Open and read a file 
  # ******************************************  
-f = open("./2025/data.csv", "r")
+f = open("./2026/sources/data.csv", "r")
 content = f.read()
 print(type(content) )
 print( content) 
@@ -77,20 +77,275 @@ print(  A )
 
 
 #***************************************************
-# sum of numeric series with a list 
+# sum of numeric series 
 #***************************************************
-# def a(n): 
+# First class functions: functions can be passed as arguments to other functions
+# from typing import Callable
+# from numpy import sqrt, finfo
+
+
+# def a(n: int) -> float: 
 #     return 1/2**n 
 
-# N = 10
-# SN = sum( [ a(i) for i in range(1,N+1)] ) 
-# print(" SN = ", SN)
-
-# def sum_series(a, i0, N): 
+# def a1(n: int) -> float: 
+#     return 1/n**2 
     
-#     return sum( [ a(i) for i in range(i0, N+1)] ) 
+# def sum_N(a: Callable[[int], float], N: int) -> float: 
 
-# print(" SN = ", sum_series(a, i0=1, N=10))
+#     return sum( [ a(i) for i in range(1,N+1)] ) 
+
+# def sum_inf(a: Callable[[int], float]) -> float: 
+
+#     S = 0; SN = 1; n = 1
+#     while S != SN :
+#       SN = S 
+#       S = S + a(n)
+#       print("n = ", n, " S = ", S, "S-SN =", S-SN, "a(n) = ", a(n) )
+#       n = n + 1
+      
+#     return S 
+
+# print("FINITE sum (a) = ", sum_N(a, 10))
+# print("INFINITE sum (a) = ", sum_inf(a))
+
+# def N_max(a: Callable[[int], float]) -> int:
+
+#     epsilon = finfo(float).eps  # machine precision
+
+#     for i in range(1, 1000):
+#         n = 10**i
+#         if abs(a(n)) < epsilon:
+# #            print(" i=", i, "N_max(a) = ", n, " a(n) = ", a(n), " epsilon = ", epsilon)
+#             return n
+   
+
+# def sum_inf(a: Callable[[int], float]) -> float: 
+    
+#     return sum( [ a(n) for n in range(1, N_max(a))  ] )
+
+# print("INFINITE sum (a) = ", sum_inf(a))
+
+
+#***********************************************************************
+# Relative position betwen x and a  RN sphere of center c and radius R 
+#***********************************************************************
+# def relative_position(x: ndarray, c: ndarray, R: float) -> bool: 
+    
+#       d = norm(x-c) 
+     
+#       return  d < R
+
+
+# print("Relative pos =", relative_position( x = (2,1,3), c=(0,0,0), R=1) ) 
+
+
+
+# #***************************************************
+# # Implement Gaussian function
+# #***************************************************
+# def gaussian(x: float,  m = 0, s = 1) -> float: 
+    
+#       return exp( - ((x-m)/s)**2 / 2 ) / sqrt( 2 * pi * s)
+
+
+# def partition(a: float, b: float, N: int) -> list: 
+    
+#     return [ a+ (b-a)*i/N for i in range(N+1) ]
+
+
+# m = 0; s = 1 
+# x = partition( a = m -5*s, b = m + 5*s, N = 5)
+
+# y = []
+# for xi in x: 
+#     y += [ gaussian(xi) ]
+
+# print("Gaussian =", y)
+
+
+
+
+
+#*****************************************
+# Functions
+#****************************************
+# """
+#     It determines the first derivative
+
+#     Inputs:
+#           f : function f: R -> R
+#           x : point to evaluate the derivative
+
+#     Output
+#           approximated derivative at x
+
+# """
+
+# def Derivative(f: Callable[[float], float], x: float) -> float:
+
+#     Dx = 1e-6
+
+#     return ( f(x+Dx) - f(x) ) / Dx  # lim h->0 ( f(x+h) - f(x) )/h
+
+
+# def Derivative2(f: Callable[[float], float], x: float) -> float:
+
+#     Dx = 1e-6
+
+#     return (f(x+Dx) - f(x-Dx)) / (2*Dx)
+
+
+# # *********************************************************
+# #  Determine derivative of h(x) = sqrt(x) at x=0.1
+# #  for a given tolerance
+# # *********************************************************
+# def g(x: float) -> float:
+
+#     return sqrt(x)
+
+
+# def g1(y: float) -> float:
+
+#     return sin(y)
+
+
+# x0 = 0.1
+# D = Derivative(g, x0)
+# De = 1/2 * x0**(-1/2)
+# print("Derivative = ",  D, "Error = ", De - D)
+
+# D = Derivative2(g, x0)
+# De = 1/2 * x0**(-1/2)
+# print("Derivative = ",  D, "Error = ", De - D)
+
+
+# D = Derivative2(g1, x0)
+# De = cos(x0)
+# print("Derivative = ",  D, "Error = ", De - D)
+
+
+# D = Derivative3(g1, x0)
+# De = cos(x0)
+# print("Derivative = ",  D, "Error = ", De - D)
+
+
+# def Integral(f, a, b):
+
+#     M = 10000
+#     dx = (b-a)/M
+
+#     F = [f(a+dx*i) for i in range(M)]
+
+#     return dx * sum(F)
+
+
+# def h(x):
+
+#     return sqrt(x)
+
+
+# # *********************************************************
+# #  Determine integral of h(x) = sqrt(x) from a=0 to b=1
+# #  for a given tolerance
+# # *********************************************************
+# a, b = 0., 1.
+# I = Integral(h, a, b)
+# Ie = 2/3 * (b**(3/2) - a**(3/2))
+# print("Integral = ",  I, "Error = ", Ie - I)
+
+
+# I = Integral(f=h, a=0., b=1.)
+# Ie = 2/3
+# print("Integral = ",  I, "Error = ", Ie - I)
+
+
+
+
+# #***********************************************
+# #  Polynomial evaluation  
+# #***********************************************  
+# def polynomial(x, a): 
+
+#     P = 0 
+#     for i in range(len(a)): 
+#         P  += a[i] * x**i 
+
+#     return P 
+
+ 
+# print(" polynomial = ", polynomial( x=2, a=[1, 2, 3] ) ) 
+
+
+# def f(x): 
+    
+#     if x <= 0: 
+#         return cos( pi*x) 
+#     else: 
+#         return 1 + sin( pi*x) 
+    
+
+# from math import sqrt, exp, factorial, sin, cos
+
+
+# # #***************************************************
+# # # Implement Taylor cosine expansion 
+# # #***************************************************
+# def Taylor_cosine(x, tol): 
+    
+#     T = 0; n = 0 
+    
+#     while abs( cos(x)-T) >= tol:
+#         T += (-1)**n * x**(2*n) / factorial(2*n)
+#         n += 1 
+  
+#     return T 
+
+# print("Taylor(1, 1e-3) =", Taylor_cosine(x = 1, tol = 1e-3), "cos(1) =", cos(1.))
+
+
+
+
+# # #***************************************************
+# # # Implement Taylor expansions 
+# # #***************************************************
+# def Taylor(df, x0, x, N):
+#     """"
+#         Taylor expansion =  sum _{k=0} ^N f_k(x0) (x-x0)**k / k!
+#             Inputs:
+#               df   : function kth derivative of f(x)
+#               x0   : origin of Taylor expansion
+#                 x   : point where Taylor is evaluated
+#                 N   : last term of Taylor expansion
+
+#             return:
+#                 Taylor expansion evaluated at x
+#     """
+
+#     def b(k):
+
+#         return df(x0, k) * (x - x0)**k / factorial(k)
+
+#     return sum([b(k) for k in range(N+1)])
+
+
+# # ************************************************************************
+# # 4. Taylor expansion of exp(x) origen x0=0 at x =1 with tolerance eps
+# # ************************************************************************
+# def dexp(x, k):
+
+#     return exp(x)
+
+
+# # T = Taylor(df=dexp, x0=0., x=1., N=12)
+# # print(" T = ", T, " E =", exp(1.) - T)
+
+# N = [1, 2, 3, 4, 5, 6, 7, 8, 16]
+# for n in N:
+#     T = Taylor(df=dexp, x0=0., x=1., N=n)
+#     E = exp(1.) - T
+#     print("N=", n, "Taylor exp(1.) x0=0   :", T, "Error =", E)
+
+
 
 
 #************************************
