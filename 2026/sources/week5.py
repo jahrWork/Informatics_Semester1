@@ -1,8 +1,11 @@
 #***************************************************
 #   Numpy: Matrices, +, -, transpose, inverse, determinant
 #***************************************************
-from numpy import array
+from numpy import array, ndarray
 
+from numpy import zeros, sum, dot, matmul, array,  max, argmax, transpose, size, shape
+from numpy import set_printoptions
+from numpy.linalg import det, norm
 
 
 # *********************************************************
@@ -36,9 +39,6 @@ from numpy import array
 
 # Vectors and matrices + PEI2 simulacro
 
-from numpy import zeros, sum, dot, matmul, array,  max, argmax, transpose, size, shape
-from numpy import set_printoptions
-from numpy.linalg import det, norm
 
 
 # A = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -86,157 +86,189 @@ from numpy.linalg import det, norm
 # print("B =", B, " C =", C)
 
 
-A = array( [ [1,2], [3,4] ] )
-b = array( [ 1, 0 ] )
-print("A= \n", A) 
-print("b= \n", b) 
-print("element wise operations A*b =\n", A*b) 
-print( "matmul  A b = ", matmul(A,b) )
+# A = array( [ [1,2], [3,4] ] )
+# b = array( [ 1, 0 ] )
+# print("A= \n", A) 
+# print("b= \n", b) 
+# print("element wise operations A*b =\n", A*b) 
+# print( "matmul  A b = ", matmul(A,b) )
 
 
-print("\n\n By definition 0**0= ", 0**0, "\n ")
-# ***********************************************************
-# * Examples of vectorial and matrix operations
-# ************************************************************
-def Matrix_operation_examples():
+# print("\n\n By definition 0**0= ", 0**0, "\n ")
+# # ***********************************************************
+# # * Examples of vectorial and matrix operations
+# # ************************************************************
+# def Matrix_operation_examples():
 
-    N = 5
-    V = zeros( (N+1) )
-    for i in range(0, N+1): 
-        V[i] = 1/(i+1)**2 
+#     N = 5
+#     V = zeros( (N+1) )
+#     for i in range(0, N+1): 
+#         V[i] = 1/(i+1)**2 
    
-    W = array( [(-1)**(i+1)/(2*i+1.) for i in range(0, N+1)] )
+#     W = array( [(-1)**(i+1)/(2*i+1.) for i in range(0, N+1)] )
 
-    A = array( [ [(i/N)**j for j in range(0, N+1) ] for i in range(0, N+1)])
+#     A = array( [ [(i/N)**j for j in range(0, N+1) ] for i in range(0, N+1)])
 
-    print(" 1. Sum ( V ) = ", sum(V))
-    print(" 2. Sum ( A ) = ", sum(A))
-    print(" 3. Sum ( V, V>0 ) = ", sum(V[V > 0]))
-    print(" 4. Sum ( A, A>0.1 ) = ", sum(A[A > 0.1]))
-    print(" 5. dot product  ( V, W ) = ", dot(V, W))
-    print(" 6. dot product V and A(:,N) = ", dot(V, A[:, N-1]))
-    print(" 7. mat multiply A times V = ", matmul(A, V))
+#     print(" 1. Sum ( V ) = ", sum(V))
+#     print(" 2. Sum ( A ) = ", sum(A))
+#     print(" 3. Sum ( V, V>0 ) = ", sum(V[V > 0]))
+#     print(" 4. Sum ( A, A>0.1 ) = ", sum(A[A > 0.1]))
+#     print(" 5. dot product  ( V, W ) = ", dot(V, W))
+#     print(" 6. dot product V and A(:,N) = ", dot(V, A[:, N-1]))
+#     print(" 7. mat multiply A times V = ", matmul(A, V))
 
-    print(" 9. transpose (A) = ")
-    B = transpose(A)
-    set_printoptions(precision=3, threshold=8, suppress=True)
-    print(" B = \n", B)
+#     print(" 9. transpose (A) = ")
+#     B = transpose(A)
+#     set_printoptions(precision=3, threshold=8, suppress=True)
+#     print(" B = \n", B)
 
-    print("10. maxval (A) = ", max(A))
-    print("11. maxloc (A) = ", argmax(A))
-    # WARNING: index is for the flattened matrix
-
-
-Matrix_operation_examples()
+#     print("10. maxval (A) = ", max(A))
+#     print("11. maxloc (A) = ", argmax(A))
+#     # WARNING: index is for the flattened matrix
 
 
+# Matrix_operation_examples()
 
 
 
-# Vectors and matrices
-print("\n")
-from numpy import zeros, sum, dot, matmul, array,  max, argmax, transpose, size, shape, trace, identity
 
 
-def Matrices_allocation():
-
-    S = sum([trace(Vandermonde(M)) for M in range(1, 11)])
-    print("1. sum from M=1 to 10 of  trace ( A_M ) =   ", S)
-
-    S = sum([ trace(matmul(Vandermonde(M), Vandermonde(M))) for M in range(1, 6)])
-    print("2. sum from M=1 to 5 of traces ( A_M **2 ) = ", S)
-
-    Ak = array(zeros([8, 8, 6]))
-    for k in range(6):
-        Ak[:, :, k] = power(Vandermonde(8), k)
-
-    S = trace(sum(Ak, axis=2))  # trace( I + Ak + Ak**2 +... Ak**5 )
-    print("3. trace ( sum from k=0 to 10 of A_5**k )=", S)
+# # Vectors and matrices
+# print("\n")
+# from numpy import zeros, sum, dot, matmul, array,  max, argmax, transpose, size, shape, trace, identity
 
 
-#  Vandermonde matrix A of dimension MxM
-def Vandermonde(N):
+# def Matrices_allocation():
+
+#     S = sum([trace(Vandermonde(M)) for M in range(1, 11)])
+#     print("1. sum from M=1 to 10 of  trace ( A_M ) =   ", S)
+
+#     S = sum([ trace(matmul(Vandermonde(M), Vandermonde(M))) for M in range(1, 6)])
+#     print("2. sum from M=1 to 5 of traces ( A_M **2 ) = ", S)
+
+#     Ak = array(zeros([8, 8, 6]))
+#     for k in range(6):
+#         Ak[:, :, k] = power(Vandermonde(8), k)
+
+#     S = trace(sum(Ak, axis=2))  # trace( I + Ak + Ak**2 +... Ak**5 )
+#     print("3. trace ( sum from k=0 to 10 of A_5**k )=", S)
+
+
+# #  Vandermonde matrix A of dimension MxM
+# def Vandermonde(N):
     
-    V = zeros( (N, N) )
-    for i in range(1, N+1): 
-        for j in range(1, N+1): 
-            V[i-1,j-1] = (i/float(N))**(j-1)
+#     V = zeros( (N, N) )
+#     for i in range(1, N+1): 
+#         for j in range(1, N+1): 
+#             V[i-1,j-1] = (i/float(N))**(j-1)
 
-    return V
-
-
-# It determines the kth power of matrix A
-def power(A, k):
-
-    (N, M) = shape(A)
-
-    if k == 0:
-        return identity(N)
-    else:
-        return matmul(power(A, k-1), A)
+#     return V
 
 
-Matrices_allocation()
+# # It determines the kth power of matrix A
+# def power(A, k):
 
-def Vandermonde(N): 
+#     (N, M) = shape(A)
 
-    return array( [ [ (i/N)**(j-1) for j in range(1,N+1)] for i in range(1, N+1) ])
+#     if k == 0:
+#         return identity(N)
+#     else:
+#         return matmul(power(A, k-1), A)
 
-def trace(A): 
+
+# Matrices_allocation()
+
+# def Vandermonde(N): 
+
+#     return array( [ [ (i/N)**(j-1) for j in range(1,N+1)] for i in range(1, N+1) ])
+
+# def trace(A): 
  
-    N, M = shape(A) 
+#     N, M = shape(A) 
 
-    return sum( array( [ A[i,i] for i in range(0, N) ]  ) ) 
+#     return sum( array( [ A[i,i] for i in range(0, N) ]  ) ) 
 
-print("\n Trace Vandermonde(2) =", trace( Vandermonde(2)))
+# print("\n Trace Vandermonde(2) =", trace( Vandermonde(2)))
 
-from numpy import sin, pi 
+# from numpy import sin, pi 
 
-#***************************************************************
-# Partition of segment [a, b] in N intervals.
-# Determine interior nodes x_i = a + (b-a)/N i from i=0 to i=N
-#***************************************************************
-def partition(a, b, N): 
+# #***************************************************************
+# # Partition of segment [a, b] in N intervals.
+# # Determine interior nodes x_i = a + (b-a)/N i from i=0 to i=N
+# #***************************************************************
+# def partition(a, b, N): 
   
-  return array([a + (b-a)/N * i for i in range(0, N+1)])
+#   return array([a + (b-a)/N * i for i in range(0, N+1)])
 
-def f(x): 
-    return sin(pi*x)
+# def f(x): 
+#     return sin(pi*x)
 
-def derivative(f,  x, h=1e-3): # h=1e-3 if iti is not specified 
-    return ( f(x+h) - f(x-h) )/(2*h)
-
-
+# def derivative(f,  x, h=1e-3): # h=1e-3 if iti is not specified 
+#     return ( f(x+h) - f(x-h) )/(2*h)
 
 
-print("\nFunctions. Image of an isolated point:")
-xi = 0.5
-yi = f(xi)
-ypi = derivative(f, xi) 
-print(" xi=", xi)
-print(" yi =", yi)
 
 
-print("\nFunctions. Image of whole set of points:")
-x = partition(a=0., b=1., N=20)
-y = f(x)
-yp = derivative(f, x) 
-print(" x=", x)
-print(" y =", y)
+# print("\nFunctions. Image of an isolated point:")
+# xi = 0.5
+# yi = f(xi)
+# ypi = derivative(f, xi) 
+# print(" xi=", xi)
+# print(" yi =", yi)
 
 
-# boolean masks 
-X = array( [[1,1], [2,2], [3,3], [4,4], [5,5], [6,6] ])
-labels = array( [1,1,2,2,3,3])
-X_2 = X[labels==2,:]
-print("X_1 value 1:", X_2 )
+# print("\nFunctions. Image of whole set of points:")
+# x = partition(a=0., b=1., N=20)
+# y = f(x)
+# yp = derivative(f, x) 
+# print(" x=", x)
+# print(" y =", y)
 
 
-x = array([1,2,3])
-for i,xi in enumerate(x): 
-    print(i,xi, x[i])
+# # boolean masks 
+# X = array( [[1,1], [2,2], [3,3], [4,4], [5,5], [6,6] ])
+# labels = array( [1,1,2,2,3,3])
+# X_2 = X[labels==2,:]
+# print("X_1 value 1:", X_2 )
 
-from numpy import concatenate
-y = array([4,5,6])     
-z = concatenate( (x,y) )
-print(z)
+
+# x = array([1,2,3])
+# for i,xi in enumerate(x): 
+#     print(i,xi, x[i])
+
+# from numpy import concatenate
+# y = array([4,5,6])     
+# z = concatenate( (x,y) )
+# print(z)
+
+
+
+def my_dot2(U:ndarray, V:ndarray) -> float:
+
+    return sum(U * V )
+
+def my_dot(U:ndarray, V:ndarray) -> float:
+
+    return sum( [U[i] * V[i] for i in range(len(U)) ] )
+
+def matxvect(A:ndarray, X:ndarray) -> ndarray:
+
+    return array([dot(A[i,:], X) for i in range(len(X))])
+
+def my_matmul(A:ndarray, B:ndarray) -> ndarray:
+
+    N, M = shape(A)
+    return array( [ [my_dot(A[i,:], B[:,j]) for j in range(N)] for i in range(M)] )
+
+A = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+B = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+C = my_matmul(A, B)
+print("C = \n", C)
+
+C = matmul(A, B)
+print("C = \n", C)
+
+U = array([1, 2, 3])
+print("matxvect(A, U) = ", matxvect(A, U))
+print("matmul(A, U) = ", matmul(A, U))
