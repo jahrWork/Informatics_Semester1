@@ -3,9 +3,9 @@
 #***************************************************
 from numpy import array, ndarray
 
-from numpy import zeros, sum, dot, matmul, array,  max, argmax, transpose, size, shape
+from numpy import zeros, sum, dot, matmul, array,  max, argmax, transpose, size, shape, identity,  trace
 from numpy import set_printoptions
-from numpy.linalg import det, norm
+from numpy.linalg import det, norm, matrix_power
 
 
 # *********************************************************
@@ -166,27 +166,27 @@ from numpy.linalg import det, norm
 
 
 # # It determines the kth power of matrix A
-# def power(A, k):
+def my_matrix_power(A, k):
 
-#     (N, M) = shape(A)
+    (N, M) = shape(A)
 
-#     if k == 0:
-#         return identity(N)
-#     else:
-#         return matmul(power(A, k-1), A)
+    if k == 0:
+        return identity(N)
+    else:
+        return matmul(my_matrix_power(A, k-1), A)
 
 
 # Matrices_allocation()
 
-# def Vandermonde(N): 
+def Vandermonde(N): 
 
-#     return array( [ [ (i/N)**(j-1) for j in range(1,N+1)] for i in range(1, N+1) ])
+    return array( [ [ (i/N)**(j-1) for j in range(1,N+1)] for i in range(1, N+1) ])
 
-# def trace(A): 
+def my_trace(A): 
  
-#     N, M = shape(A) 
+    N, M = shape(A) 
 
-#     return sum( array( [ A[i,i] for i in range(0, N) ]  ) ) 
+    return sum( array( [ A[i,i] for i in range(0, N) ]  ) ) 
 
 # print("\n Trace Vandermonde(2) =", trace( Vandermonde(2)))
 
@@ -243,32 +243,59 @@ from numpy.linalg import det, norm
 
 
 
-def my_dot2(U:ndarray, V:ndarray) -> float:
+# def my_dot2(U:ndarray, V:ndarray) -> float:
 
-    return sum(U * V )
+#     return sum(U * V )
 
-def my_dot(U:ndarray, V:ndarray) -> float:
+# def my_dot(U:ndarray, V:ndarray) -> float:
 
-    return sum( [U[i] * V[i] for i in range(len(U)) ] )
+#     return sum( [U[i] * V[i] for i in range(len(U)) ] )
 
-def matxvect(A:ndarray, X:ndarray) -> ndarray:
+# def matxvect(A:ndarray, X:ndarray) -> ndarray:
 
-    return array([dot(A[i,:], X) for i in range(len(X))])
+#     return array([dot(A[i,:], X) for i in range(len(X))])
 
-def my_matmul(A:ndarray, B:ndarray) -> ndarray:
+# def my_matmul(A:ndarray, B:ndarray) -> ndarray:
 
-    N, M = shape(A)
-    return array( [ [my_dot(A[i,:], B[:,j]) for j in range(N)] for i in range(M)] )
+#     N, M = shape(A)
+#     return array( [ [my_dot(A[i,:], B[:,j]) for j in range(N)] for i in range(M)] )
 
-A = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-B = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+# A = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+# B = array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-C = my_matmul(A, B)
-print("C = \n", C)
+# C = my_matmul(A, B)
+# print("C = \n", C)
 
-C = matmul(A, B)
-print("C = \n", C)
+# C = matmul(A, B)
+# print("C = \n", C)
 
-U = array([1, 2, 3])
-print("matxvect(A, U) = ", matxvect(A, U))
-print("matmul(A, U) = ", matmul(A, U))
+# U = array([1, 2, 3])
+# print("matxvect(A, U) = ", matxvect(A, U))
+# print("matmul(A, U) = ", matmul(A, U))
+
+
+
+Ak = array(zeros([8, 8, 6]))
+for k in range(6):
+      Ak[:, :, k] = my_matrix_power(Vandermonde(8), k)
+S = trace(sum(Ak, axis=2))  # trace( I + Ak + Ak**2 +... Ak**5 )
+print("3. trace ( sum from k=0 to 10 of A_5**k )=", S)
+
+
+print(" trace( sum(A_8 ^k) = ", trace ( sum( matrix_power( Vandermonde(8), k) for k in range(0,6) ) ) )
+print(" trace( sum(A_8 ^k) = ", my_trace ( sum( my_matrix_power( Vandermonde(8), k) for k in range(0,6) ) ) )
+
+
+
+#Boolean mask 
+V = array([1, 2, 3, 4, 5, 6])
+print( "sum( V[V>3]) =", sum( V[V>3] ) ) # sum of elements of V greater than 3
+S = sum( V[i] for i in range(len(V)) if V[i] > 3 )
+print("S = ", S)
+
+
+A = array([[1, 20, 30], [2, 50, 60], [3, 80, 90]])
+Temperature = A[:, 1]
+print("Temperature = \n", Temperature)
+B = A[Temperature >= 50, :]  # select rows of A where Temperature > 50]
+print("B = \n", B)
