@@ -1,8 +1,4 @@
 
-#*****************************************************************
-# Solve linear system of equations by means of iterative methods. 
-# Jacobi y Gauss-Seidel 
-#*****************************************************************
 from numpy import array, zeros, diag, diagflat, dot
 from numpy.linalg import norm 
 
@@ -11,85 +7,6 @@ from scipy.optimize import bisect, newton
 
 from week6 import Gauss 
 
-
-
-# ************************************************************************
-# The Jacobi method is an iterative algorithm based on splitting A into: 
-#    A = D + L + U  (digonal+lower+upper)
-#    To solve A x = b, iterate with 
-# 
-#      x(n+1) = D**(-1) ( b- (L + U ) x(n) ) 
-#*************************************************************************
-def Jacobi(A,b): 
-
-    N = len(b)
-    x, D, R = zeros(N), zeros(N), zeros((N,N))
-    xn = 1 + x 
-    tolerance = 1e-10
-    k, max_iter = 0, 100
-
-  # Jacobi iteration
-    for i in range(N): 
-     for  j in range(N): 
-       if i==j: 
-          D[i] = A[i,j]
-          R[i,j] = 0 
-       else:
-          R[i,j] = A[i,j]
-   
-    while norm(xn - x) > tolerance  and  k < max_iter: 
-        x = xn
-        xn = (b - dot(R, x)) / D
-      
-
-    return x 
-
-
-# ************************************************************************
-# The Gauss Seidel method is an iterative algorithm based on the following
-# iteration: 
-#    A = L + U (lower part includes diagonal) 
-#
-#    L x^{n+1} = b - U x^{n+1} 
-#
-#    Since L is diag0nal, the above system is solved to give: 
-#        x_ij^{n+1} = ( b_i - sum j=1 to i-1( A_ij x_j^n)  -
-#                             sum j=i+1 to N( A_ij x_j^{n+1} ) / A_ii  
-#   
-#*************************************************************************
-def Gauss_Seidel(A, b):
-
-    N = len(b)
-    x1, x2 = zeros(N), zeros(N)
-    Error, tolerance = 1, 1e-10 
-    k, max_iter = 0, 100
-
-  # Gauss Seidel iteration
-    while Error > tolerance  and  k < max_iter: 
-
-        x1[:] = x2[:]   # x1=x2 does not work 
-        for i in range(N):
-            S2 = dot( A[i, :i], x2[:i] )       # new values
-            S1 = dot( A[i, i+1:], x1[i+1:] )   # old values
-            x2[i] = ( b[i] - S2 - S1 )/ A[i, i]
-        Error = norm(x2-x1)
-        k += 1
-
-    return x2 
-    
-
-def Test_iterative(): 
- 
-  A = array([[10, -1,  2,  0],
-            [-1, 11, -1,  3],
-            [ 2, -1, 10, -1],
-            [ 0,  3, -1,  8]])
-
-  b = array([6, 25, -11, 15])
-
-  print(" my Jacobi solution: x =", Jacobi(A,b)  )
-  print(" my Gauss-Seidel solution: x =", Gauss_Seidel(A,b) )
-  print(" scipy Gauss solution: x =", solve(A,b) )
 
 
 

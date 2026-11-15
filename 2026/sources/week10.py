@@ -1,14 +1,19 @@
 from numpy import array, linspace, zeros, dot, sin, cos, pi  
+from scipy.linalg import solve, inv, det
+from numpy.linalg import norm, cond
+from numpy.random import random
+import matplotlib.pyplot as plt
 
-
+#********************************************************************
+#  Aproximation of functions by means of polynomials:
+#     1. Interpolation methods. Lagrange interpolation 
+#********************************************************************
 
 
 def Test_lagrange_scipy(): 
 
   from numpy import array, polyfit, polyval, linspace, zeros
   from scipy.interpolate import lagrange
-  import matplotlib.pyplot as plt
-
 
   
   # given points
@@ -168,10 +173,8 @@ def Test_Trapecio_Simpson():
 
 
 def Test_Lagrange(N): 
-   
-  
+     
   x = array( [ i for i in range(N+1) ] )
-  import matplotlib.pyplot as plt 
 
   M = 100
   xm = linspace(0, N, M)
@@ -199,11 +202,12 @@ def Test_Lagrange2():
 
 def Test_oscillations():
 
-  from numpy.random import rand
+  from numpy.random import rand 
+  
 
   N = 10 # order of polynomial 
   x = linspace(0,1,N+1) 
-  import matplotlib.pyplot as plt 
+ 
   f = zeros((N+1,2))
   f[:,0] = 1  
   eps = 1e-2
@@ -228,14 +232,75 @@ def Test_oscillations():
 
 
 
+#*************************************************
+# Interpolation problem. Vandermonde matrix
+# Ill-conditioned matrix (almost singular)
+#*************************************************
+def partition(a, b, N): 
+  return array([a + (b-a)/N * i for i in range(0, N+1)])
+
+def Vandermonde(x): 
+    N = len(x)
+    return array( [ [ x[i]**j for j in range(N)] for i in range(N) ])
+
+def polynomial(x, c): 
+    return sum( [ c[k]*x**k for k in range(len(c)) ] )
+
+
+def Test_Vandermonde_Interpolation():
+    
+  from numpy.random import random 
+
+  N = 20
+  x = partition(0, 2*pi, N)
+  y1 = sin(x)
+  eps = 1e-2
+  y2 = y1 + eps * random(N+1)
+
+  A = Vandermonde(x)
+  print("Condition number (ill-conditioned):", cond(A))
+  c1 = solve(A , y1)
+  c2 = solve(A , y2)
+  k = array([ i for i in range(N+1)])
+  plt.plot(k, c1, ".-")
+  plt.plot(k, c2, ".-")
+  plt.show()
+
+  M = 30
+  xp = partition(0, 2*pi, M)
+  yp1, yp2, yp3 = zeros(M+1), zeros(M+1), zeros(M+1)
+
+  for i in range(M):
+     yp1[i] = polynomial(xp[i],c1)
+     yp2[i] = polynomial(xp[i],c2)
+
+     L = Lagrange_polynomials(x, xp[i])
+     yp3[i] = dot( L[0,:], y2 )
+
+  plt.plot(xp, yp1, ".-")
+  plt.plot(xp, yp2, ".-") 
+  plt.plot(xp, yp3, ".-")
+  plt.show()
+
+
+  
+
+
+
+
 
 
 if __name__ == "__main__":
+
+  Test_Vandermonde_Interpolation()
+
+
+
 
    #  Test_Lagrange2()
    #   Test_lagrange_scipy()
      # Test_Lagrange(N=2)  
       # Test_FD_formulas(N=2)
-      Test_Trapecio_Simpson()
+   #   Test_Trapecio_Simpson()
 
     # Test_oscillations()

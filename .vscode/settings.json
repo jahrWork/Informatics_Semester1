@@ -1,7 +1,22 @@
 {
     // ─── Python ───────────────────────────────────────────────────────────────
+    "python.useEnvironmentsExtension": true,
+    "python.defaultInterpreterPath": "C:\\Users\\JAHR\\AppData\\Local\\Microsoft\\WindowsApps\\python3.11.exe",
     "python-envs.defaultEnvManager": "ms-python.python:system",
     "python-envs.defaultPackageManager": "ms-python.python:pip",
+    "[python]": {
+        "editor.quickSuggestions": {
+            "other": "off",
+            "comments": "off",
+            "strings": "off"
+        },
+        "editor.suggestOnTriggerCharacters": false,
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.acceptSuggestionOnCommitCharacter": false,
+        "editor.inlineSuggest.enabled": false,
+        "editor.parameterHints.enabled": false,
+        "editor.wordBasedSuggestions": "off"
+    },
 
     // ─── Asociaciones de ficheros ──────────────────────────────────────────────
     "files.associations": {

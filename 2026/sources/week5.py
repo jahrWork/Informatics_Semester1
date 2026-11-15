@@ -275,27 +275,33 @@ def my_trace(A):
 
 
 
-Ak = array(zeros([8, 8, 6]))
-for k in range(6):
-      Ak[:, :, k] = my_matrix_power(Vandermonde(8), k)
-S = trace(sum(Ak, axis=2))  # trace( I + Ak + Ak**2 +... Ak**5 )
-print("3. trace ( sum from k=0 to 10 of A_5**k )=", S)
+# Ak = array(zeros([8, 8, 6]))
+# for k in range(6):
+#       Ak[:, :, k] = my_matrix_power(Vandermonde(8), k)
+# S = trace(sum(Ak, axis=2))  # trace( I + Ak + Ak**2 +... Ak**5 )
+# print("3. trace ( sum from k=0 to 10 of A_5**k )=", S)
 
 
-print(" trace( sum(A_8 ^k) = ", trace ( sum( matrix_power( Vandermonde(8), k) for k in range(0,6) ) ) )
-print(" trace( sum(A_8 ^k) = ", my_trace ( sum( my_matrix_power( Vandermonde(8), k) for k in range(0,6) ) ) )
+# print(" trace( sum(A_8 ^k) = ", trace ( sum( matrix_power( Vandermonde(8), k) for k in range(0,6) ) ) )
+# print(" trace( sum(A_8 ^k) = ", my_trace ( sum( my_matrix_power( Vandermonde(8), k) for k in range(0,6) ) ) )
 
 
 
-#Boolean mask 
-V = array([1, 2, 3, 4, 5, 6])
-print( "sum( V[V>3]) =", sum( V[V>3] ) ) # sum of elements of V greater than 3
-S = sum( V[i] for i in range(len(V)) if V[i] > 3 )
-print("S = ", S)
+# #Boolean mask 
+# V = array([1, 2, 3, 4, 5, 6])
+# print( "sum( V[V>3]) =", sum( V[V>3] ) ) # sum of elements of V greater than 3
+# S = sum( V[i] for i in range(len(V)) if V[i] > 3 )
+# print("S = ", S)
 
 
-A = array([[1, 20, 30], [2, 50, 60], [3, 80, 90]])
-Temperature = A[:, 1]
-print("Temperature = \n", Temperature)
-B = A[Temperature >= 50, :]  # select rows of A where Temperature > 50]
-print("B = \n", B)
+# A = array([[1, 20, 30], [2, 50, 60], [3, 20, 90]])
+# Temperature = A[:, 1]
+# print("Temperature = \n", Temperature)
+# B = A[Temperature >= 50, :]  # select rows of A where Temperature > 50]
+# print("B = \n", B)
+
+x = array([1, 2, 3])
+def f(x):
+    return x**2 
+
+print(f(x))

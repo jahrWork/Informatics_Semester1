@@ -16,21 +16,21 @@ from numpy import shape, prod, sum, zeros
 #******************************************************    
 #   it reads a filename and save its data in matrix A 
 #******************************************************
-def load_matrix( filename ): 
+# def load_matrix( filename ): 
      
-    data = pd.read_csv(filename)
+#     data = pd.read_csv(filename)
 
-  # header 
-    columns = data.columns.tolist()
-    print(" header =", columns)
+#   # header 
+#     columns = data.columns.tolist()
+#     print(" header =", columns)
 
-    return data.values 
+#     return data.values 
 
 
-A = load_matrix("./2026/sources/data.csv") 
-print("\n")
-print(" type of A: ", type(A))
-print(A)
+# A = load_matrix("./2026/sources/data.csv") 
+# print("\n")
+# print(" type of A: ", type(A))
+# print(A)
          
 # # print row ith 
 # (N,M) = shape(A)
@@ -51,29 +51,29 @@ print(A)
  #*******************************************
  # Open and read a file 
  # ******************************************  
-f = open("./2026/sources/data.csv", "r")
-content = f.read()
-print(type(content) )
-print( content) 
+# f = open("./2026/sources/data.csv", "r")
+# content = f.read()
+# print(type(content) )
+# print( content) 
 
-lines = content.split("\n")
-print( lines[0] )
-print(lines)
-char_numbers = lines[1].split(",")
-print( char_numbers )
-number = float( char_numbers[0] ) 
-print("number =", number)
+# lines = content.split("\n")
+# print( lines[0] )
+# print(lines)
+# char_numbers = lines[1].split(",")
+# print( char_numbers )
+# number = float( char_numbers[0] ) 
+# print("number =", number)
 
 
-A = zeros( (3,4) )
-for i in range(len(lines)-1):
-   char_numbers = lines[i+1].split(",")
-   for j in range(len(char_numbers)): 
-       A[i,j] = float( char_numbers[j] ) 
+# A = zeros( (3,4) )
+# for i in range(len(lines)-1):
+#    char_numbers = lines[i+1].split(",")
+#    for j in range(len(char_numbers)): 
+#        A[i,j] = float( char_numbers[j] ) 
 
-print( type(A), A )
+# print( type(A), A )
 
-print(  A )
+# print(  A )
 
 
 #***************************************************
@@ -352,12 +352,12 @@ print(  A )
 #  palindrome 
 #************************************
 # Reserve a string 
-S = "abc" 
-print(S[::-1])
-print(S[len(S)-1:-1:-1]) # it does not work 
-print("S =", S[len(S)-1:0:-1] + S[0] ) # it does  work 
-L = [S[e] for e in range(len(S)-1, -1, -1) ]
-print(L, "".join(L) )
+# S = "abc" 
+# print(S[::-1])
+# print(S[len(S)-1:-1:-1]) # it does not work 
+# print("S =", S[len(S)-1:0:-1] + S[0] ) # it does  work 
+# L = [S[e] for e in range(len(S)-1, -1, -1) ]
+# print(L, "".join(L) )
 
 
 # S = "somos o no somos"
@@ -587,8 +587,7 @@ print(L, "".join(L) )
 # print("Number of e:", D["e"])
 
 
-# #*************************************
-# #  5. count words with dictionaries
+# #************************************* # #  5. count words with dictionaries
 # #*************************************
 #S = "over and over again. The word over appears in this sentence 3 times"
 # S = "over and over again. The word over appears in this sentence 3 times"
@@ -616,6 +615,10 @@ print(L, "".join(L) )
 #         D[word] = 1
 
 # print(D)
+
+
+
+
 
 
 # #*****************************************
@@ -892,7 +895,7 @@ print(L, "".join(L) )
 #     else:
 #           return 3*n + 1
      
-# def collatz(N): 
+# def collatz1(N): 
     
 #     a = [ N ]
  
@@ -903,5 +906,53 @@ print(L, "".join(L) )
         
 #     return a 
 
+# from itertools import  count, takewhile
+# def collatz(N): 
+    
+#     a = [N] 
 
+#     for i in count(0):  
+#         a.append(0)
+#         a[i+1] =  f( a[i] ) 
+#         if  a[i+1] == 1: 
+#             break
+
+#     return a   
+
+
+ 
+       
+
+
+# print("Collatz(7) =", collatz1(7) )
 # print("Collatz(7) =", collatz(7) )
+
+def add(f, g): 
+    return lambda x: f(x) + g(x)
+
+def compose(f, g): 
+    return lambda x: f(g(x))
+
+def f1(x): 
+    return x**2
+def f2(x): 
+    return 2*x  
+
+
+h1 = add(f1,f2)
+h2 = compose(f1,f2)
+
+print("h1(1) =", h1(1))
+print("h2(1) =", h2(1))
+
+
+def sequence(N): 
+
+    x = [1]*N
+
+    for n in range(0, N-1):
+        x[n+1] = 2 * x[n] 
+
+    return x 
+
+print( sum(sequence(3)) ) 

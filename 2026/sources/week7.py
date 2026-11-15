@@ -1,116 +1,89 @@
 
-#******************************************************
-# Solve a linear system of equations by means of scipy 
-# LU, determinant, inverse, linalg.solve
-#******************************************************
+#********************************************************************
+#  Aproximation of functions by means of polynomials:
+#  Linear regression. Least squares method.
+#********************************************************************
 
-#scipy.linalg is always compiled with support for BLAS and LAPACK
-from scipy.linalg import lu_factor, lu_solve
-from scipy.linalg import solve, inv, det
-
-from numpy import array, matmul, sin , pi, zeros 
-from numpy.linalg import norm, cond
-from numpy.random import random
+from numpy import array, polyfit, polyval, linspace,diag, array, matmul, transpose, shape
 import matplotlib.pyplot as plt
+from numpy.linalg import svd, solve  
 
 
-#***********************************************************
-# Before LU factoriztion: 
-#   1. Look for max abs of column 0. swap between rows 0 and i 
-#      this is piv[0] = i 
-#   2. Look for max abs of column 1 in submatrix. swap 
-#      this is piv[1] = j 
-#
-#      Matrix A after pivoting is: A = [ 3,4 ], [1,2] ]
-#   3. Factorization LU 
-#*************************************************************
-def Test_LU_facorization(): 
+
+def Test_numpy_interpolation_regression(): 
   
-  A = array(
-        [
-          [1, 2],
-          [3, 4],
-       ]
-       )
-  b = array([1, 1]) 
+  # given data
+  x = array([0, 1, 2, 3, 4, 5, 6])
+  y = array([1, 2, 0, 5, 4, 3, 0])
+
+  # polynomial
+  c_k = polyfit(x, y, deg=len(x)-1)  
+  c2  = polyfit(x, y, deg=4)
+
+  xp = linspace(0, 6, 100)
+  yp = polyval(c_k, xp)
+  y2 = polyval(c2, xp)
+
+  w = regression_vandermonde(x, y, 4)
+  y3 = polynomial(w, xp)
 
 
-  LU, piv = lu_factor(A)
-  print("LU=", LU)
-  print("pivot=", piv)
 
-  x = lu_solve((LU, piv), b)
-  print("x =", x, matmul(A,x)-b )
- 
-#*************************************************
-# Ill-conditioned matrix (almost singular)
-#*************************************************
-def Test_ill_posed_systems(): 
+  plt.scatter(x, y, label='Data')
+  plt.plot(xp, yp, 'r', label='Interpolation')
+  plt.plot(xp, y2, 'r', label='Least squares SVD')
+  plt.plot(xp, y3, 'b', label='Vandermonde regression')
+  plt.legend()
+  plt.show()
 
-   eps0 = 1e-3
-   eps = 1e-7
 
-   A = array([[1, 1], [1, 1+eps]])
-   b = array([1,1])
-   print("Condition number (ill-conditioned):", cond(A))
 
-   x = solve(A, b)
-   print("Solution (ill-conditioned):", x)
-   b_perturbed = b + array([eps0, -eps0])
+def Vandermonde(x, N, M): 
    
-   x = solve(A, b_perturbed)
-   print("Ill-conditioned solution with perturbed b:", x)
+    return array( [  [ x[j]**i for i in range(N) ] for j in range(M) ] ) 
+
+def regression_vandermonde(x, y, N): 
+
+      M = len(x)
+      A = Vandermonde(x, N, M) 
+     
+      return solve( matmul(transpose(A), A ), matmul(transpose(A), y) ) 
+
+def polynomial(w, x): 
+
+   N = len(w)
+   return sum(   w[k] * x**k for k in range(N) )
 
 
 
-#*************************************************
-# Interpolation problem. Vandermonde matrix
-# Ill-conditioned matrix (almost singular)
-#*************************************************
-def partition(a, b, N): 
-  return array([a + (b-a)/N * i for i in range(0, N+1)])
-
-def Vandermonde(x): 
-    N = len(x)
-    return array( [ [ x[i]**j for j in range(N)] for i in range(N) ])
-
-def P(x, c): 
-    return sum( [ c[k]*x**k for k in range(len(c)) ] )
 
 
-def Test_Vandermonde_Interpolation():
+#**********************************************************************  
+# This is equivalent to least squares but much more stable numerically 
+#**********************************************************************
+def Test_least_squares_by_means_SVD(): 
 
-  N = 20
-  x = partition(0, 2*pi, N)
-  y1 = sin(x)
-  eps = 1e-2
-  y2 = y1 + eps * random(N+1)
+ Vandermonde = array([[1, 1],
+                     [1, 2],
+                     [1, 3],
+                     [1, 4]])
+ y = array([6, 5, 7, 10])
 
-  A = Vandermonde(x)
-  print("Condition number (ill-conditioned):", cond(A))
-  c1 = solve(A , y1)
-  c2 = solve(A , y2)
-  k = array([ i for i in range(N+1)])
-  plt.plot(k, c1, ".-")
-  plt.plot(k, c2, ".-")
-  plt.show()
+ U, S, VT = svd(Vandermonde, full_matrices=False)
 
-  M = 13
-  xp = partition(0, 2*pi, M)
-  yp1, yp2 = zeros(M+1), zeros(M+1)
+ # pseudo-inverse Moore-Penrose 
+ S_inv = diag(1/S)
 
-  for i, xi in enumerate(xp):
-     yp1[i] = P(xi,c1)
-     yp2[i] = P(xi,c2)
-
-  plt.plot(xp, yp1, ".-")
-  plt.plot(xp, yp2, ".-")
-  plt.show()
+ # Solve Vandermonde c = y
+ c = VT.T @ S_inv @ U.T @ y
+ print("Coefficients:", c)
 
 
 if __name__ == "__main__":
   
- # Test_LU_facorization()
-  Test_ill_posed_systems()
- # Test_Vandermonde_Interpolation()
+    Test_numpy_interpolation_regression()
+    Test_least_squares_by_means_SVD()
+
+
+
 
