@@ -24,8 +24,11 @@ def Test_numpy_interpolation_regression():
   yp = polyval(c_k, xp)
   y2 = polyval(c2, xp)
 
-  w = regression_vandermonde(x, y, 4)
+  w = regression_vandermonde(x, y, 4+1)
+  wi = regression_vandermonde(x, y, len(x))
   y3 = polynomial(w, xp)
+  y4 = polynomial(wi, xp)
+ 
 
 
 
@@ -33,6 +36,7 @@ def Test_numpy_interpolation_regression():
   plt.plot(xp, yp, 'r', label='Interpolation')
   plt.plot(xp, y2, 'r', label='Least squares SVD')
   plt.plot(xp, y3, 'b', label='Vandermonde regression')
+  plt.plot(xp, y4, 'b', label='Vandermonde interpolation')
   plt.legend()
   plt.show()
 
