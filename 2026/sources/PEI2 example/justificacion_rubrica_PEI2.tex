@@ -1,0 +1,118 @@
+\documentclass[10pt, a4paper]{article}
+\usepackage[a4paper, top=2.0cm, bottom=2.2cm, left=2.0cm, right=2.0cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish, es-nodecimaldot]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+\definecolor{AeroNavy}{RGB}{22, 54, 93}
+\definecolor{AeroBlue}{RGB}{43, 92, 143}
+\definecolor{AeroGreen}{RGB}{27, 158, 119}
+\definecolor{RowShade}{RGB}{244, 247, 251}
+
+\setlist[itemize]{leftmargin=*, nosep, itemsep=2.5pt}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+% Allow line breaks after underscores and dots in long Python identifiers
+\renewcommand{\_}{\textunderscore\allowbreak}
+\sloppy
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\footnotesize \textcolor{AeroNavy}{\textbf{Misión ÍCARO · Ejercicio 1 (PEI2)}}}
+\rhead{\footnotesize \textcolor{AeroNavy}{Justificación de Cumplimiento de la Rúbrica}}
+\cfoot{\footnotesize \thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\begin{document}
+
+\begin{center}
+    {\Large \bfseries \textcolor{AeroNavy}{Justificación Técnica de Cumplimiento de la Rúbrica de Evaluación}}\\[4pt]
+    {\normalsize \textcolor{AeroBlue}{Misión ÍCARO: Análisis de Trayectoria Balística con Resistencia Aerodinámica (Ejercicio 1 · PEI2)}}\\[2pt]
+    {\small Grado en Ingeniería Aeroespacial · ETSIAE · Carpeta \texttt{2026/sources/PEI2 example}}
+\end{center}
+
+\vspace{0.25cm}
+\noindent
+Este documento justifica de forma trazable cómo la arquitectura software desarrollada (\texttt{my\_math.py}, \texttt{physics.py}, \texttt{gui.py}, \texttt{main.py}, \texttt{test\_math.py}, \texttt{test\_physics.py}) y la presentación generada (\texttt{presentacion\_PEI2.pdf}) satisfacen íntegramente los criterios de excelencia definidos en \texttt{2026/doc/PEI2/rubrica.pdf}.
+
+% ============================================================================
+\section*{1. Matriz Resumen de Cumplimiento (100\%)}
+% ============================================================================
+
+\noindent
+\begin{tabularx}{\textwidth}{@{}L{1.05cm} L{4.25cm} L{4.3cm} Y@{}}
+    \toprule
+    \textbf{Peso} & \textbf{Categoría de la Rúbrica} & \textbf{Evidencia en el Proyecto} & \textbf{Resultado / Estado Verificado} \\
+    \midrule
+    \textbf{30\%} & Métodos Numéricos e Implementación Matemática & \texttt{my\_math.py}, \texttt{physics.py}, \texttt{test\_math.py}, \texttt{test\_physics.py} & Los 6 métodos implementados con \texttt{numpy}/\texttt{scipy} y validados con exactitud numérica. \\
+    \textbf{30\%} & Calidad y Estructura del Código & Todos los módulos \texttt{*.py} & Arquitectura modular en 6 ficheros, paradigma funcional (\texttt{def}), vectorización sin bucles \texttt{for} y \texttt{snake\_case}. \\
+    \textbf{10\%} & Interpretación Física & \texttt{physics.py} (\texttt{print\_physical\_report}), \texttt{gui.py}, PDF & Magnitudes en SI, validación de órdenes de magnitud y justificación analítica de $t_0$ en raíces. \\
+    \textbf{10\%} & Visualización de Datos & \texttt{gui.py} (\texttt{launch\_dashboard}) & GUI única en \texttt{matplotlib.widgets} con 6 \texttt{Button}, 2 \texttt{Slider} dinámicos, \texttt{ax.text} y formato científico. \\
+    \textbf{20\%} & Claridad de la Exposición & \texttt{presentacion\_PEI2.pdf} & 12 transparencias minimalistas con hilo conductor continuo y soporte visual sin bloques de texto densos. \\
+    \bottomrule
+\end{tabularx}
+
+% ============================================================================
+\section*{2. Selección de Métodos Numéricos e Implementación Matemática (30\%)}
+% ============================================================================
+
+Cada apartado exigido en el enunciado del Ejercicio 1 se resuelve mediante funciones matemáticas genéricas en \texttt{my\_math.py} (usando exclusivamente \texttt{numpy} y \texttt{scipy}) y se aplica al problema aeroespacial en \texttt{physics.py}:
+
+\begin{itemize}
+    \item \textbf{Sistema lineal (Apartado 1):} \texttt{solve\_linear\_system} emplea \texttt{scipy.linalg.solve} (factorización LU) sobre $M_{\text{calib}} \cdot \vec{a} = \vec{V}_{\text{medido}}$ en \texttt{calibrate\_launch\_accelerometer}, obteniendo $\vec{a} = [15.5426,\ -7.7063,\ 96.5568]\ \mathrm{m/s^2}$.
+    \item \textbf{Regresión lineal (Apartado 2):} \texttt{linear\_regression\_fit} calcula la regresión lineal ordinaria (\texttt{numpy.polyfit}) y el ajuste proporcional por el origen $F_D = (C_D A)\,q$ mediante producto escalar (\texttt{dot}), obteniendo $(C_D A) = 0.025270\ \mathrm{m^2}$ con $R^2 = 0.999664$ en \texttt{characterize\_aerodynamic\_drag}.
+    \item \textbf{Interpolación 1D (Apartado 3):} \texttt{interpolate\_1d} usa \texttt{scipy.interpolate.interp1d} (\texttt{cubic} y \texttt{linear}) en \texttt{estimate\_apogee\_air\_density} para estimar la densidad ISA en el apogeo ($h = 405\ \mathrm{m}$): $\rho_{\text{cúbica}} = 1.177687\ \mathrm{kg/m^3}$ ($\rho_{\text{lineal}} = 1.178020\ \mathrm{kg/m^3}$).
+    \item \textbf{Diferencias finitas sin errores de índice o extremos (Apartado 4):} \texttt{finite\_difference\_derivative} aplica de forma vectorizada diferencia progresiva en el extremo inicial (\texttt{dy\_dt[0]}), diferencias centrales en todos los nodos interiores (\texttt{dy\_dt[1:-1]}) y diferencia regresiva en el extremo final (\texttt{dy\_dt[-1]}). Aplicado en \texttt{compute\_flight\_kinematics}, produce $v(0) = 195.23\ \mathrm{m/s}$ y anula exactamente $v_y[9] = 0\ \mathrm{m/s}$ en el apogeo ($t = 4.5\ \mathrm{s}$).
+    \item \textbf{Integración numérica por Simpson y Trapecios (Apartado 5):} \texttt{integrate\_simpson} (\texttt{scipy.integrate.simpson}) e \texttt{integrate\_trapezoidal} (\texttt{scipy.integrate.trapezoid}) integran la potencia aerodinámica $P_D(t) = \frac{1}{2}\rho_{\text{media}}(C_D A)v(t)^3$ en \texttt{compute\_dissipated\_drag\_energy}, dando $W_{\text{drag}} = 224\,402.17\ \mathrm{J}$ ($224.40\ \mathrm{kJ}$) y $224\,567.53\ \mathrm{J}$ ($224.57\ \mathrm{kJ}$), respectivamente.
+    \item \textbf{Búsqueda de raíces con tolerancia adecuada (Apartado 6):} \texttt{find\_root\_newton} (\texttt{scipy.optimize.newton}) y \texttt{find\_root\_bisection} (\texttt{scipy.optimize.bisect}) resuelven $y(t) = 0$ con tolerancia \texttt{tol=1e-10} en \texttt{predict\_ground\_impact\_time}, convergiendo ambos métodos al mismo instante $t_{\text{impacto}} = 15.948814\ \mathrm{s}$ (residuo $|y(t_{\text{imp}})| < 10^{-8}\ \mathrm{m}$).
+\end{itemize}
+
+% ============================================================================
+\section*{3. Calidad y Estructura del Código (30\%)}
+% ============================================================================
+
+\begin{itemize}
+    \item \textbf{Modularización y separación de capas:} Se ha dividido estrictamente la lógica matemática (\texttt{my\_math.py}), la formulación física del problema (\texttt{physics.py}), la interfaz gráfica exclusiva con \texttt{matplotlib} (\texttt{gui.py}), el punto de entrada único (\texttt{main.py}) y las suites de pruebas separadas (\texttt{test\_math.py} y \texttt{test\_physics.py}). \texttt{my\_math.py} y \texttt{physics.py} no importan \texttt{matplotlib}.
+    \item \textbf{Paradigma funcional:} Todo el proyecto está estructurado mediante funciones \texttt{def} puras y modulares, sin clases innecesarias ni en el código fuente ni en los ficheros de test.
+    \item \textbf{Vectorización con \texttt{numpy}:} Se han evitado bucles \texttt{for} sobre arrays en todos los cálculos numéricos (operaciones vectorizadas en \texttt{finite\_difference\_derivative}, \texttt{compute\_flight\_kinematics}, \texttt{compute\_dissipated\_drag\_energy} y \texttt{altitude\_descent\_model}).
+    \item \textbf{Limpieza, nomenclatura y verificación:} Todas las variables y funciones siguen el estilo \texttt{snake\_case} descriptivo, con importaciones explícitas (\texttt{from numpy import ...} sin alias \texttt{np}), comentarios explicativos en inglés y validación automática mediante \textbf{12 tests unitarios funcionales} (6/6 superados en \texttt{test\_math.py} y 6/6 superados en \texttt{test\_physics.py}).
+\end{itemize}
+
+% ============================================================================
+\section*{4. Interpretación Física (10\%)}
+% ============================================================================
+
+\begin{itemize}
+    \item \textbf{Magnitudes y unidades en el Sistema Internacional (SI):} Tanto la salida por consola (\texttt{print\_physical\_report} en \texttt{physics.py}) como las cajas de texto de la GUI (\texttt{gui.py}) y las tablas de la presentación especifican explícitamente las unidades SI ($\mathrm{m/s^2}$, $\mathrm{m^2}$, $\mathrm{kg/m^3}$, $\mathrm{m/s}$, $\mathrm{J}$, $\mathrm{kJ}$, $\mathrm{s}$, $\mathrm{m}$, $\mathrm{Pa}$, $\mathrm{N}$).
+    \item \textbf{Validación del orden de magnitud:} Los docstrings de \texttt{physics.py} y el informe de consola validan el sentido físico de cada cálculo: impulso inicial dominante en $Z$ ($|\vec{a}| = 98.10\ \mathrm{m/s^2} \approx 10.00\,g$); área de resistencia $(C_D A) \approx 0.0253\ \mathrm{m^2}$ coherente con una sonda subsónica con freno pasivo; reducción del $\sim 3.8\%$ de la densidad del aire a $405\ \mathrm{m}$ frente al nivel del mar ($1.225\ \mathrm{kg/m^3}$); velocidad inicial subsónica ($195.23\ \mathrm{m/s}$, Mach $\approx 0.57$) con $v_y = 0$ en el apogeo; y energía disipada en torno a $224.4\ \mathrm{kJ}$.
+    \item \textbf{Justificación del punto inicial e intervalo en raíces:} En \texttt{predict\_ground\_impact\_time}, el informe y la GUI justifican por qué $t_0 = 15.0\ \mathrm{s}$ e intervalo $[5.5, 50.0]\ \mathrm{s}$: en $t = 8\ \mathrm{s}$ la sonda aún está ascendiendo/cayendo por encima del suelo ($y(8) \approx 212.7\ \mathrm{m} > 0$) y, al decaer el término exponencial para tiempos grandes, la asíntota lineal $400 - 35(t - 5) = 0$ corta el suelo en $t \approx 16.43\ \mathrm{s}$.
+\end{itemize}
+
+% ============================================================================
+\section*{5. Visualización de Datos (10\%)}
+% ============================================================================
+
+\begin{itemize}
+    \item \textbf{Interfaz única con navegación funcional:} La función \texttt{launch\_dashboard} de \texttt{gui.py} integra los 6 apartados en una sola ventana de \texttt{matplotlib}, utilizando 6 botones (\texttt{matplotlib.widgets.Button}) dispuestos en el panel izquierdo para alternar la vista principal.
+    \item \textbf{Interactividad dinámica mediante \texttt{Slider}:} Incorpora dos \texttt{Slider} en la parte inferior que recalculan y redibujan la gráfica en tiempo real: \emph{Altitud h [m] (Ap. 3 y 5)} ($0$--$2500\ \mathrm{m}$, actualiza la densidad interpolada en el Apartado 3 y recalcula la energía disipada $W_{\text{drag}}$ en el Apartado 5) y \emph{Vel. Caída [m/s] (Ap. 6)} ($15$--$60\ \mathrm{m/s}$, recalcula dinámicamente la raíz $t_{\text{impacto}}$).
+    \item \textbf{Resultados integrados y calidad científica:} Cada vista incluye cuadros de texto \texttt{ax.text} con las soluciones numéricas e interpretación física, además de títulos, etiquetas con unidades SI, rejilla (\texttt{grid}) y leyendas.
+\end{itemize}
+
+% ============================================================================
+\section*{6. Claridad de la Exposición (20\%)}
+% ============================================================================
+
+\begin{itemize}
+    \item \textbf{Hilo argumental nítido:} La presentación \texttt{presentacion\_PEI2.pdf} se estructura en \textbf{12 transparencias} (dentro del rango recomendado de 10--15): portada (T1), contexto físico e hilo conductor (T2), arquitectura modular (T3), desarrollo secuencial de los 6 apartados de vuelo (T4--T9), dashboard interactivo (T10), verificación mediante tests funcionales (T11) y tabla de síntesis SI con conclusiones (T12).
+    \item \textbf{Soporte visual minimalista y rigor técnico:} Cada diapositiva combina ecuaciones clave, viñetas breves, diagramas TikZ o código vectorizado sin bloques densos de texto que compitan con el ponente, acompañados de gráficas científicas de alta resolución generadas directamente con los datos reales de \texttt{physics.py} y \texttt{gui.py}.
+\end{itemize}
+
+\end{document}

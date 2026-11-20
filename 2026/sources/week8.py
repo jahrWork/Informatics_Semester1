@@ -14,9 +14,9 @@ from numpy import meshgrid, max, abs, arctan2
 from numpy.linalg import norm 
 from random import random, uniform
 
-import pygame 
+# import pygame 
 
-import soundfile as sf
+# import soundfile as sf
 #import simpleaudio as sa
 #from midiutil import MIDIFile
 
@@ -153,7 +153,7 @@ def Test_contour():
         z[i,j] = sin( x[i] ) * cos ( y[j] )
 
 # Creating a filled contour plot
- plt.contourf(z, levels = 50)
+ plt.contour(z, levels = 10)
 
 # Adding labels and title
  plt.xlabel('X-axis')
@@ -302,7 +302,7 @@ def Test_circles_rectangles():
                        edgecolor='red',
                        facecolor='blue',
                        fill=True,
-                       lw=5))
+                       lw=1))
 
 
  plt.show()
@@ -450,18 +450,18 @@ def Test_wav_music():
 if __name__ == "__main__":
 
     #Test_plot()  
-    #Test_plot_xy()
+    # Test_plot_xy()
     #Test_plot_Kepler_orbits() 
     #Test_plot_Euler()
  
     #Test_plot_ants()
 
     #Test_build_Koch_snowflake()
-    #Test_circles_rectangles()
+     Test_circles_rectangles()
     # #Test_animate()
-    # Test_contour()
+    #  Test_contour()
    
-    Test_pygame_example()
+    #Test_pygame_example()
 
     # Test_wav_music()
     # Test_midi()
